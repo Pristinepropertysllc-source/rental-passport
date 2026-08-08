@@ -1,0 +1,226 @@
+// Rental Passport - schema (v2, expanded application detail)
+// Postgres in production (Neon). SQLite has no native enum support in
+// Prisma, so Role and Share.status are plain strings rather than enums.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  role      String   @default("TENANT")
+  createdAt DateTime @default(now())
+
+  sessions Session[]
+  passport Passport?
+
+  sharesSent     Share[] @relation("TenantShares")
+  sharesReceived Share[] @relation("LandlordShares")
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+// One reusable application profile per tenant.
+// NOTE ON SSN: stored here as plain text at the owner's explicit request.
+// Before this touches real applicant data, put real field-level encryption
+// (e.g. KMS-backed) and access auditing in front of this field -- plaintext
+// SSN storage is not acceptable for production use. See README.
+model Passport {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Personal
+  firstName     String?
+  lastName      String?
+  dateOfBirth   String?
+  streetAddress String?
+  city          String?
+  state         String?
+  zip           String?
+  homePhone     String?
+  mobilePhone   String?
+  ssn           String?
+  annualIncome  String?
+
+  // Application-specific
+  propertyApplyingTo String?
+  moveInDate          String?
+  activeMilitary      String?
+  pastJudgments       String?
+  arrestedConvicted   String?
+
+  householdNA     Boolean @default(false)
+  employmentNA    Boolean @default(false)
+  rentalHistoryNA Boolean @default(false)
+  referencesNA    Boolean @default(false)
+
+  updatedAt DateTime @updatedAt
+
+  packageType            String?
+  packagePaid            Boolean @default(false)
+  packageStripeSessionId String?
+
+  occupants     Occupant[]
+  pets          Pet[]
+  vehicles      Vehicle[]
+  rentalHistory RentalHistoryEntry[]
+  employment    EmploymentEntry[]
+  references    References[]
+  documents     Document[]
+  shares        Share[]
+  screeningItems ScreeningItem[]
+  auditLogs      AuditLog[]
+  internalNotes  String?
+}
+
+model Occupant {
+  id           String   @id @default(cuid())
+  passportId   String
+  passport     Passport @relation(fields: [passportId], references: [id], onDelete: Cascade)
+  firstName    String
+  lastName     String
+  dateOfBirth  String?
+  relationship String?
+}
+
+model Pet {
+  id         String   @id @default(cuid())
+  passportId String
+  passport   Passport @relation(fields: [passportId], references: [id], onDelete: Cascade)
+  type       String?
+  breed      String?
+  sizeLbs    String?
+  color      String?
+}
+
+model Vehicle {
+  id           String   @id @default(cuid())
+  passportId   String
+  passport     Passport @relation(fields: [passportId], references: [id], onDelete: Cascade)
+  ownerName        String?
+  ownerAddress     String?
+  ownerHomePhone   String?
+  description  String?
+  licensePlate String?
+  state        String?
+  make         String?
+  model        String?
+  year         String?
+}
+
+model RentalHistoryEntry {
+  id               String   @id @default(cuid())
+  passportId       String
+  passport         Passport @relation(fields: [passportId], references: [id], onDelete: Cascade)
+  moveIn           String?
+  moveOut          String?
+  landlord         String?
+  landlordPhone    String?
+  landlordEmail    String?
+  street           String?
+  city             String?
+  state            String?
+  zip              String?
+  rentAmount       String?
+  reasonForLeaving String?
+}
+
+model EmploymentEntry {
+  id           String   @id @default(cuid())
+  passportId   String
+  passport     Passport @relation(fields: [passportId], references: [id], onDelete: Cascade)
+  dateStart    String?
+  dateEnd      String?
+  employerName String?
+  position     String?
+  supervisor   String?
+  phone        String?
+  address      String?
+  salary       String?
+}
+
+model References {
+  id           String   @id @default(cuid())
+  passportId   String
+  passport     Passport @relation(fields: [passportId], references: [id], onDelete: Cascade)
+  name         String
+  address      String?
+  homePhone    String?
+  mobilePhone  String?
+  relationship String?
+}
+
+model Document {
+  id         String   @id @default(cuid())
+  passportId String
+  passport   Passport @relation(fields: [passportId], references: [id], onDelete: Cascade)
+  type       String
+  filename   String
+  url        String
+  uploadedAt DateTime @default(now())
+  screeningItem ScreeningItem?
+}
+
+// Tracks the status of one screening category (credit, criminal, etc.) for
+// a passport. Populated either by an admin manually uploading a report
+// (today) or, in the future, by an automated provider integration.
+model ScreeningItem {
+  id             String   @id @default(cuid())
+  passportId     String
+  passport       Passport @relation(fields: [passportId], references: [id], onDelete: Cascade)
+  category       String   // CREDIT, CRIMINAL, IDENTITY, RENTAL_HISTORY, INCOME, OTHER
+  status         String   @default("PENDING") // PENDING, PROCESSING, COMPLETED, VERIFIED, FAILED, EXPIRED
+  documentId     String?  @unique
+  document       Document? @relation(fields: [documentId], references: [id])
+  updatedByEmail String?
+  updatedAt      DateTime @updatedAt
+
+  @@unique([passportId, category])
+}
+
+// Audit trail for admin actions on a tenant's passport (uploads, status
+// changes, note edits) -- required since screening data is sensitive.
+model AuditLog {
+  id         String   @id @default(cuid())
+  passportId String
+  passport   Passport @relation(fields: [passportId], references: [id], onDelete: Cascade)
+  action     String
+  adminEmail String
+  createdAt  DateTime @default(now())
+}
+
+model Share {
+  id         String   @id @default(cuid())
+  token      String   @unique
+  passportId String
+  passport   Passport @relation(fields: [passportId], references: [id], onDelete: Cascade)
+
+  tenantId String
+  tenant   User   @relation("TenantShares", fields: [tenantId], references: [id])
+
+  landlordEmail String
+  landlordId    String?
+  landlord      User?   @relation("LandlordShares", fields: [landlordId], references: [id])
+
+  status    String    @default("SENT")
+  feePaid         Boolean  @default(false)
+  stripeSessionId String?
+  expiresAt DateTime?
+  viewedAt  DateTime?
+  createdAt DateTime  @default(now())
+}
