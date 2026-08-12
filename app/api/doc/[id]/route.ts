@@ -17,6 +17,9 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
   // The tenant who owns this passport can always view their own documents.
   if (user && user.id === document.passport.userId) authorized = true;
 
+// Admins can view any document.
+  if (!authorized && user && user.role === 'ADMIN') authorized = true;
+
   // A guest (or logged-in landlord) with a valid, unexpired share link for
   // this passport can view its documents.
   if (!authorized && shareToken) {
