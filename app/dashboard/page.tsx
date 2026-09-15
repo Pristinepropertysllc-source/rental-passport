@@ -21,6 +21,7 @@ const SECTION_LABELS: Record<string, string> = {
 export default async function DashboardPage() {
   const user = await getCurrentUser();
   if (!user) redirect('/login');
+  if (user.role === 'ADMIN') redirect('/admin/tenants');
   if (user.role !== 'TENANT') redirect('/landlord/dashboard');
 
   const passport = await db.passport.findUnique({

@@ -9,6 +9,7 @@ import { createLandlordInviteAction } from '@/lib/actions/landlord';
 export default async function LandlordDashboardPage() {
   const user = await getCurrentUser();
   if (!user) redirect('/login');
+  if (user.role === 'ADMIN') redirect('/admin/tenants');
   if (user.role !== 'LANDLORD') redirect('/dashboard');
 
   // Matches shares linked directly to this account, plus email-invite shares

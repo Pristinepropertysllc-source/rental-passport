@@ -5,7 +5,9 @@ import { redirect } from 'next/navigation';
 export default async function HomePage() {
   const user = await getCurrentUser();
   if (user) {
-    redirect(user.role === 'TENANT' ? '/dashboard' : '/landlord/dashboard');
+    const destination =
+      user.role === 'TENANT' ? '/dashboard' : user.role === 'ADMIN' ? '/admin/tenants' : '/landlord/dashboard';
+    redirect(destination);
   }
 
   return (
