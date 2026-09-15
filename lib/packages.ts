@@ -1,19 +1,14 @@
+const COMPLETE_SCREENING = {
+  key: 'COMPLETE' as const,
+  name: 'Complete Screening',
+  description: 'Includes Credit Check, Enhanced Landlord Search, and National Criminal Search.',
+  priceCents: 5499,
+  priceLabel: '$54.99/report'
+};
+
 export const PACKAGES = {
-  ESSENTIAL: {
-    key: 'ESSENTIAL',
-    name: 'Essential Package',
-    description: 'Includes Credit Check, Enhanced Landlord Search, and National Criminal Search.',
-    priceCents: 5499,
-    priceLabel: '$54.99/report'
-  },
-  COMPLETE: {
-    key: 'COMPLETE',
-    name: 'Complete Package',
-    description:
-      'Includes Credit Check, Enhanced Landlord Search, National Criminal Search, and Identity Verification.',
-    priceCents: 7499,
-    priceLabel: '$74.99/report'
-  }
+  ESSENTIAL: COMPLETE_SCREENING,
+  COMPLETE: COMPLETE_SCREENING
 } as const;
 
 export type PackageKey = keyof typeof PACKAGES;

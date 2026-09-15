@@ -48,25 +48,21 @@ export default async function CheckoutPage({
 
         {!selectedPackage ? (
           <div className="card">
-            <h2>Choose your package</h2>
+            <h2>Confirm your package</h2>
             <p className="muted" style={{ fontSize: 14 }}>
-              Pick a screening package to continue to payment.
+              Continue to payment for your screening package.
             </p>
-            <div className="section-list">
-              {Object.values(PACKAGES).map((pkg) => (
-                <form action={setPackageAction} key={pkg.key}>
-                  <input type="hidden" name="packageType" value={pkg.key} />
-                  <div className="section-row" style={{ flexDirection: 'column', alignItems: 'stretch', gap: 8 }}>
-                    <strong>{pkg.name}</strong>
-                    <span className="muted" style={{ fontSize: 13 }}>{pkg.description}</span>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <span style={{ fontWeight: 700 }}>{pkg.priceLabel}</span>
-                      <button className="btn btn-primary btn-sm" type="submit">Select</button>
-                    </div>
-                  </div>
-                </form>
-              ))}
-            </div>
+            <form action={setPackageAction}>
+              <input type="hidden" name="packageType" value="COMPLETE" />
+              <div className="section-row" style={{ flexDirection: 'column', alignItems: 'stretch', gap: 8 }}>
+                <strong>{PACKAGES.COMPLETE.name}</strong>
+                <span className="muted" style={{ fontSize: 13 }}>{PACKAGES.COMPLETE.description}</span>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontWeight: 700 }}>{PACKAGES.COMPLETE.priceLabel}</span>
+                  <button className="btn btn-primary btn-sm" type="submit">Continue</button>
+                </div>
+              </div>
+            </form>
           </div>
         ) : (
           <div className="card">
@@ -76,16 +72,6 @@ export default async function CheckoutPage({
             <form action="/api/checkout-package" method="POST">
               <button className="btn btn-primary" type="submit">
                 Pay {selectedPackage.priceLabel.split('/')[0]} &amp; continue
-              </button>
-            </form>
-            <form action={setPackageAction} style={{ marginTop: 10 }}>
-              <input
-                type="hidden"
-                name="packageType"
-                value={selectedPackage.key === 'ESSENTIAL' ? 'COMPLETE' : 'ESSENTIAL'}
-              />
-              <button className="btn btn-secondary btn-sm" type="submit">
-                Switch to {selectedPackage.key === 'ESSENTIAL' ? PACKAGES.COMPLETE.name : PACKAGES.ESSENTIAL.name}
               </button>
             </form>
           </div>
