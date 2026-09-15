@@ -84,9 +84,9 @@ export default async function HomePage() {
           Build one verified rental profile and reuse it every time you apply &mdash; pay once
           for your screening, then share with as many landlords as you need at no extra cost.
         </p>
-        <div className="grid-2">
-          <div className="pricing-card">
-            <h3>Essential Screening</h3>
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <div className="pricing-card pricing-card-highlight" style={{ maxWidth: 360, width: '100%' }}>
+            <h3>Complete Screening</h3>
             <p className="price-tag">$54.99</p>
             <ul className="check-list">
               <li>Credit Check</li>
@@ -94,23 +94,7 @@ export default async function HomePage() {
               <li>National Criminal Search</li>
             </ul>
             <p className="muted" style={{ fontSize: 14 }}>
-              Best for renters who need a verified application ready to share.
-            </p>
-            <Link className="btn btn-primary" href="/register?package=ESSENTIAL">
-              Get started
-            </Link>
-          </div>
-          <div className="pricing-card pricing-card-highlight">
-            <h3>Complete Screening</h3>
-            <p className="price-tag">$74.99</p>
-            <ul className="check-list">
-              <li>Credit Check</li>
-              <li>Enhanced Landlord Search</li>
-              <li>National Criminal Search</li>
-              <li>Identity Verification</li>
-            </ul>
-            <p className="muted" style={{ fontSize: 14 }}>
-              Recommended for renters who want the strongest application profile.
+              Everything you need for a verified application ready to share.
             </p>
             <Link className="btn btn-primary" href="/register?package=COMPLETE">
               Get started
