@@ -160,3 +160,34 @@ export async function demoteAdminAction(formData: FormData) {
   await db.user.update({ where: { id: userId }, data: { role: 'TENANT' } });
   revalidatePath('/admin/users');
 }
+
+// Safety valve for when a Stripe webhook was missed (e.g. it didn't exist
+// yet when the payment completed) -- lets an admin manually confirm a
+// payment that's been verified in Stripe's own dashboard.
+export async function markPackagePaidAction(formData: FormData) {
+  const admin = await requireAdmin();
+  const passportId = String(formData.get('passportId') || '');
+  if (!passportId) return;
+
+  const passport = await db.passport.findUnique({ where: { id: passportId } });
+  if (!passport) return;
+
+  await db.passport.update({
+    where: { id: passportId },
+    data: {
+      packagePaid: true,
+      packageType: passport.packageType || 'COMPLETE'
+    }
+  });
+
+  await db.auditLog.create({
+    data: {
+      passportId,
+      action: 'Manually marked payment as received (webhook was missed)',
+      adminEmail: admin.email
+    }
+  });
+
+  revalidatePath(`/admin/tenants/${passportId}`);
+  revalidatePath('/dashboard');
+}

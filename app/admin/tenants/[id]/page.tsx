@@ -9,7 +9,8 @@ import { PrintableApplication } from '@/components/PrintableApplication';
 import { AdminScreeningUpload } from '@/components/AdminScreeningUpload';
 import {
   updateScreeningStatusAction,
-  updateAdminNotesAction
+  updateAdminNotesAction,
+  markPackagePaidAction
 } from '@/lib/actions/admin';
 
 export default async function AdminTenantDetailPage({ params }: { params: { id: string } }) {
@@ -60,6 +61,20 @@ export default async function AdminTenantDetailPage({ params }: { params: { id: 
             <tr><td>Payment status</td><td>{passport.packagePaid ? 'Paid' : 'Unpaid'}</td></tr>
           </tbody>
         </table>
+        {!passport.packagePaid && (
+          <div style={{ marginTop: 14 }}>
+            <p className="muted" style={{ fontSize: 13 }}>
+              If you&apos;ve confirmed a successful payment for this tenant in Stripe but it
+              didn&apos;t register here (e.g. a webhook was missed), you can confirm it manually:
+            </p>
+            <form action={markPackagePaidAction}>
+              <input type="hidden" name="passportId" value={passport.id} />
+              <button className="btn btn-secondary btn-sm" type="submit">
+                Mark payment as received
+              </button>
+            </form>
+          </div>
+        )}
       </div>
 
       <div className="card">
