@@ -8,7 +8,7 @@ export function EmailShareLink({ landlordEmail, token }: { landlordEmail: string
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    const url = `${window.location.origin}/share/${token}`;
+    const url = `https://www.myrentalpassport.net/share/${token}`;
     setLink(url);
     const subject = encodeURIComponent('Rental application from a tenant');
     const body = encodeURIComponent(

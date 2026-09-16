@@ -8,7 +8,7 @@ export function InviteEmailLink({ token, propertyName }: { token: string; proper
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    const url = `${window.location.origin}/apply/${token}`;
+    const url = `https://www.myrentalpassport.net/apply/${token}`;
     setLink(url);
     const subject = encodeURIComponent(
       propertyName ? `Apply for ${propertyName}` : 'Rental application invite'
