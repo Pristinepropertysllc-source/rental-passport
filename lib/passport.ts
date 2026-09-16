@@ -57,11 +57,12 @@ export function sectionCompletion(passport: PassportWithRelations) {
   return result;
 }
 
-export function applicationComplete(passport: PassportWithRelations) {
-  const sections = sectionCompletion(passport);
-  return Object.entries(sections)
-    .filter(([key]) => key !== 'screeningPayment')
-    .every(([, s]) => s.complete);
+// Fields are collected on a best-effort basis, not required -- a tenant
+// can proceed to checkout and payment at any completion percentage. This
+// function is intentionally permissive; sectionCompletion()/overallCompletion()
+// still show the checklist for reference, they just no longer gate anything.
+export function applicationComplete(_passport: PassportWithRelations) {
+  return true;
 }
 
 export function overallCompletion(passport: PassportWithRelations) {
