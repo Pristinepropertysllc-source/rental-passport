@@ -13,13 +13,24 @@ function SubmitButton() {
   );
 }
 
-export default function LoginPage() {
+export default function LoginPage({
+  searchParams
+}: {
+  searchParams: { reset?: string };
+}) {
   const [state, formAction] = useFormState(loginAction, undefined);
 
   return (
     <div className="shell" style={{ maxWidth: 440, paddingTop: 60 }}>
       <div className="card">
         <h1 style={{ fontSize: 22 }}>Log in</h1>
+
+        {searchParams.reset === '1' && (
+          <div className="card" style={{ background: '#e6f2e6', borderColor: 'var(--ok)', margin: '0 0 16px' }}>
+            <strong style={{ color: 'var(--ok)' }}>Password updated.</strong> You can now log in
+            with your new password.
+          </div>
+        )}
 
         {state?.error && <div className="error-banner">{state.error}</div>}
 
@@ -37,6 +48,11 @@ export default function LoginPage() {
               required
               autoComplete="current-password"
             />
+          </div>
+          <div style={{ textAlign: 'right', marginBottom: 14 }}>
+            <Link href="/forgot-password" className="muted" style={{ fontSize: 13 }}>
+              Forgot password?
+            </Link>
           </div>
           <SubmitButton />
         </form>

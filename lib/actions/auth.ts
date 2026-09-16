@@ -1,6 +1,7 @@
 'use server';
 
 import bcrypt from 'bcryptjs';
+import { randomBytes } from 'crypto';
 import { redirect } from 'next/navigation';
 import { db } from '@/lib/db';
 import { createSession, destroySession } from '@/lib/session';
@@ -85,4 +86,68 @@ export async function loginAction(
 export async function logoutAction() {
   await destroySession();
   redirect('/login');
+}
+
+async function sendResetEmail(email: string, resetLink: string) {
+  if (!process.env.RESEND_API_KEY) return;
+
+  await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      from: 'Rental Passport <noreply@myrentalpassport.net>',
+      to: email,
+      subject: 'Reset your Rental Passport password',
+      html: `<p>We received a request to reset your Rental Passport password.</p><p><a href="${resetLink}">Click here to reset your password</a></p><p>This link expires in 1 hour. If you didn't request this, you can safely ignore this email.</p>`
+    })
+  });
+}
+
+export async function requestPasswordResetAction(
+  _prevState: FormState,
+  formData: FormData
+): Promise<FormState> {
+  const email = String(formData.get('email') || '').trim().toLowerCase();
+  if (!email) return { error: 'Please enter your email.' };
+
+  const user = await db.user.findUnique({ where: { email } });
+
+  // Only send if a real password-based account exists -- but always show
+  // the same success message either way, so this can't be used to check
+  // which emails have accounts (user enumeration).
+  if (user && user.password) {
+    const token = randomBytes(32).toString('hex');
+    const expiresAt = new Date(Date.now() + 60 * 60 * 1000);
+    await db.passwordResetToken.create({ data: { token, userId: user.id, expiresAt } });
+
+    const resetLink = `https://www.myrentalpassport.net/reset-password/${token}`;
+    await sendResetEmail(email, resetLink);
+  }
+
+  return { error: undefined };
+}
+
+export async function resetPasswordAction(
+  _prevState: FormState,
+  formData: FormData
+): Promise<FormState> {
+  const token = String(formData.get('token') || '');
+  const password = String(formData.get('password') || '');
+
+  if (!token) return { error: 'Invalid or missing reset link.' };
+  if (password.length < 8) return { error: 'Password must be at least 8 characters.' };
+
+  const resetToken = await db.passwordResetToken.findUnique({ where: { token } });
+  if (!resetToken || resetToken.expiresAt < new Date()) {
+    return { error: 'This reset link is invalid or has expired. Request a new one.' };
+  }
+
+  const hashed = await bcrypt.hash(password, 10);
+  await db.user.update({ where: { id: resetToken.userId }, data: { password: hashed } });
+  await db.passwordResetToken.delete({ where: { token } });
+
+  redirect('/login?reset=1');
 }
