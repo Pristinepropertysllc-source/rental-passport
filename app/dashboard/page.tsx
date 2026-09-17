@@ -18,6 +18,16 @@ const SECTION_LABELS: Record<string, string> = {
   screeningPayment: 'Screening Payment'
 };
 
+const SECTION_HREFS: Record<string, string> = {
+  personal: '/passport#personal',
+  household: '/passport#household',
+  employment: '/passport#employment',
+  rentalHistory: '/passport#rental-history',
+  references: '/passport#references',
+  documents: '/passport#documents',
+  screeningPayment: '/passport/checkout'
+};
+
 export default async function DashboardPage() {
   const user = await getCurrentUser();
   if (!user) redirect('/login');
@@ -72,12 +82,17 @@ export default async function DashboardPage() {
                   <span className="badge badge-approved">Complete</span>
                 </div>
                 {Object.entries(sections).map(([key, s]) => (
-                  <div className="section-row" key={key}>
+                  <Link
+                    href={SECTION_HREFS[key] ?? '/passport'}
+                    className="section-row"
+                    key={key}
+                    style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}
+                  >
                     <span>{s.complete ? '✓' : '⬜'} {SECTION_LABELS[key] ?? key}</span>
                     <span className={`badge ${s.complete ? 'badge-approved' : 'badge-pending'}`}>
                       {s.complete ? 'Complete' : 'Incomplete'}
                     </span>
-                  </div>
+                  </Link>
                 ))}
               </div>
 

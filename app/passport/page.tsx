@@ -63,7 +63,7 @@ export default async function PassportPage() {
         </div>
 
         <form action={updatePassportAction}>
-          <div className="card">
+          <div className="card" id="personal">
             <h2>Personal information</h2>
             <div className="grid-2">
               <div className="field">
@@ -157,7 +157,7 @@ export default async function PassportPage() {
         </form>
 
         {/* ---- Occupants ---- */}
-        <div className="card">
+        <div className="card" id="household">
           <h2>Household occupants, pets &amp; vehicles</h2>
           {passport.householdNA && (
             <p className="badge badge-approved" style={{ display: 'inline-block', marginBottom: 12 }}>
@@ -288,7 +288,7 @@ export default async function PassportPage() {
         </div>
 
         {/* ---- Rental history ---- */}
-        <div className="card">
+        <div className="card" id="rental-history">
           <h2>Rental history</h2>
           {passport.rentalHistoryNA && (
             <p className="badge badge-approved" style={{ display: 'inline-block', marginBottom: 12 }}>
@@ -338,7 +338,7 @@ export default async function PassportPage() {
         </div>
 
         {/* ---- Employment history ---- */}
-        <div className="card">
+        <div className="card" id="employment">
           <h2>Employment history</h2>
           {passport.employmentNA && (
             <p className="badge badge-approved" style={{ display: 'inline-block', marginBottom: 12 }}>
@@ -385,7 +385,7 @@ export default async function PassportPage() {
         </div>
 
         {/* ---- References ---- */}
-        <div className="card">
+        <div className="card" id="references">
           <h2>References</h2>
           {passport.referencesNA && (
             <p className="badge badge-approved" style={{ display: 'inline-block', marginBottom: 12 }}>
@@ -435,7 +435,7 @@ export default async function PassportPage() {
         </div>
 
         {/* ---- Documents ---- */}
-        <div className="card">
+        <div className="card" id="documents">
           <h2>Documents</h2>
           <p className="muted" style={{ fontSize: 13, marginTop: -6 }}>
             Upload each document under its own category. You can upload more than one file per
