@@ -79,6 +79,60 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* See Rental Passport in Action */}
+      <section className="demo-showcase-band">
+        <div className="shell" style={{ textAlign: 'center' }}>
+          <span className="demo-showcase-badge">INTERACTIVE DEMO</span>
+          <h2>See Rental Passport in Action</h2>
+          <p style={{ marginTop: 0, marginBottom: 24, maxWidth: 520, marginLeft: 'auto', marginRight: 'auto' }}>
+            See how a renter builds their Rental Passport, organizes their documents, and
+            securely shares their application with a landlord.
+          </p>
+          <DemoTriggerButton step={1} className="demo-showcase-cta">
+            Explore a Sample Rental Passport &rarr;
+          </DemoTriggerButton>
+
+          <div className="product-preview-frame" style={{ marginTop: 36 }}>
+            <div className="product-preview-bar">
+              <span className="product-preview-dot" style={{ background: '#e4574a' }} />
+              <span className="product-preview-dot" style={{ background: '#e0a53e' }} />
+              <span className="product-preview-dot" style={{ background: '#3ea55e' }} />
+              <span className="muted" style={{ fontSize: 12, marginLeft: 8 }}>
+                myrentalpassport.net/share
+              </span>
+            </div>
+            <div className="product-preview-body" style={{ textAlign: 'left' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+                <strong>Alex Morgan&apos;s Rental Passport</strong>
+                <span className="screening-verified-badge">✓ Verified by Rental Passport</span>
+              </div>
+              <div className="product-preview-row">
+                <span>Credit Screening</span>
+                <span className="screening-status-pill" style={{ background: '#e6f2e6', color: '#2f6b3a' }}>
+                  COMPLETED
+                </span>
+              </div>
+              <div className="product-preview-row">
+                <span>Background Screening</span>
+                <span className="screening-status-pill" style={{ background: '#e6f2e6', color: '#2f6b3a' }}>
+                  COMPLETED
+                </span>
+              </div>
+              <div className="product-preview-row">
+                <span>Landlord Search</span>
+                <span className="screening-status-pill" style={{ background: '#e6f2e6', color: '#2f6b3a' }}>
+                  COMPLETED
+                </span>
+              </div>
+              <div className="product-preview-row" style={{ marginBottom: 0 }}>
+                <span>Documents</span>
+                <span className="muted">7 uploaded</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* For Renters */}
       <section className="lp-band">
         <div className="shell">
@@ -178,62 +232,8 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* See Rental Passport in Action */}
-      <section className="demo-showcase-band">
-        <div className="shell" style={{ textAlign: 'center' }}>
-          <span className="demo-showcase-badge">INTERACTIVE DEMO</span>
-          <h2>See Rental Passport in Action</h2>
-          <p style={{ marginTop: 0, marginBottom: 24, maxWidth: 520, marginLeft: 'auto', marginRight: 'auto' }}>
-            See how a renter builds their Rental Passport, organizes their documents, and
-            securely shares their application with a landlord.
-          </p>
-          <DemoTriggerButton step={1} className="demo-showcase-cta">
-            Explore a Sample Rental Passport &rarr;
-          </DemoTriggerButton>
-
-          <div className="product-preview-frame" style={{ marginTop: 36 }}>
-            <div className="product-preview-bar">
-              <span className="product-preview-dot" style={{ background: '#e4574a' }} />
-              <span className="product-preview-dot" style={{ background: '#e0a53e' }} />
-              <span className="product-preview-dot" style={{ background: '#3ea55e' }} />
-              <span className="muted" style={{ fontSize: 12, marginLeft: 8 }}>
-                myrentalpassport.net/share
-              </span>
-            </div>
-            <div className="product-preview-body" style={{ textAlign: 'left' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-                <strong>Alex Morgan&apos;s Rental Passport</strong>
-                <span className="screening-verified-badge">✓ Verified by Rental Passport</span>
-              </div>
-              <div className="product-preview-row">
-                <span>Credit Screening</span>
-                <span className="screening-status-pill" style={{ background: '#e6f2e6', color: '#2f6b3a' }}>
-                  COMPLETED
-                </span>
-              </div>
-              <div className="product-preview-row">
-                <span>Background Screening</span>
-                <span className="screening-status-pill" style={{ background: '#e6f2e6', color: '#2f6b3a' }}>
-                  COMPLETED
-                </span>
-              </div>
-              <div className="product-preview-row">
-                <span>Landlord Search</span>
-                <span className="screening-status-pill" style={{ background: '#e6f2e6', color: '#2f6b3a' }}>
-                  COMPLETED
-                </span>
-              </div>
-              <div className="product-preview-row" style={{ marginBottom: 0 }}>
-                <span>Documents</span>
-                <span className="muted">7 uploaded</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* For Landlords */}
-      <section className="lp-band lp-band-alt">
+      <section className="lp-band">
         <div className="shell">
           <div className="card">
             <h2>For Landlords</h2>
@@ -273,7 +273,7 @@ export default async function HomePage() {
       </section>
 
       {/* Security & Trust */}
-      <section className="lp-band">
+      <section className="lp-band lp-band-alt">
         <div className="shell">
           <div className="card">
             <h2>Your Rental Passport belongs to you.</h2>
@@ -301,7 +301,7 @@ export default async function HomePage() {
       </section>
 
       {/* Pricing */}
-      <section className="lp-band lp-band-alt" id="pricing">
+      <section className="lp-band" id="pricing">
         <div className="shell">
           <div className="card">
             <h2 style={{ textAlign: 'center' }}>Simple, One-Time Pricing</h2>
@@ -331,7 +331,7 @@ export default async function HomePage() {
       </section>
 
       {/* FAQ teaser */}
-      <section className="lp-band">
+      <section className="lp-band lp-band-alt">
         <div className="shell">
           <div className="card" style={{ textAlign: 'center' }}>
             <h2>Frequently Asked Questions</h2>
@@ -346,7 +346,7 @@ export default async function HomePage() {
       </section>
 
       {/* Final CTA */}
-      <section className="lp-band lp-band-alt">
+      <section className="lp-band">
         <div className="shell">
           <div className="card" style={{ textAlign: 'center' }}>
             <h2>Ready to build your Rental Passport?</h2>
