@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { getCurrentUser } from '@/lib/session';
 import { redirect } from 'next/navigation';
+import { PublicNav } from '@/components/PublicNav';
 
 export default async function HomePage() {
   const user = await getCurrentUser();
@@ -10,6 +11,8 @@ export default async function HomePage() {
 
   return (
     <div>
+      <PublicNav />
+
       {/* Hero */}
       <section className="lp-band">
         <div className="shell">
@@ -23,36 +26,16 @@ export default async function HomePage() {
               <a className="btn btn-primary" href="#pricing">
                 See pricing
               </a>
-              <Link className="btn btn-secondary" href="/login">
-                Log in
+              <Link className="btn btn-secondary" href="/register">
+                Sign up
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Problem */}
-      <section className="lp-band lp-band-alt">
-        <div className="shell">
-          <div className="card">
-            <h2>The problem with renting today</h2>
-            <p className="muted" style={{ marginTop: 0 }}>Right now, renters have to:</p>
-            <ul className="problem-list">
-              <li>Fill out the same application over and over</li>
-              <li>Upload the same documents to every landlord</li>
-              <li>Contact the same references multiple times</li>
-              <li>Pay separate application fees at every property</li>
-            </ul>
-            <p className="muted" style={{ marginBottom: 0 }}>
-              Rental Passport solves this with one reusable rental application &mdash; built once,
-              shared everywhere.
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* How it works */}
-      <section className="lp-band">
+      <section className="lp-band lp-band-alt">
         <div className="shell">
           <div className="card">
             <h2>How it works</h2>
@@ -82,6 +65,104 @@ export default async function HomePage() {
                     Send your Passport to any landlord and follow application status, views, and
                     decisions from your dashboard.
                   </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* For Renters */}
+      <section className="lp-band">
+        <div className="shell">
+          <div className="card">
+            <h2>For Renters</h2>
+            <ul className="check-list">
+              <li>Apply faster with one reusable profile</li>
+              <li>Upload your documents once</li>
+              <li>Save money on repeat application fees</li>
+              <li>Control exactly what you share, and with whom</li>
+              <li>Track every application in one place</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* For Landlords */}
+      <section className="lp-band lp-band-alt">
+        <div className="shell">
+          <div className="card">
+            <h2>For Landlords</h2>
+            <ul className="check-list">
+              <li>Receive complete, standardized applications</li>
+              <li>Review applicants faster</li>
+              <li>Access organized, verified documents</li>
+              <li>Reach applicants directly using the contact info on their application</li>
+              <li>Keep applicant records organized in one dashboard</li>
+            </ul>
+          </div>
+
+          <div className="landlord-cta">
+            <h3>For Landlords &amp; Property Managers</h3>
+            <p className="muted" style={{ marginTop: 0 }}>
+              Receive organized rental applications, review applicant information, and simplify
+              your rental screening workflow.
+            </p>
+            <p className="muted" style={{ fontSize: 14 }}>
+              Send prospective applicants a direct link to apply &mdash; no back-and-forth
+              paperwork.
+            </p>
+            <Link className="btn btn-primary" href="/register">
+              For Landlords
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Product Preview */}
+      <section className="lp-band">
+        <div className="shell">
+          <div className="card" style={{ textAlign: 'center' }}>
+            <h2>See what a shared Rental Passport looks like</h2>
+            <p className="muted" style={{ marginTop: 0, marginBottom: 24 }}>
+              A simplified preview &mdash; the real thing includes your full application and
+              documents.
+            </p>
+            <div className="product-preview-frame">
+              <div className="product-preview-bar">
+                <span className="product-preview-dot" style={{ background: '#e4574a' }} />
+                <span className="product-preview-dot" style={{ background: '#e0a53e' }} />
+                <span className="product-preview-dot" style={{ background: '#3ea55e' }} />
+                <span className="muted" style={{ fontSize: 12, marginLeft: 8 }}>
+                  myrentalpassport.net/share
+                </span>
+              </div>
+              <div className="product-preview-body" style={{ textAlign: 'left' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+                  <strong>Jordan Rivera&apos;s Rental Passport</strong>
+                  <span className="screening-verified-badge">✓ Verified by Rental Passport</span>
+                </div>
+                <div className="product-preview-row">
+                  <span>Credit Screening</span>
+                  <span className="screening-status-pill" style={{ background: '#e6f2e6', color: '#2f6b3a' }}>
+                    COMPLETED
+                  </span>
+                </div>
+                <div className="product-preview-row">
+                  <span>Background Screening</span>
+                  <span className="screening-status-pill" style={{ background: '#e6f2e6', color: '#2f6b3a' }}>
+                    COMPLETED
+                  </span>
+                </div>
+                <div className="product-preview-row">
+                  <span>Landlord Search</span>
+                  <span className="screening-status-pill" style={{ background: '#e6f2e6', color: '#2f6b3a' }}>
+                    COMPLETED
+                  </span>
+                </div>
+                <div className="product-preview-row" style={{ marginBottom: 0 }}>
+                  <span>Documents</span>
+                  <span className="muted">4 uploaded</span>
                 </div>
               </div>
             </div>
@@ -119,7 +200,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Trust and sharing */}
+      {/* Security & Trust */}
       <section className="lp-band">
         <div className="shell">
           <div className="card">
@@ -147,51 +228,8 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Audience sections */}
-      <section className="lp-band lp-band-alt">
-        <div className="shell">
-          <div className="grid-2">
-            <div className="card">
-              <h2>For Renters</h2>
-              <ul className="check-list">
-                <li>Apply faster with one reusable profile</li>
-                <li>Upload your documents once</li>
-                <li>Save money on repeat application fees</li>
-                <li>Control exactly what you share, and with whom</li>
-                <li>Track every application in one place</li>
-              </ul>
-            </div>
-            <div className="card">
-              <h2>For Landlords</h2>
-              <ul className="check-list">
-                <li>Receive complete, standardized applications</li>
-                <li>Review applicants faster</li>
-                <li>Access organized, verified documents</li>
-                <li>Reach applicants directly using the contact info on their application</li>
-                <li>Keep applicant records organized in one dashboard</li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="landlord-cta">
-            <h3>For Landlords &amp; Property Managers</h3>
-            <p className="muted" style={{ marginTop: 0 }}>
-              Receive organized rental applications, review applicant information, and simplify
-              your rental screening workflow.
-            </p>
-            <p className="muted" style={{ fontSize: 14 }}>
-              Send prospective applicants a direct link to apply &mdash; no back-and-forth
-              paperwork.
-            </p>
-            <Link className="btn btn-primary" href="/register">
-              For Landlords
-            </Link>
-          </div>
-        </div>
-      </section>
-
       {/* FAQ teaser */}
-      <section className="lp-band">
+      <section className="lp-band lp-band-alt">
         <div className="shell">
           <div className="card" style={{ textAlign: 'center' }}>
             <h2>Frequently Asked Questions</h2>
@@ -205,16 +243,16 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Closing CTA */}
-      <section className="lp-band lp-band-alt">
+      {/* Final CTA */}
+      <section className="lp-band">
         <div className="shell">
           <div className="card" style={{ textAlign: 'center' }}>
             <h2>Ready to build your Rental Passport?</h2>
             <p className="muted" style={{ marginTop: 0 }}>Apply once. Rent anywhere.</p>
             <div className="hero-actions" style={{ marginTop: 14 }}>
-              <a className="btn btn-primary" href="#pricing">
-                Get started
-              </a>
+              <Link className="btn btn-primary" href="/register">
+                Sign up
+              </Link>
             </div>
           </div>
         </div>
