@@ -212,7 +212,7 @@ export function Step3Passport() {
         <SampleTag />
         <button
           type="button"
-          className="btn btn-secondary"
+          className="btn btn-primary"
           style={{ marginBottom: 14 }}
           onClick={() => setActiveKey(null)}
         >
