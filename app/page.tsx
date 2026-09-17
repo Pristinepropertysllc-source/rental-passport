@@ -100,152 +100,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* For Landlords */}
-      <section className="lp-band lp-band-alt">
-        <div className="shell">
-          <div className="card">
-            <h2>For Landlords</h2>
-            <ul className="check-list">
-              <li>Receive complete, standardized applications</li>
-              <li>Review applicants faster</li>
-              <li>Access organized, verified documents</li>
-              <li>Reach applicants directly using the contact info on their application</li>
-              <li>Keep applicant records organized in one dashboard</li>
-            </ul>
-          </div>
-
-          <div className="landlord-cta">
-            <h3>A More Organized Way to Review Applicants.</h3>
-            <p className="muted" style={{ marginTop: 0 }}>
-              Receive organized applicant information and screening documentation in one place,
-              helping simplify the rental application process while keeping the applicant in
-              control of their information.
-            </p>
-            <p className="muted" style={{ fontSize: 14 }}>
-              Send prospective applicants a direct link to apply &mdash; no back-and-forth
-              paperwork.
-            </p>
-            <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
-              <Link className="btn btn-primary" href="/register?role=LANDLORD">
-                For Landlords
-              </Link>
-              <Link href="/landlords" className="btn btn-secondary">
-                Learn More for Landlords &rarr;
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Product Preview */}
-      <section className="lp-band">
-        <div className="shell">
-          <div className="card" style={{ textAlign: 'center' }}>
-            <h2>See what a shared Rental Passport looks like</h2>
-            <p className="muted" style={{ marginTop: 0, marginBottom: 24 }}>
-              A simplified preview &mdash; the real thing includes your full application and
-              documents.
-            </p>
-            <div className="product-preview-frame">
-              <div className="product-preview-bar">
-                <span className="product-preview-dot" style={{ background: '#e4574a' }} />
-                <span className="product-preview-dot" style={{ background: '#e0a53e' }} />
-                <span className="product-preview-dot" style={{ background: '#3ea55e' }} />
-                <span className="muted" style={{ fontSize: 12, marginLeft: 8 }}>
-                  myrentalpassport.net/share
-                </span>
-              </div>
-              <div className="product-preview-body" style={{ textAlign: 'left' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-                  <strong>Jordan Rivera&apos;s Rental Passport</strong>
-                  <span className="screening-verified-badge">✓ Verified by Rental Passport</span>
-                </div>
-                <div className="product-preview-row">
-                  <span>Credit Screening</span>
-                  <span className="screening-status-pill" style={{ background: '#e6f2e6', color: '#2f6b3a' }}>
-                    COMPLETED
-                  </span>
-                </div>
-                <div className="product-preview-row">
-                  <span>Background Screening</span>
-                  <span className="screening-status-pill" style={{ background: '#e6f2e6', color: '#2f6b3a' }}>
-                    COMPLETED
-                  </span>
-                </div>
-                <div className="product-preview-row">
-                  <span>Landlord Search</span>
-                  <span className="screening-status-pill" style={{ background: '#e6f2e6', color: '#2f6b3a' }}>
-                    COMPLETED
-                  </span>
-                </div>
-                <div className="product-preview-row" style={{ marginBottom: 0 }}>
-                  <span>Documents</span>
-                  <span className="muted">4 uploaded</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing */}
-      <section className="lp-band lp-band-alt" id="pricing">
-        <div className="shell">
-          <div className="card">
-            <h2 style={{ textAlign: 'center' }}>Simple, One-Time Pricing</h2>
-            <p className="muted" style={{ textAlign: 'center', marginTop: 0 }}>
-              No subscriptions, no per-property fees &mdash; pay once, share with unlimited
-              landlords.
-            </p>
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <div className="pricing-card pricing-card-highlight" style={{ maxWidth: 360, width: '100%' }}>
-                <h3>Complete Screening</h3>
-                <p className="price-tag">$54.99</p>
-                <ul className="check-list">
-                  <li>Credit Check</li>
-                  <li>Enhanced Landlord Search</li>
-                  <li>National Criminal Search</li>
-                </ul>
-                <p className="muted" style={{ fontSize: 14 }}>
-                  Everything you need for a verified application ready to share.
-                </p>
-                <Link className="btn btn-primary" href="/register?package=COMPLETE">
-                  Get started
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Security & Trust */}
-      <section className="lp-band">
-        <div className="shell">
-          <div className="card">
-            <h2>Your Rental Passport belongs to you.</h2>
-            <p className="muted" style={{ marginTop: 0 }}>
-              Once your screening is complete, you decide who sees it and for how long.
-            </p>
-            <ul className="check-list">
-              <li>Secure, unique application links</li>
-              <li>Access expiration settings</li>
-              <li>Application viewing history</li>
-              <li>Revoke access at any time</li>
-            </ul>
-          </div>
-
-          <div className="card">
-            <h2>Built with security in mind</h2>
-            <ul className="check-list">
-              <li>Secure authentication</li>
-              <li>Permission-based sharing</li>
-              <li>Applicant-controlled access</li>
-              <li>Secure payment processing through Stripe</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
       {/* Maryland Reusable Screening Reports */}
       <section className="lp-band lp-band-alt">
         <div className="shell">
@@ -310,6 +164,152 @@ export default async function HomePage() {
             >
               Read Maryland Law
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Product Preview */}
+      <section className="lp-band">
+        <div className="shell">
+          <div className="card" style={{ textAlign: 'center' }}>
+            <h2>See what a shared Rental Passport looks like</h2>
+            <p className="muted" style={{ marginTop: 0, marginBottom: 24 }}>
+              A simplified preview &mdash; the real thing includes your full application and
+              documents.
+            </p>
+            <div className="product-preview-frame">
+              <div className="product-preview-bar">
+                <span className="product-preview-dot" style={{ background: '#e4574a' }} />
+                <span className="product-preview-dot" style={{ background: '#e0a53e' }} />
+                <span className="product-preview-dot" style={{ background: '#3ea55e' }} />
+                <span className="muted" style={{ fontSize: 12, marginLeft: 8 }}>
+                  myrentalpassport.net/share
+                </span>
+              </div>
+              <div className="product-preview-body" style={{ textAlign: 'left' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+                  <strong>Jordan Rivera&apos;s Rental Passport</strong>
+                  <span className="screening-verified-badge">✓ Verified by Rental Passport</span>
+                </div>
+                <div className="product-preview-row">
+                  <span>Credit Screening</span>
+                  <span className="screening-status-pill" style={{ background: '#e6f2e6', color: '#2f6b3a' }}>
+                    COMPLETED
+                  </span>
+                </div>
+                <div className="product-preview-row">
+                  <span>Background Screening</span>
+                  <span className="screening-status-pill" style={{ background: '#e6f2e6', color: '#2f6b3a' }}>
+                    COMPLETED
+                  </span>
+                </div>
+                <div className="product-preview-row">
+                  <span>Landlord Search</span>
+                  <span className="screening-status-pill" style={{ background: '#e6f2e6', color: '#2f6b3a' }}>
+                    COMPLETED
+                  </span>
+                </div>
+                <div className="product-preview-row" style={{ marginBottom: 0 }}>
+                  <span>Documents</span>
+                  <span className="muted">4 uploaded</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* For Landlords */}
+      <section className="lp-band lp-band-alt">
+        <div className="shell">
+          <div className="card">
+            <h2>For Landlords</h2>
+            <ul className="check-list">
+              <li>Receive complete, standardized applications</li>
+              <li>Review applicants faster</li>
+              <li>Access organized, verified documents</li>
+              <li>Reach applicants directly using the contact info on their application</li>
+              <li>Keep applicant records organized in one dashboard</li>
+            </ul>
+          </div>
+
+          <div className="landlord-cta">
+            <h3>A More Organized Way to Review Applicants.</h3>
+            <p className="muted" style={{ marginTop: 0 }}>
+              Receive organized applicant information and screening documentation in one place,
+              helping simplify the rental application process while keeping the applicant in
+              control of their information.
+            </p>
+            <p className="muted" style={{ fontSize: 14 }}>
+              Send prospective applicants a direct link to apply &mdash; no back-and-forth
+              paperwork.
+            </p>
+            <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
+              <Link className="btn btn-primary" href="/register?role=LANDLORD">
+                For Landlords
+              </Link>
+              <Link href="/landlords" className="btn btn-secondary">
+                Learn More for Landlords &rarr;
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Security & Trust */}
+      <section className="lp-band">
+        <div className="shell">
+          <div className="card">
+            <h2>Your Rental Passport belongs to you.</h2>
+            <p className="muted" style={{ marginTop: 0 }}>
+              Once your screening is complete, you decide who sees it and for how long.
+            </p>
+            <ul className="check-list">
+              <li>Secure, unique application links</li>
+              <li>Access expiration settings</li>
+              <li>Application viewing history</li>
+              <li>Revoke access at any time</li>
+            </ul>
+          </div>
+
+          <div className="card">
+            <h2>Built with security in mind</h2>
+            <ul className="check-list">
+              <li>Secure authentication</li>
+              <li>Permission-based sharing</li>
+              <li>Applicant-controlled access</li>
+              <li>Secure payment processing through Stripe</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing */}
+      <section className="lp-band lp-band-alt" id="pricing">
+        <div className="shell">
+          <div className="card">
+            <h2 style={{ textAlign: 'center' }}>Simple, One-Time Pricing</h2>
+            <p className="muted" style={{ textAlign: 'center', marginTop: 0 }}>
+              No subscriptions, no per-property fees &mdash; pay once, share with unlimited
+              landlords.
+            </p>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <div className="pricing-card pricing-card-highlight" style={{ maxWidth: 360, width: '100%' }}>
+                <h3>Complete Screening</h3>
+                <p className="price-tag">$54.99</p>
+                <ul className="check-list">
+                  <li>Credit Check</li>
+                  <li>Enhanced Landlord Search</li>
+                  <li>National Criminal Search</li>
+                </ul>
+                <p className="muted" style={{ fontSize: 14 }}>
+                  Everything you need for a verified application ready to share.
+                </p>
+                <Link className="btn btn-primary" href="/register?package=COMPLETE">
+                  Get started
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>
