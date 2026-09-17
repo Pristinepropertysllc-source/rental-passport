@@ -831,3 +831,44 @@ th {
   margin-top: 12px;
   margin-bottom: 0;
 }
+
+/* Maryland reusable screening report section */
+.md-card {
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 32px;
+  box-shadow: 0 8px 24px rgba(201, 138, 75, 0.12);
+}
+
+.md-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.md-icon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.md-citation {
+  display: inline-block;
+  border: 1px solid var(--accent);
+  background: #fbf3e3;
+  color: var(--ink);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 6px;
+  margin: 10px 0 16px;
+}

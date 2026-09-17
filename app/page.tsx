@@ -246,8 +246,76 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* FAQ teaser */}
+      {/* Maryland Reusable Screening Reports */}
       <section className="lp-band lp-band-alt">
+        <div className="shell">
+          <div className="md-card">
+            <div className="md-card-header">
+              <div className="md-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M12 2 4 5v6c0 5 3.4 9.2 8 10 4.6-.8 8-5 8-10V5l-8-3z" strokeLinejoin="round" />
+                  <path d="M9 12l2 2 4-4" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
+              <div>
+                <h2 style={{ margin: 0 }}>Maryland Reusable Screening Reports</h2>
+                <p className="muted" style={{ margin: '2px 0 0' }}>
+                  One report. Multiple rental opportunities.
+                </p>
+              </div>
+            </div>
+
+            <p>
+              Rental Passport&apos;s Complete Screening report is designed to include the
+              information required under Maryland Real Property &sect;8-218 for a reusable tenant
+              screening report.
+            </p>
+
+            <div className="md-citation">Maryland Real Property &sect;8-218</div>
+
+            <p className="muted" style={{ marginTop: 0 }}>Our screening report includes:</p>
+            <ul className="check-list">
+              <li>Credit report</li>
+              <li>Comprehensive criminal history</li>
+              <li>Comprehensive eviction history</li>
+              <li>Employment and income verification</li>
+              <li>Current address and rental history</li>
+            </ul>
+
+            <p className="muted">
+              Maryland law recognizes qualifying reusable tenant screening reports prepared within
+              the previous 30 days by a consumer reporting agency, at the request and expense of a
+              prospective tenant. Every screening report on Rental Passport shows the date it was
+              generated, so landlords can confirm it falls within that window before relying on it.
+            </p>
+
+            <p className="muted">
+              When a landlord accepts a qualifying reusable tenant screening report, Maryland law
+              generally prohibits charging the tenant an application fee or a fee to access the
+              report.
+            </p>
+
+            <p className="muted" style={{ fontSize: 13 }}>
+              This is general educational information about Maryland law, not legal advice.
+              Whether a specific report qualifies as a statutory reusable tenant screening report
+              depends on that report meeting all applicable requirements, including its
+              preparation date, at the time it is relied upon.
+            </p>
+
+            <a
+              className="btn btn-secondary"
+              href="https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=grp&section=8-218&enactments=false"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Read Maryland Law
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ teaser */}
+      <section className="lp-band">
         <div className="shell">
           <div className="card" style={{ textAlign: 'center' }}>
             <h2>Frequently Asked Questions</h2>
@@ -262,7 +330,7 @@ export default async function HomePage() {
       </section>
 
       {/* Final CTA */}
-      <section className="lp-band">
+      <section className="lp-band lp-band-alt">
         <div className="shell">
           <div className="card" style={{ textAlign: 'center' }}>
             <h2>Ready to build your Rental Passport?</h2>
