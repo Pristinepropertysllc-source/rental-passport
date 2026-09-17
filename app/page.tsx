@@ -85,6 +85,18 @@ export default async function HomePage() {
               <li>Track every application in one place</li>
             </ul>
           </div>
+
+          <div className="landlord-cta">
+            <h3>Your Rental Application. Ready to Go.</h3>
+            <p className="muted" style={{ marginTop: 0 }}>
+              Build your Rental Passport once, keep your rental information organized, and share
+              your application with participating landlords instead of starting from scratch every
+              time.
+            </p>
+            <Link href="/renters" className="btn btn-secondary" style={{ marginTop: 4 }}>
+              Learn More About Renting &rarr;
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -103,18 +115,24 @@ export default async function HomePage() {
           </div>
 
           <div className="landlord-cta">
-            <h3>For Landlords &amp; Property Managers</h3>
+            <h3>A More Organized Way to Review Applicants.</h3>
             <p className="muted" style={{ marginTop: 0 }}>
-              Receive organized rental applications, review applicant information, and simplify
-              your rental screening workflow.
+              Receive organized applicant information and screening documentation in one place,
+              helping simplify the rental application process while keeping the applicant in
+              control of their information.
             </p>
             <p className="muted" style={{ fontSize: 14 }}>
               Send prospective applicants a direct link to apply &mdash; no back-and-forth
               paperwork.
             </p>
-            <Link className="btn btn-primary" href="/register">
-              For Landlords
-            </Link>
+            <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
+              <Link className="btn btn-primary" href="/register">
+                For Landlords
+              </Link>
+              <Link href="/landlords" className="btn btn-secondary">
+                Learn More for Landlords &rarr;
+              </Link>
+            </div>
           </div>
         </div>
       </section>
