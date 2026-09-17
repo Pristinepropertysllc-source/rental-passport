@@ -54,10 +54,12 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     return new Response('Error fetching file', { status: 502 });
   }
 
+  const safeFilename = document.filename.replace(/[^\x20-\x7E]/g, '_');
+
   return new Response(blobRes.body, {
     headers: {
       'Content-Type': blobRes.headers.get('content-type') || 'application/octet-stream',
-      'Content-Disposition': `inline; filename="${document.filename}"`
+      'Content-Disposition': `inline; filename="${safeFilename}"`
     }
   });
 }
