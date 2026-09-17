@@ -1,3 +1,5 @@
+
+
 :root {
   --bg: #f7f7f5;
   --surface: #ffffff;
@@ -71,6 +73,10 @@ a {
 
 .nav-links a:hover {
   color: var(--ink);
+}
+.nav-links a.btn-primary,
+.nav-links a.btn-primary:hover {
+  color: #fff;
 }
 
 .card {
