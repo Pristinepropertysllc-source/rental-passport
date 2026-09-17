@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { getCurrentUser } from '@/lib/session';
 import { redirect } from 'next/navigation';
 import { PublicNav } from '@/components/PublicNav';
+import { DemoProvider, DemoTriggerButton } from '@/components/demo/RentalPassportDemo';
 
 export default async function HomePage() {
   const user = await getCurrentUser();
@@ -10,6 +11,7 @@ export default async function HomePage() {
   }
 
   return (
+    <DemoProvider>
     <div>
       <PublicNav />
 
@@ -29,6 +31,11 @@ export default async function HomePage() {
               <a className="btn btn-secondary" href="#pricing">
                 See pricing
               </a>
+            </div>
+            <div style={{ marginTop: 14 }}>
+              <DemoTriggerButton step={1} className="demo-trigger-btn">
+                See How It Works &rarr;
+              </DemoTriggerButton>
             </div>
           </div>
         </div>
@@ -84,6 +91,9 @@ export default async function HomePage() {
               <li>Control exactly what you share, and with whom</li>
               <li>Track every application in one place</li>
             </ul>
+            <DemoTriggerButton step={3} className="demo-trigger-btn">
+              See a Sample Rental Passport &rarr;
+            </DemoTriggerButton>
           </div>
 
           <div className="landlord-cta">
@@ -168,16 +178,18 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Product Preview */}
+      {/* See Rental Passport in Action */}
       <section className="lp-band">
         <div className="shell">
           <div className="card" style={{ textAlign: 'center' }}>
-            <h2>See what a shared Rental Passport looks like</h2>
-            <p className="muted" style={{ marginTop: 0, marginBottom: 24 }}>
-              A simplified preview &mdash; the real thing includes your full application and
-              documents.
+            <h2>See Rental Passport in Action</h2>
+            <p className="muted" style={{ marginTop: 0, marginBottom: 24, maxWidth: 520, marginLeft: 'auto', marginRight: 'auto' }}>
+              See how a renter builds their Rental Passport, organizes their documents, and
+              securely shares their application with a landlord.
             </p>
-            <div className="product-preview-frame">
+            <DemoTriggerButton step={1}>Explore a Sample Rental Passport &rarr;</DemoTriggerButton>
+
+            <div className="product-preview-frame" style={{ marginTop: 32 }}>
               <div className="product-preview-bar">
                 <span className="product-preview-dot" style={{ background: '#e4574a' }} />
                 <span className="product-preview-dot" style={{ background: '#e0a53e' }} />
@@ -188,7 +200,7 @@ export default async function HomePage() {
               </div>
               <div className="product-preview-body" style={{ textAlign: 'left' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-                  <strong>Jordan Rivera&apos;s Rental Passport</strong>
+                  <strong>Alex Morgan&apos;s Rental Passport</strong>
                   <span className="screening-verified-badge">✓ Verified by Rental Passport</span>
                 </div>
                 <div className="product-preview-row">
@@ -211,7 +223,7 @@ export default async function HomePage() {
                 </div>
                 <div className="product-preview-row" style={{ marginBottom: 0 }}>
                   <span>Documents</span>
-                  <span className="muted">4 uploaded</span>
+                  <span className="muted">7 uploaded</span>
                 </div>
               </div>
             </div>
@@ -231,6 +243,9 @@ export default async function HomePage() {
               <li>Reach applicants directly using the contact info on their application</li>
               <li>Keep applicant records organized in one dashboard</li>
             </ul>
+            <DemoTriggerButton step={5} className="demo-trigger-btn">
+              See What Landlords Receive &rarr;
+            </DemoTriggerButton>
           </div>
 
           <div className="landlord-cta">
@@ -357,5 +372,6 @@ export default async function HomePage() {
         </p>
       </footer>
     </div>
+    </DemoProvider>
   );
 }
