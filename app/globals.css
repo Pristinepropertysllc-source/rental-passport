@@ -891,6 +891,7 @@ th {
   width: 100%;
   max-width: 760px;
   max-height: 92vh;
+  max-height: 92dvh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -917,6 +918,7 @@ th {
   justify-content: space-between;
   align-items: center;
   padding: 14px 20px;
+  padding-bottom: calc(14px + env(safe-area-inset-bottom));
   border-top: 1px solid var(--border);
   flex-shrink: 0;
   gap: 10px;

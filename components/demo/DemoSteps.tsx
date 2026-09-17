@@ -212,8 +212,8 @@ export function Step3Passport() {
         <SampleTag />
         <button
           type="button"
-          className="demo-trigger-btn"
-          style={{ marginBottom: 10, fontSize: 14 }}
+          className="btn btn-secondary"
+          style={{ marginBottom: 14 }}
           onClick={() => setActiveKey(null)}
         >
           &larr; Back to Rental Passport
