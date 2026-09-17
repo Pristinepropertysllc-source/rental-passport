@@ -23,12 +23,12 @@ export default async function HomePage() {
               you want &mdash; no re-typing your application for every property.
             </p>
             <div className="hero-actions">
-              <a className="btn btn-primary" href="#pricing">
-                See pricing
-              </a>
-              <Link className="btn btn-secondary" href="/register">
+              <Link className="btn btn-primary" href="/register">
                 Sign up
               </Link>
+              <a className="btn btn-secondary" href="#pricing">
+                See pricing
+              </a>
             </div>
           </div>
         </div>
