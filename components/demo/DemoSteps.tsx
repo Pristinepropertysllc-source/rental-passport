@@ -1,3 +1,7 @@
+'use client';
+
+import { useState } from 'react';
+
 const DOCS = [
   { label: 'Government ID', file: 'government-id.pdf' },
   { label: 'Pay Stub', file: 'pay-stub.pdf' },
@@ -75,46 +79,142 @@ export function Step2Upload() {
   );
 }
 
+type PassportSection = {
+  key: string;
+  title: string;
+  summary: string;
+  detail: React.ReactNode;
+};
+
+const PASSPORT_SECTIONS: PassportSection[] = [
+  {
+    key: 'personal',
+    title: 'Personal Information',
+    summary: 'Sample information on file',
+    detail: (
+      <div className="section-list">
+        <div className="section-row"><span>Name</span><span className="muted">Alex Morgan</span></div>
+        <div className="section-row"><span>Date of Birth</span><span className="muted">05/14/1994</span></div>
+        <div className="section-row"><span>Address</span><span className="muted">210 Maple Court, Unit 4B, Rivergate, SM</span></div>
+        <div className="section-row"><span>Email</span><span className="muted">alex.morgan@sample-demo.example</span></div>
+      </div>
+    )
+  },
+  {
+    key: 'employment',
+    title: 'Employment & Income',
+    summary: 'Sample employer & income',
+    detail: (
+      <div className="section-list">
+        <div className="section-row"><span>Employer</span><span className="muted">Northfield Retail Group</span></div>
+        <div className="section-row"><span>Position</span><span className="muted">Operations Associate</span></div>
+        <div className="section-row"><span>Annual Income</span><span className="muted">$46,200.00</span></div>
+      </div>
+    )
+  },
+  {
+    key: 'rental',
+    title: 'Rental History',
+    summary: 'Sample rental history',
+    detail: (
+      <div className="section-list">
+        <div className="section-row"><span>Landlord</span><span className="muted">Priya Anand, Rivergate Property Management</span></div>
+        <div className="section-row"><span>Rent</span><span className="muted">$1,275.00 / month</span></div>
+        <div className="section-row"><span>Tenancy</span><span className="muted">06/2023 &ndash; 07/2026</span></div>
+      </div>
+    )
+  },
+  {
+    key: 'references',
+    title: 'References',
+    summary: 'Sample references',
+    detail: (
+      <div className="section-list">
+        <div className="section-row"><span>Taylor Brooks</span><span className="muted">Former Roommate</span></div>
+      </div>
+    )
+  },
+  {
+    key: 'documents',
+    title: 'Documents',
+    summary: '7 sample documents available',
+    detail: (
+      <div className="demo-doc-grid">
+        {DOCS.map((d) => (
+          <div className="demo-doc-card" key={d.file}>
+            <strong style={{ fontSize: 13 }}>{d.label}</strong>
+            <a href={`/demo-docs/${d.file}`} target="_blank" rel="noreferrer" className="demo-trigger-btn" style={{ fontSize: 13 }}>
+              View Sample &rarr;
+            </a>
+          </div>
+        ))}
+      </div>
+    )
+  },
+  {
+    key: 'screening',
+    title: 'Screening',
+    summary: 'Sample screening results',
+    detail: (
+      <div>
+        <div className="section-list" style={{ marginBottom: 10 }}>
+          <div className="section-row"><span>Credit Screening</span><span className="badge badge-approved">COMPLETED</span></div>
+          <div className="section-row"><span>Background Screening</span><span className="badge badge-approved">COMPLETED</span></div>
+          <div className="section-row"><span>Landlord Search</span><span className="badge badge-approved">COMPLETED</span></div>
+        </div>
+        <a href="/demo-docs/sample-screening-report.pdf" target="_blank" rel="noreferrer" className="demo-trigger-btn" style={{ fontSize: 13 }}>
+          View Sample Screening Report &rarr;
+        </a>
+      </div>
+    )
+  }
+];
+
 export function Step3Passport() {
+  const [openKey, setOpenKey] = useState<string | null>(null);
+
   return (
     <div>
       <SampleTag />
       <h3 style={{ marginTop: 0 }}>Alex Morgan&apos;s Rental Passport</h3>
+      <p className="muted" style={{ fontSize: 13, marginTop: -6 }}>Click any section to see sample detail.</p>
       <div className="card" style={{ margin: 0 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
           <strong>Applicant: Alex Morgan</strong>
           <span className="badge badge-approved">Application Complete</span>
         </div>
         <div className="section-list">
-          <div className="section-row">
-            <span>Personal Information</span>
-            <span className="muted" style={{ fontSize: 13 }}>Sample information on file</span>
-          </div>
-          <div className="section-row">
-            <span>Employment &amp; Income</span>
-            <span className="muted" style={{ fontSize: 13 }}>Sample employer &amp; income</span>
-          </div>
-          <div className="section-row">
-            <span>Rental History</span>
-            <span className="muted" style={{ fontSize: 13 }}>Sample rental history</span>
-          </div>
-          <div className="section-row">
-            <span>References</span>
-            <span className="muted" style={{ fontSize: 13 }}>Sample references</span>
-          </div>
-          <div className="section-row">
-            <span>Documents</span>
-            <span className="muted" style={{ fontSize: 13 }}>7 sample documents available</span>
-          </div>
-          <div className="section-row">
-            <span>Screening</span>
-            <span className="muted" style={{ fontSize: 13 }}>Sample screening results</span>
-          </div>
+          {PASSPORT_SECTIONS.map((s) => {
+            const isOpen = openKey === s.key;
+            return (
+              <div key={s.key}>
+                <button
+                  type="button"
+                  className="section-row"
+                  style={{ width: '100%', textAlign: 'left', cursor: 'pointer', border: '1px solid var(--border)', background: isOpen ? 'var(--band-alt)' : 'transparent' }}
+                  onClick={() => setOpenKey(isOpen ? null : s.key)}
+                >
+                  <span>{s.title}</span>
+                  <span className="muted" style={{ fontSize: 13 }}>
+                    {s.summary} {isOpen ? '▴' : '▾'}
+                  </span>
+                </button>
+                {isOpen && (
+                  <div style={{ padding: '10px 14px', border: '1px solid var(--border)', borderTop: 'none', borderRadius: '0 0 8px 8px', marginBottom: 8 }}>
+                    {s.detail}
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
-        <p className="muted" style={{ fontSize: 12, marginTop: 14, marginBottom: 0 }}>
+        <p className="muted" style={{ fontSize: 12, marginTop: 14, marginBottom: 14 }}>
           Screening status labels like &ldquo;Completed&rdquo; or &ldquo;Verified&rdquo; only appear once an
           actual screening report has been added to a real Rental Passport.
         </p>
+        <a href="/demo-docs/complete-rental-passport.pdf" target="_blank" rel="noreferrer" className="btn btn-primary">
+          Download / View Complete Sample (All-in-One PDF) &rarr;
+        </a>
       </div>
     </div>
   );
