@@ -5,6 +5,15 @@ import { getCurrentUser } from '@/lib/session';
 
 type Cursor = { page: PDFPage; y: number };
 
+// pdf-lib's standard fonts only support WinAnsi encoding, which doesn't
+// include many Unicode characters that can sneak into user-entered text or
+// even auto-generated date strings (e.g. a narrow no-break space some
+// locales insert before AM/PM). Strip anything outside the safe printable
+// ASCII range before drawing it, rather than let the whole PDF fail.
+function sanitize(text: string): string {
+  return text.replace(/[^\x20-\x7E]/g, ' ');
+}
+
 function newAppPage(pdf: PDFDocument, boldFont: PDFFont): Cursor {
   const page = pdf.addPage([612, 792]);
   page.drawText('Prospect Application Detail', {
@@ -31,8 +40,8 @@ function drawRow(
     cursor.page = fresh.page;
     cursor.y = fresh.y;
   }
-  cursor.page.drawText(label, { x: 50, y: cursor.y, size: 9, font: boldFont, color: rgb(0.25, 0.25, 0.25) });
-  const text = String(value || '').slice(0, 68);
+  cursor.page.drawText(sanitize(label), { x: 50, y: cursor.y, size: 9, font: boldFont, color: rgb(0.25, 0.25, 0.25) });
+  const text = sanitize(String(value || '').slice(0, 68));
   cursor.page.drawText(text, { x: 260, y: cursor.y, size: 9, font, color: rgb(0, 0, 0) });
   cursor.y -= 14;
   cursor.page.drawLine({
@@ -105,7 +114,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
   let y = 730;
   cover.drawText('Rental Passport', { x: 50, y, size: 22, font: boldFont, color: rgb(0.18, 0.36, 0.31) });
   y -= 30;
-  cover.drawText(applicantName, { x: 50, y, size: 16, font });
+  cover.drawText(sanitize(applicantName), { x: 50, y, size: 16, font });
   y -= 26;
   cover.drawText(`Application ID: ${passport.id}`, { x: 50, y, size: 10, font, color: rgb(0.42, 0.42, 0.42) });
   y -= 16;
@@ -114,7 +123,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     dateStyle: 'medium',
     timeStyle: 'short'
   }).format(new Date());
-  cover.drawText(`Generated: ${generatedFormatted} ET`, {
+  cover.drawText(sanitize(`Generated: ${generatedFormatted} ET`), {
     x: 50,
     y,
     size: 10,
@@ -155,7 +164,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
       dateStyle: 'medium',
       timeStyle: 'short'
     }).format(screeningReportDoc.uploadedAt);
-    cover.drawText(`Uploaded: ${formatted} ET`, {
+    cover.drawText(sanitize(`Uploaded: ${formatted} ET`), {
       x: 62,
       y: stampTop - 54,
       size: 9,
@@ -169,7 +178,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
   y -= 22;
   for (const doc of orderedDocs) {
     if (y < 60) break;
-    cover.drawText(`\u2022 ${doc.type} \u2014 ${doc.filename}`, { x: 60, y, size: 11, font });
+    cover.drawText(sanitize(`\u2022 ${doc.type} \u2014 ${doc.filename}`), { x: 60, y, size: 11, font });
     y -= 18;
   }
   if (orderedDocs.length === 0) {
