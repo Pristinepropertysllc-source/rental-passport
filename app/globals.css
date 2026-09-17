@@ -9,6 +9,7 @@
   --accent: #c98a4b;
   --danger: #b3423a;
   --ok: #2f6b3a;
+  --band-alt: #eef2ef;
   --radius: 10px;
 }
 
@@ -359,11 +360,11 @@ th {
   margin: 0 0 16px;
   padding: 0;
   display: grid;
-  gap: 8px;
+  gap: 10px;
 }
 
 .check-list li {
-  padding-left: 24px;
+  padding-left: 30px;
   position: relative;
   font-size: 14px;
 }
@@ -372,8 +373,84 @@ th {
   content: '✓';
   position: absolute;
   left: 0;
-  color: var(--brand);
+  top: 1px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--brand);
+  color: #fff;
+  font-size: 11px;
   font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+}
+
+/* For negative/problem framing where a green checkmark would be wrong */
+.problem-list {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.problem-list li {
+  padding-left: 22px;
+  position: relative;
+  font-size: 14px;
+  color: var(--ink-muted);
+}
+
+.problem-list li::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 8px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ink-muted);
+}
+
+/* Landing page section bands */
+.lp-band {
+  padding: 56px 0;
+}
+
+.lp-band-alt {
+  background: var(--band-alt);
+}
+
+.landlord-cta {
+  border: 1px solid var(--brand);
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 28px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.landlord-cta h3 {
+  margin: 0 0 8px;
+}
+
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 28px 0;
+  text-align: center;
+}
+
+.site-footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.site-footer-links a {
+  font-size: 13px;
+  color: var(--ink-muted);
 }
 
 .pricing-card {
