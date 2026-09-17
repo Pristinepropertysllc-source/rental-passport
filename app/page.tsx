@@ -3,6 +3,7 @@ import { getCurrentUser } from '@/lib/session';
 import { redirect } from 'next/navigation';
 import { PublicNav } from '@/components/PublicNav';
 import { DemoProvider, DemoTriggerButton } from '@/components/demo/RentalPassportDemo';
+import { HowItWorksVisual } from '@/components/HowItWorksVisual';
 
 export default async function HomePage() {
   const user = await getCurrentUser();
@@ -44,38 +45,7 @@ export default async function HomePage() {
       {/* How it works */}
       <section className="lp-band lp-band-alt">
         <div className="shell">
-          <div className="card">
-            <h2>How it works</h2>
-            <div className="section-list">
-              <div className="section-row" style={{ alignItems: 'flex-start' }}>
-                <div>
-                  <strong>1. Build your Rental Passport</strong>
-                  <p className="muted" style={{ margin: '4px 0 0' }}>
-                    Personal information, employment &amp; income, rental history, references,
-                    household details, and documents &mdash; all in one place.
-                  </p>
-                </div>
-              </div>
-              <div className="section-row" style={{ alignItems: 'flex-start' }}>
-                <div>
-                  <strong>2. Pay once for screening</strong>
-                  <p className="muted" style={{ margin: '4px 0 0' }}>
-                    A single payment covers your credit, background, and landlord history
-                    screening &mdash; no per-property fees after that.
-                  </p>
-                </div>
-              </div>
-              <div className="section-row" style={{ alignItems: 'flex-start' }}>
-                <div>
-                  <strong>3. Share and track</strong>
-                  <p className="muted" style={{ margin: '4px 0 0' }}>
-                    Send your Passport to any landlord and follow application status, views, and
-                    decisions from your dashboard.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+          <HowItWorksVisual />
         </div>
       </section>
 
