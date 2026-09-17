@@ -126,7 +126,7 @@ export default async function HomePage() {
               paperwork.
             </p>
             <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
-              <Link className="btn btn-primary" href="/register">
+              <Link className="btn btn-primary" href="/register?role=LANDLORD">
                 For Landlords
               </Link>
               <Link href="/landlords" className="btn btn-secondary">

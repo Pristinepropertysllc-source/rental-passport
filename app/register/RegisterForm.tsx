@@ -20,6 +20,7 @@ export function RegisterForm() {
   const searchParams = useSearchParams();
   const packageParam = searchParams.get('package') || '';
   const inviteToken = searchParams.get('invite') || '';
+  const roleParam = searchParams.get('role') === 'LANDLORD' ? 'LANDLORD' : 'TENANT';
   const selectedPackage = isPackageKey(packageParam) ? PACKAGES[packageParam] : null;
 
   return (
@@ -52,7 +53,7 @@ export function RegisterForm() {
                 <input type="hidden" name="role" value="TENANT" />
               </>
             ) : (
-              <select id="role" name="role" defaultValue="TENANT">
+              <select id="role" name="role" defaultValue={roleParam}>
                 <option value="TENANT">Tenant / applicant</option>
                 <option value="LANDLORD">Landlord / property manager</option>
               </select>

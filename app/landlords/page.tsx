@@ -47,7 +47,7 @@ export default function LandlordsPage() {
               control of their information.
             </p>
             <div className="hero-actions">
-              <Link className="btn btn-primary" href="/register">
+              <Link className="btn btn-primary" href="/register?role=LANDLORD">
                 Get Started
               </Link>
             </div>
@@ -172,7 +172,7 @@ export default function LandlordsPage() {
           <div className="card" style={{ textAlign: 'center' }}>
             <h2>Ready to Simplify Your Rental Application Process?</h2>
             <div className="hero-actions" style={{ marginTop: 14 }}>
-              <Link className="btn btn-primary" href="/register">
+              <Link className="btn btn-primary" href="/register?role=LANDLORD">
                 Get Started
               </Link>
             </div>
