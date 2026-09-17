@@ -8,20 +8,6 @@ export default function PrivacyPage() {
       </Link>
 
       <div className="card" style={{ marginTop: 16 }}>
-        <div
-          style={{
-            background: '#fbf3e3',
-            border: '1px solid var(--accent)',
-            borderRadius: 8,
-            padding: '12px 16px',
-            fontSize: 13,
-            marginBottom: 20
-          }}
-        >
-          <strong>Draft placeholder.</strong> This page has not yet been reviewed by an attorney.
-          Replace this content with a policy reviewed for your jurisdiction before relying on it.
-        </div>
-
         <h1>Privacy Policy</h1>
         <p className="muted">Last updated: {new Date().toLocaleDateString()}</p>
 
