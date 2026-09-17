@@ -70,6 +70,22 @@ export default function RentersPage() {
       <section className="lp-band">
         <div className="shell">
           <div className="card">
+            <h2>Household Members Must Apply Separately</h2>
+            <div className="legal-note">
+              <p style={{ marginBottom: 0 }}>
+                Anyone 18 years of age or older who plans to live at the property must complete
+                their own Rental Passport and create their own account. Listing another adult as a
+                household member on your application does not take the place of that person
+                applying separately.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="lp-band lp-band-alt">
+        <div className="shell">
+          <div className="card">
             <h2>Understand Your Screening Information</h2>
             <p className="muted">
               Tenant screening reports can contain information such as credit history, rental
@@ -88,7 +104,7 @@ export default function RentersPage() {
         </div>
       </section>
 
-      <section className="lp-band lp-band-alt">
+      <section className="lp-band">
         <div className="shell">
           <div className="card">
             <h2>Maryland Reusable Screening Reports</h2>
@@ -113,7 +129,7 @@ export default function RentersPage() {
         </div>
       </section>
 
-      <section className="lp-band">
+      <section className="lp-band lp-band-alt">
         <div className="shell">
           <div className="card" style={{ textAlign: 'center' }}>
             <h2>A Professional Rental Profile</h2>
