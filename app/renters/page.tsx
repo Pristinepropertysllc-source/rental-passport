@@ -107,15 +107,6 @@ export default function RentersPage() {
                 requirements, the landlord generally may not charge that tenant an application fee
                 or a fee to access the report.
               </p>
-              <p>
-                <strong>
-                  This is general educational information about Maryland law, not legal advice.
-                </strong>{' '}
-                Rental Passport does not describe its screening as a Maryland &ldquo;reusable
-                tenant screening report&rdquo; unless the specific report you receive actually
-                meets these statutory requirements. If you have questions about whether a
-                particular report qualifies, check with the landlord or the screening provider.
-              </p>
               <p className="legal-source">Source: Maryland General Assembly, Real Property &sect;8-218.</p>
             </div>
           </div>
