@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ViewContentTracker } from '@/components/pixel/PixelTrackers';
 
 const benefits = [
   {
@@ -35,6 +36,7 @@ export default function RentersPage() {
           <Link href="/" className="muted" style={{ fontSize: 13 }}>
             &larr; Back to homepage
           </Link>
+          <ViewContentTracker contentName="renters_page" />
           <div className="hero" style={{ padding: '32px 0 40px' }}>
             <h1 style={{ fontSize: 36 }}>Your Rental Application. Ready to Go.</h1>
             <p>

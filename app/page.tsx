@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 import { PublicNav } from '@/components/PublicNav';
 import { DemoProvider, DemoTriggerButton } from '@/components/demo/RentalPassportDemo';
 import { HowItWorksVisual } from '@/components/HowItWorksVisual';
+import { ViewContentTracker } from '@/components/pixel/PixelTrackers';
 
 export default async function HomePage() {
   const user = await getCurrentUser();
@@ -15,6 +16,7 @@ export default async function HomePage() {
     <DemoProvider>
     <div>
       <PublicNav />
+      <ViewContentTracker contentName="homepage" />
 
       {/* Hero */}
       <section className="lp-band">

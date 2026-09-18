@@ -14,7 +14,10 @@ import { requireUser } from '@/lib/session';
 // NOTE: this does not actually send an email (no SendGrid/Twilio key
 // configured in this starter). It returns the share so the UI can show a
 // copyable link. Wire up an email provider before relying on delivery.
-export async function createShareAction(formData: FormData) {
+export async function createShareAction(
+  _prevState: { success?: boolean } | undefined,
+  formData: FormData
+): Promise<{ success?: boolean }> {
   const user = await requireUser();
   const passport = await db.passport.findUnique({ where: { userId: user.id } });
   if (!passport) throw new Error('No passport found');
@@ -22,7 +25,7 @@ export async function createShareAction(formData: FormData) {
   const landlordEmail = String(formData.get('landlordEmail') || '')
     .trim()
     .toLowerCase();
-  if (!landlordEmail) return;
+  if (!landlordEmail) return {};
 
   const expiresInDaysRaw = String(formData.get('expiresInDays') || '');
   const expiresInDays = Number.parseInt(expiresInDaysRaw, 10);
@@ -47,6 +50,7 @@ export async function createShareAction(formData: FormData) {
 
   revalidatePath('/passport/share');
   revalidatePath('/dashboard');
+  return { success: true };
 }
 
 export async function revokeShareAction(formData: FormData) {

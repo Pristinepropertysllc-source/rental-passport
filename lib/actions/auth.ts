@@ -56,7 +56,10 @@ export async function registerAction(
   }
 
   await createSession(user.id);
-  redirect(role === 'TENANT' ? '/dashboard' : '/landlord/dashboard');
+  if (role === 'TENANT') {
+    redirect('/dashboard?registered=1');
+  }
+  redirect('/landlord/dashboard');
 }
 
 export async function loginAction(

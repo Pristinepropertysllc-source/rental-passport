@@ -44,6 +44,7 @@ export async function GET(req: NextRequest) {
   }
 
   let user = await db.user.findUnique({ where: { googleId } });
+  let isNewRegistration = false;
 
   if (!user) {
     const existingByEmail = await db.user.findUnique({ where: { email } });
@@ -53,6 +54,7 @@ export async function GET(req: NextRequest) {
   }
 
   if (!user) {
+    isNewRegistration = true;
     const packageType = packageParam === 'ESSENTIAL' || packageParam === 'COMPLETE' ? packageParam : null;
     user = await db.user.create({
       data: { email, googleId, role: 'TENANT' }
@@ -83,7 +85,13 @@ export async function GET(req: NextRequest) {
   await createSession(user.id);
 
   const destination =
-    user.role === 'TENANT' ? '/dashboard' : user.role === 'ADMIN' ? '/admin/tenants' : '/landlord/dashboard';
+    user.role === 'TENANT'
+      ? isNewRegistration
+        ? '/dashboard?registered=1'
+        : '/dashboard'
+      : user.role === 'ADMIN'
+        ? '/admin/tenants'
+        : '/landlord/dashboard';
   const res = NextResponse.redirect(new URL(destination, req.url));
   res.cookies.delete('google_oauth_state');
   res.cookies.delete('signup_package');

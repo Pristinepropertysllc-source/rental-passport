@@ -5,6 +5,7 @@ import { Nav } from '@/components/Nav';
 import { PACKAGES, isPackageKey } from '@/lib/packages';
 import { setPackageAction } from '@/lib/actions/passport';
 import { applicationComplete } from '@/lib/passport';
+import { MountEventTracker } from '@/components/pixel/PixelTrackers';
 
 export default async function CheckoutPage({
   searchParams
@@ -66,6 +67,10 @@ export default async function CheckoutPage({
           </div>
         ) : (
           <div className="card">
+            <MountEventTracker
+              event="InitiateCheckout"
+              params={{ value: selectedPackage.priceCents / 100, currency: 'USD' }}
+            />
             <h2>{selectedPackage.name}</h2>
             <p className="muted" style={{ fontSize: 14 }}>{selectedPackage.description}</p>
             <p style={{ fontSize: 24, fontWeight: 700, margin: '14px 0' }}>{selectedPackage.priceLabel}</p>

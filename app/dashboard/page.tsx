@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Suspense } from 'react';
 import { redirect } from 'next/navigation';
 import { getCurrentUser } from '@/lib/session';
 import { db } from '@/lib/db';
@@ -7,6 +8,7 @@ import { ProgressBar } from '@/components/ProgressBar';
 import { overallCompletion, sectionCompletion, applicationComplete } from '@/lib/passport';
 import { PACKAGES, isPackageKey } from '@/lib/packages';
 import { SCREENING_CATEGORIES } from '@/lib/screening';
+import { QueryParamEventTracker } from '@/components/pixel/PixelTrackers';
 
 const SECTION_LABELS: Record<string, string> = {
   personal: 'Personal Information',
@@ -28,7 +30,11 @@ const SECTION_HREFS: Record<string, string> = {
   screeningPayment: '/passport/checkout'
 };
 
-export default async function DashboardPage() {
+export default async function DashboardPage({
+  searchParams
+}: {
+  searchParams: { registered?: string };
+}) {
   const user = await getCurrentUser();
   if (!user) redirect('/login');
   if (user.role === 'ADMIN') redirect('/admin/tenants');
@@ -63,6 +69,9 @@ export default async function DashboardPage() {
   return (
     <>
       <Nav email={user.email} role="TENANT" />
+      <Suspense fallback={null}>
+        <QueryParamEventTracker paramName="registered" paramValue="1" event="CompleteRegistration" />
+      </Suspense>
       <div className="shell" style={{ paddingTop: 32, paddingBottom: 60 }}>
         {!unlocked ? (
           <>

@@ -1,10 +1,14 @@
 import { redirect } from 'next/navigation';
+import { Suspense } from 'react';
 import { getCurrentUser } from '@/lib/session';
 import { db } from '@/lib/db';
 import { Nav } from '@/components/Nav';
 import { EmailShareLink } from '@/components/EmailShareLink';
-import { createShareAction, revokeShareAction } from '@/lib/actions/share';
+import { revokeShareAction } from '@/lib/actions/share';
 import { applicationComplete } from '@/lib/passport';
+import { ShareForm } from '@/components/pixel/ShareForm';
+import { QueryParamEventTracker } from '@/components/pixel/PixelTrackers';
+import { PACKAGES } from '@/lib/packages';
 
 export default async function SharePage({
   searchParams
@@ -54,23 +58,23 @@ export default async function SharePage({
           </div>
         )}
 
+        <Suspense fallback={null}>
+          <QueryParamEventTracker
+            paramName="paid"
+            paramValue="1"
+            event="Purchase"
+            params={{
+              value: passport.packageType && passport.packageType in PACKAGES
+                ? PACKAGES[passport.packageType as keyof typeof PACKAGES].priceCents / 100
+                : PACKAGES.COMPLETE.priceCents / 100,
+              currency: 'USD'
+            }}
+          />
+        </Suspense>
+
         <div className="card">
           <h2>Invite a landlord</h2>
-          <form action={createShareAction}>
-            <div className="grid-2">
-              <div className="field">
-                <label>Landlord email</label>
-                <input name="landlordEmail" type="email" required />
-              </div>
-              <div className="field">
-                <label>Link expires in (days, optional)</label>
-                <input name="expiresInDays" type="number" min={1} placeholder="30" />
-              </div>
-            </div>
-            <button className="btn btn-primary" type="submit">
-              Send invite
-            </button>
-          </form>
+          <ShareForm />
         </div>
 
         <div className="card">

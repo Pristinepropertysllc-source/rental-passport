@@ -5,6 +5,7 @@ import { Nav } from '@/components/Nav';
 import { ProgressBar } from '@/components/ProgressBar';
 import { overallCompletion } from '@/lib/passport';
 import { DOCUMENT_TYPES } from '@/lib/documentTypes';
+import { MountEventTracker } from '@/components/pixel/PixelTrackers';
 import {
   updatePassportAction,
   markHouseholdNAAction,
@@ -51,6 +52,7 @@ export default async function PassportPage() {
   return (
     <>
       <Nav email={user.email} role="TENANT" />
+      {!passport.firstName && <MountEventTracker event="StartApplication" custom />}
       <div className="shell" style={{ paddingTop: 32, paddingBottom: 60 }}>
         <h1>My Rental Passport</h1>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 24 }}>
