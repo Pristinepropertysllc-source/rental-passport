@@ -3,7 +3,6 @@ import { getCurrentUser } from '@/lib/session';
 import { redirect } from 'next/navigation';
 import { PublicNav } from '@/components/PublicNav';
 import { DemoProvider, DemoTriggerButton } from '@/components/demo/RentalPassportDemo';
-import { HowItWorksVisual } from '@/components/HowItWorksVisual';
 import { ViewContentTracker } from '@/components/pixel/PixelTrackers';
 
 export default async function HomePage() {
@@ -47,7 +46,18 @@ export default async function HomePage() {
       {/* How it works */}
       <section className="lp-band lp-band-alt">
         <div className="shell">
-          <HowItWorksVisual />
+          <h2 style={{ textAlign: 'center', marginBottom: 4 }}>How It Works</h2>
+          <p className="hiw-subtitle">One Rental Passport. Three simple steps.</p>
+          <img
+            src="/how-it-works.webp"
+            alt="Three-panel comparison: the old way of repeatedly filling out rental applications and paying fees for every property, versus building one secure Rental Passport profile once, versus the new way of reusing that one Passport to apply to multiple properties instantly."
+            style={{ width: '100%', height: 'auto', borderRadius: 16, boxShadow: '0 4px 16px rgba(0,0,0,0.06)' }}
+          />
+          <div style={{ textAlign: 'center', marginTop: 24 }}>
+            <Link className="btn btn-primary" href="/register">
+              Build Yours Now &rarr;
+            </Link>
+          </div>
         </div>
       </section>
 
