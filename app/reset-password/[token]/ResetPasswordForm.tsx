@@ -2,6 +2,7 @@
 
 import { useFormState, useFormStatus } from 'react-dom';
 import { resetPasswordAction } from '@/lib/actions/auth';
+import { AuthLogo } from '@/components/AuthLogo';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -17,6 +18,7 @@ export function ResetPasswordForm({ token }: { token: string }) {
 
   return (
     <div className="shell" style={{ maxWidth: 440, paddingTop: 60 }}>
+      <AuthLogo />
       <div className="card">
         <h1 style={{ fontSize: 22 }}>Set a new password</h1>
         {state?.error && <div className="error-banner">{state.error}</div>}

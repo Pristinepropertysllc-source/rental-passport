@@ -1,10 +1,12 @@
 import Link from 'next/link';
 import { FAQSidebar } from '@/components/FAQSidebar';
 import { FAQ_ITEMS } from '@/lib/faqData';
+import { AuthLogo } from '@/components/AuthLogo';
 
 export default function FAQPage() {
   return (
     <div className="shell" style={{ paddingTop: 32, paddingBottom: 60 }}>
+      <AuthLogo />
       <Link href="/" className="muted" style={{ fontSize: 13 }}>
         &larr; Back to homepage
       </Link>

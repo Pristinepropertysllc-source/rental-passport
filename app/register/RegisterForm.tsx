@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { registerAction } from '@/lib/actions/auth';
 import { PACKAGES, isPackageKey } from '@/lib/packages';
+import { AuthLogo } from '@/components/AuthLogo';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -25,6 +26,7 @@ export function RegisterForm() {
 
   return (
     <div className="shell" style={{ maxWidth: 440, paddingTop: 60 }}>
+      <AuthLogo />
       <div className="card">
         <h1 style={{ fontSize: 22 }}>Create your account</h1>
         <p className="muted" style={{ marginTop: 0 }}>

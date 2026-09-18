@@ -4,6 +4,7 @@ import { useFormState, useFormStatus } from 'react-dom';
 import Link from 'next/link';
 import { useState } from 'react';
 import { requestPasswordResetAction } from '@/lib/actions/auth';
+import { AuthLogo } from '@/components/AuthLogo';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -20,6 +21,7 @@ export default function ForgotPasswordPage() {
 
   return (
     <div className="shell" style={{ maxWidth: 440, paddingTop: 60 }}>
+      <AuthLogo />
       <div className="card">
         <h1 style={{ fontSize: 22 }}>Reset your password</h1>
         <p className="muted" style={{ marginTop: 0 }}>

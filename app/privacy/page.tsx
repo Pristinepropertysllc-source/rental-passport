@@ -1,8 +1,10 @@
 import Link from 'next/link';
+import { AuthLogo } from '@/components/AuthLogo';
 
 export default function PrivacyPage() {
   return (
     <div className="shell" style={{ paddingTop: 40, paddingBottom: 60, maxWidth: 760 }}>
+      <AuthLogo />
       <Link href="/" className="muted" style={{ fontSize: 13 }}>
         &larr; Back to homepage
       </Link>
