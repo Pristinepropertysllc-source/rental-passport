@@ -8,7 +8,7 @@ export function Nav({ email, role }: { email: string; role: 'TENANT' | 'LANDLORD
     <div className="topbar">
       <div className="topbar-inner">
         <Link className="brand" href={homeHref}>
-          <img src="/logo.svg" alt="Rental Passport" style={{ height: 60, display: 'block' }} />
+          <img src="/logo.svg" alt="Rental Passport" style={{ height: 180, display: 'block' }} />
         </Link>
         <div className="nav-links">
           {role === 'TENANT' && (

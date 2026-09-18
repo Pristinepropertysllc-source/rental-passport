@@ -5,7 +5,7 @@ export function PublicNav() {
     <div className="topbar">
       <div className="topbar-inner">
         <Link className="brand" href="/">
-          <img src="/logo.svg" alt="Rental Passport" style={{ height: 60, display: 'block' }} />
+          <img src="/logo.svg" alt="Rental Passport" style={{ height: 180, display: 'block' }} />
         </Link>
         <div className="nav-links">
           <Link href="/login">Log in</Link>
