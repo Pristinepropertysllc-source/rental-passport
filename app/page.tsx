@@ -49,10 +49,15 @@ export default async function HomePage() {
           <h2 style={{ textAlign: 'center', marginBottom: 4 }}>How It Works</h2>
           <p className="hiw-subtitle">One Rental Passport. Three simple steps.</p>
           <img
-            src="/how-it-works.webp"
-            alt="Three-panel comparison: the old way of repeatedly filling out rental applications and paying fees for every property, versus building one secure Rental Passport profile once, versus the new way of reusing that one Passport to apply to multiple properties instantly."
-            style={{ width: '100%', height: 'auto', borderRadius: 16, boxShadow: '0 4px 16px rgba(0,0,0,0.06)' }}
+            src="/how-it-works-header.webp"
+            alt="Apply Once. Rent Anywhere. Start Saving Time and Money."
+            style={{ width: '100%', height: 'auto', display: 'block', marginBottom: 4 }}
           />
+          <div className="hiw-image-row">
+            <img src="/how-it-works-panel1.webp" alt="The old way: repeatedly filling out rental applications and paying fees for every property." />
+            <img src="/how-it-works-panel2.webp" alt="The solution: build one secure Rental Passport profile with your information and documents." />
+            <img src="/how-it-works-panel3.webp" alt="The new way: reuse your one Rental Passport to apply to multiple properties instantly." />
+          </div>
           <div style={{ textAlign: 'center', marginTop: 24 }}>
             <Link className="btn btn-primary" href="/register">
               Build Yours Now &rarr;
