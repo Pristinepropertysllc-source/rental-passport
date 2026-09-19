@@ -350,6 +350,7 @@ export default async function HomePage() {
       {/* Footer */}
       <footer className="site-footer">
         <div className="site-footer-links">
+          <Link href="/about">About</Link>
           <Link href="/privacy">Privacy Policy</Link>
           <Link href="/terms">Terms of Service</Link>
           <Link href="/faq">FAQ</Link>

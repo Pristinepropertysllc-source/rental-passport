@@ -185,6 +185,7 @@ export default function LandlordsPage() {
       <footer className="site-footer">
         <div className="site-footer-links">
           <Link href="/">Back to homepage</Link>
+          <Link href="/about">About</Link>
           <Link href="/privacy">Privacy Policy</Link>
           <Link href="/terms">Terms of Service</Link>
         </div>

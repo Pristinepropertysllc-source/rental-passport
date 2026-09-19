@@ -8,6 +8,7 @@ export function PublicNav() {
           <img src="/logo.svg" alt="Rental Passport" style={{ height: 180, display: 'block' }} />
         </Link>
         <div className="nav-links">
+          <Link href="/about">About</Link>
           <Link href="/login">Log in</Link>
           <Link className="btn btn-primary btn-sm" href="/register">
             Sign Up
