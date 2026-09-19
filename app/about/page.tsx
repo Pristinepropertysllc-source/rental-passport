@@ -31,7 +31,7 @@ export default function AboutPage() {
       <section className="lp-band">
         <div className="shell">
           <div className="hero">
-            <div className="founder-avatar">GP</div>
+            <img src="/founder-photo.webp" alt="Granit Pllana" className="founder-avatar-photo" />
             <h1 style={{ fontSize: 34 }}>
               Built From Real Estate Experience. Designed to Make Renting Easier.
             </h1>
