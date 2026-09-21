@@ -14,6 +14,14 @@ export async function POST(req: NextRequest) {
   if (!passport || !passport.packageType || !isPackageKey(passport.packageType)) {
     return NextResponse.redirect(new URL('/passport/checkout', req.url));
   }
+  // Guard against double-charging: the checkout PAGE already redirects away
+  // once paid, but that only protects a fresh page load. A stale
+  // browser-cached page (e.g. after hitting "back" from Stripe) or a
+  // resubmitted request could still hit this endpoint directly, so check
+  // again here before ever creating a new Stripe session.
+  if (passport.packagePaid) {
+    return NextResponse.redirect(new URL('/passport/share', req.url));
+  }
 
   const pkg = PACKAGES[passport.packageType];
   const origin = req.nextUrl.origin;
