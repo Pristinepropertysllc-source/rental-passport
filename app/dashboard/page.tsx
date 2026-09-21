@@ -10,6 +10,7 @@ import { PACKAGES, isPackageKey } from '@/lib/packages';
 import { SCREENING_CATEGORIES } from '@/lib/screening';
 import { QueryParamEventTracker } from '@/components/pixel/PixelTrackers';
 import { InboxReadTracker } from '@/components/InboxReadTracker';
+import { markMessagesReadAction, sendMessageAction } from '@/lib/actions/messages';
 
 const SECTION_LABELS: Record<string, string> = {
   personal: 'Personal Information',
@@ -57,9 +58,9 @@ export default async function DashboardPage({
   if (!passport) redirect('/passport');
 
   const messages = passport.packagePaid
-    ? await db.message.findMany({ where: { tenantId: user.id }, orderBy: { createdAt: 'desc' } })
+    ? await db.message.findMany({ where: { tenantId: user.id }, orderBy: { createdAt: 'asc' } })
     : [];
-  const unreadCount = messages.filter((m) => !m.readAt).length;
+  const unreadCount = messages.filter((m) => !m.fromTenant && !m.readAt).length;
 
   const shares = await db.share.findMany({
     where: { tenantId: user.id },
@@ -85,17 +86,20 @@ export default async function DashboardPage({
               Inbox
               {unreadCount > 0 && <span className="message-unread-badge">{unreadCount} new</span>}
             </h2>
-            {unreadCount > 0 && <InboxReadTracker hasUnread />}
+            {unreadCount > 0 && <InboxReadTracker hasUnread onMount={markMessagesReadAction} />}
             {messages.length === 0 ? (
-              <p className="muted" style={{ fontSize: 13, marginTop: 10, marginBottom: 0 }}>
+              <p className="muted" style={{ fontSize: 13, marginTop: 10, marginBottom: 14 }}>
                 No messages yet. We&apos;ll notify you here with updates about your application.
               </p>
             ) : (
-              <div className="message-thread" style={{ marginTop: 14, marginBottom: 0 }}>
+              <div className="message-thread" style={{ marginTop: 14 }}>
                 {messages.map((m) => (
-                  <div key={m.id} className="message-bubble message-bubble-from-admin">
+                  <div
+                    key={m.id}
+                    className={`message-bubble ${m.fromTenant ? 'message-bubble-from-tenant' : 'message-bubble-from-admin'}`}
+                  >
                     <div className="message-bubble-meta">
-                      Rental Passport Team &middot;{' '}
+                      {m.fromTenant ? 'You' : 'Rental Passport Team'} &middot;{' '}
                       {new Date(m.createdAt).toLocaleString('en-US', { timeZone: 'America/New_York' })} ET
                     </div>
                     {m.body}
@@ -103,6 +107,15 @@ export default async function DashboardPage({
                 ))}
               </div>
             )}
+            <form action={sendMessageAction}>
+              <div className="field">
+                <label>Send a message</label>
+                <textarea name="body" rows={2} required placeholder="Ask a question or send an update..." />
+              </div>
+              <button className="btn btn-primary btn-sm" type="submit">
+                Send
+              </button>
+            </form>
           </div>
         )}
         {!unlocked ? (

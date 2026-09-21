@@ -14,14 +14,15 @@ datasource db {
 // A message sent from an admin to a tenant, used for post-payment status
 // updates. Gated in the UI to tenants whose package is paid.
 model Message {
-  id        String    @id @default(cuid())
-  tenantId  String
-  tenant    User      @relation("TenantMessages", fields: [tenantId], references: [id], onDelete: Cascade)
-  senderId  String
-  sender    User      @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
-  body      String
-  createdAt DateTime  @default(now())
-  readAt    DateTime?
+  id         String    @id @default(cuid())
+  tenantId   String
+  tenant     User      @relation("TenantMessages", fields: [tenantId], references: [id], onDelete: Cascade)
+  senderId   String
+  sender     User      @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+  body       String
+  fromTenant Boolean   @default(false)
+  createdAt  DateTime  @default(now())
+  readAt     DateTime?
 }
 
 model User {

@@ -12,7 +12,8 @@ import {
   updateAdminNotesAction,
   markPackagePaidAction
 } from '@/lib/actions/admin';
-import { sendMessageAction } from '@/lib/actions/messages';
+import { sendMessageAction, markMessagesReadByAdminAction } from '@/lib/actions/messages';
+import { InboxReadTracker } from '@/components/InboxReadTracker';
 
 export default async function AdminTenantDetailPage({ params }: { params: { id: string } }) {
   const admin = await getCurrentUser();
@@ -57,27 +58,39 @@ export default async function AdminTenantDetailPage({ params }: { params: { id: 
       <h1>{[passport.firstName, passport.lastName].filter(Boolean).join(' ') || tenant.email}</h1>
       <p className="muted">{tenant.email}</p>
 
-      <div className="card">
-        <h2>Message Applicant</h2>
+      <div className="card" id="messages">
+        <h2 style={{ display: 'flex', alignItems: 'center', margin: 0 }}>
+          Message Applicant
+          {passport.packagePaid && tenant.messagesReceived.some((m) => m.fromTenant && !m.readAt) && (
+            <span className="message-unread-badge">New</span>
+          )}
+        </h2>
         {!passport.packagePaid ? (
-          <p className="muted" style={{ fontSize: 13 }}>
+          <p className="muted" style={{ fontSize: 13, marginTop: 10, marginBottom: 0 }}>
             Messaging opens up once this tenant&apos;s screening payment is submitted.
           </p>
         ) : (
           <>
+            {tenant.messagesReceived.some((m) => m.fromTenant && !m.readAt) && (
+              <InboxReadTracker hasUnread onMount={markMessagesReadByAdminAction.bind(null, tenant.id)} />
+            )}
             {tenant.messagesReceived.length > 0 && (
-              <div className="message-thread">
+              <div className="message-thread" style={{ marginTop: 14 }}>
                 {tenant.messagesReceived.map((m) => (
-                  <div key={m.id} className="message-bubble message-bubble-from-admin">
+                  <div
+                    key={m.id}
+                    className={`message-bubble ${m.fromTenant ? 'message-bubble-from-tenant' : 'message-bubble-from-admin'}`}
+                  >
                     <div className="message-bubble-meta">
-                      {m.sender.email} &middot; {new Date(m.createdAt).toLocaleString('en-US', { timeZone: 'America/New_York' })} ET
+                      {m.fromTenant ? 'Applicant' : 'You'} &middot;{' '}
+                      {new Date(m.createdAt).toLocaleString('en-US', { timeZone: 'America/New_York' })} ET
                     </div>
                     {m.body}
                   </div>
                 ))}
               </div>
             )}
-            <form action={sendMessageAction}>
+            <form action={sendMessageAction} style={{ marginTop: 14 }}>
               <input type="hidden" name="tenantId" value={tenant.id} />
               <div className="field">
                 <label>Send an update</label>

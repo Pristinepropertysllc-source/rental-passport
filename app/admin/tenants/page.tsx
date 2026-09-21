@@ -46,6 +46,13 @@ export default async function AdminTenantsPage({
     take: 50
   });
 
+  const unreadCounts = await db.message.groupBy({
+    by: ['tenantId'],
+    where: { fromTenant: true, readAt: null },
+    _count: { _all: true }
+  });
+  const unreadByTenant = new Map(unreadCounts.map((u) => [u.tenantId, u._count._all]));
+
   return (
     <>
       <Nav email={admin.email} role="ADMIN" />
@@ -76,6 +83,7 @@ export default async function AdminTenantsPage({
                 <th>Email</th>
                 <th>Completion</th>
                 <th>Payment</th>
+                <th>Inbox</th>
                 <th></th>
               </tr>
             </thead>
@@ -94,6 +102,24 @@ export default async function AdminTenantsPage({
                       <span className="badge badge-approved">Paid</span>
                     ) : (
                       <span className="badge badge-pending">Unpaid</span>
+                    )}
+                  </td>
+                  <td>
+                    {t.passport?.packagePaid ? (
+                      <Link
+                        className="demo-trigger-btn"
+                        style={{ fontSize: 13, display: 'inline-flex', alignItems: 'center' }}
+                        href={`/admin/tenants/${t.id}#messages`}
+                      >
+                        Inbox
+                        {unreadByTenant.has(t.id) && (
+                          <span className="message-unread-badge">{unreadByTenant.get(t.id)}</span>
+                        )}
+                      </Link>
+                    ) : (
+                      <span className="muted" style={{ fontSize: 13 }}>
+                        &mdash;
+                      </span>
                     )}
                   </td>
                   <td>
