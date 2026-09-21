@@ -1474,3 +1474,48 @@ th {
 .founder-message-card p {
   color: rgba(255, 255, 255, 0.95);
 }
+
+/* Admin <-> tenant messaging */
+.message-thread {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 320px;
+  overflow-y: auto;
+  margin-bottom: 14px;
+}
+
+.message-bubble {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: var(--surface);
+  max-width: 90%;
+}
+
+.message-bubble-from-admin {
+  align-self: flex-start;
+  background: var(--band-alt);
+}
+
+.message-bubble-from-tenant {
+  align-self: flex-end;
+  background: #e9f2ed;
+}
+
+.message-bubble-meta {
+  font-size: 11px;
+  color: var(--ink-muted);
+  margin-bottom: 4px;
+}
+
+.message-unread-badge {
+  display: inline-block;
+  background: var(--danger, #b3423a);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 2px 8px;
+  margin-left: 8px;
+}

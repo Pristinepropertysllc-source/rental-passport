@@ -9,6 +9,7 @@ import { overallCompletion, sectionCompletion, applicationComplete } from '@/lib
 import { PACKAGES, isPackageKey } from '@/lib/packages';
 import { SCREENING_CATEGORIES } from '@/lib/screening';
 import { QueryParamEventTracker } from '@/components/pixel/PixelTrackers';
+import { InboxReadTracker } from '@/components/InboxReadTracker';
 
 const SECTION_LABELS: Record<string, string> = {
   personal: 'Personal Information',
@@ -55,6 +56,11 @@ export default async function DashboardPage({
   });
   if (!passport) redirect('/passport');
 
+  const messages = passport.packagePaid
+    ? await db.message.findMany({ where: { tenantId: user.id }, orderBy: { createdAt: 'desc' } })
+    : [];
+  const unreadCount = messages.filter((m) => !m.readAt).length;
+
   const shares = await db.share.findMany({
     where: { tenantId: user.id },
     orderBy: { createdAt: 'desc' }
@@ -73,6 +79,32 @@ export default async function DashboardPage({
         <QueryParamEventTracker paramName="registered" paramValue="1" event="CompleteRegistration" />
       </Suspense>
       <div className="shell" style={{ paddingTop: 32, paddingBottom: 60 }}>
+        {passport.packagePaid && (
+          <div className="card">
+            <h2 style={{ margin: 0, display: 'flex', alignItems: 'center' }}>
+              Inbox
+              {unreadCount > 0 && <span className="message-unread-badge">{unreadCount} new</span>}
+            </h2>
+            {unreadCount > 0 && <InboxReadTracker hasUnread />}
+            {messages.length === 0 ? (
+              <p className="muted" style={{ fontSize: 13, marginTop: 10, marginBottom: 0 }}>
+                No messages yet. We&apos;ll notify you here with updates about your application.
+              </p>
+            ) : (
+              <div className="message-thread" style={{ marginTop: 14, marginBottom: 0 }}>
+                {messages.map((m) => (
+                  <div key={m.id} className="message-bubble message-bubble-from-admin">
+                    <div className="message-bubble-meta">
+                      Rental Passport Team &middot;{' '}
+                      {new Date(m.createdAt).toLocaleString('en-US', { timeZone: 'America/New_York' })} ET
+                    </div>
+                    {m.body}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
         {!unlocked ? (
           <>
             <h1>Welcome, {displayName}</h1>

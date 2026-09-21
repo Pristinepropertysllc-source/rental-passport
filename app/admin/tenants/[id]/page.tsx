@@ -12,6 +12,7 @@ import {
   updateAdminNotesAction,
   markPackagePaidAction
 } from '@/lib/actions/admin';
+import { sendMessageAction } from '@/lib/actions/messages';
 
 export default async function AdminTenantDetailPage({ params }: { params: { id: string } }) {
   const admin = await getCurrentUser();
@@ -32,6 +33,10 @@ export default async function AdminTenantDetailPage({ params }: { params: { id: 
           screeningItems: true,
           auditLogs: { orderBy: { createdAt: 'desc' }, take: 30 }
         }
+      },
+      messagesReceived: {
+        orderBy: { createdAt: 'asc' },
+        include: { sender: true }
       }
     }
   });
@@ -51,6 +56,40 @@ export default async function AdminTenantDetailPage({ params }: { params: { id: 
       </Link>
       <h1>{[passport.firstName, passport.lastName].filter(Boolean).join(' ') || tenant.email}</h1>
       <p className="muted">{tenant.email}</p>
+
+      <div className="card">
+        <h2>Message Applicant</h2>
+        {!passport.packagePaid ? (
+          <p className="muted" style={{ fontSize: 13 }}>
+            Messaging opens up once this tenant&apos;s screening payment is submitted.
+          </p>
+        ) : (
+          <>
+            {tenant.messagesReceived.length > 0 && (
+              <div className="message-thread">
+                {tenant.messagesReceived.map((m) => (
+                  <div key={m.id} className="message-bubble message-bubble-from-admin">
+                    <div className="message-bubble-meta">
+                      {m.sender.email} &middot; {new Date(m.createdAt).toLocaleString('en-US', { timeZone: 'America/New_York' })} ET
+                    </div>
+                    {m.body}
+                  </div>
+                ))}
+              </div>
+            )}
+            <form action={sendMessageAction}>
+              <input type="hidden" name="tenantId" value={tenant.id} />
+              <div className="field">
+                <label>Send an update</label>
+                <textarea name="body" rows={3} required placeholder="e.g. Your screening report has been uploaded." />
+              </div>
+              <button className="btn btn-primary btn-sm" type="submit">
+                Send Message
+              </button>
+            </form>
+          </>
+        )}
+      </div>
 
       <div className="card">
         <h2>Overview</h2>

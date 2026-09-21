@@ -11,6 +11,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// A message sent from an admin to a tenant, used for post-payment status
+// updates. Gated in the UI to tenants whose package is paid.
+model Message {
+  id        String    @id @default(cuid())
+  tenantId  String
+  tenant    User      @relation("TenantMessages", fields: [tenantId], references: [id], onDelete: Cascade)
+  senderId  String
+  sender    User      @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade)
+  body      String
+  createdAt DateTime  @default(now())
+  readAt    DateTime?
+}
+
 model User {
   id        String   @id @default(cuid())
   email     String   @unique
@@ -26,6 +39,9 @@ model User {
   sharesSent     Share[] @relation("TenantShares")
   sharesReceived Share[] @relation("LandlordShares")
   landlordInvites LandlordInvite[]
+
+  messagesReceived Message[] @relation("TenantMessages")
+  messagesSent     Message[] @relation("SentMessages")
 }
 
 // A reusable link a landlord can send to a prospective applicant, inviting
