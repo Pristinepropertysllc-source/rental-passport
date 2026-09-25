@@ -235,7 +235,7 @@ model ScreeningItem {
   category       String   // CREDIT, CRIMINAL, IDENTITY, RENTAL_HISTORY, INCOME, OTHER
   status         String   @default("PENDING") // PENDING, PROCESSING, COMPLETED, VERIFIED, FAILED, EXPIRED
   documentId     String?
-  document       Document? @relation(fields: [documentId], references: [id])
+  document       Document? @relation(fields: [documentId], references: [id], onDelete: SetNull)
   updatedByEmail String?
   updatedAt      DateTime @updatedAt
 
