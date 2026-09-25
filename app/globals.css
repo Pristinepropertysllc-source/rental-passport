@@ -1586,3 +1586,35 @@ th {
   font-size: 13.5px;
   margin: 16px 0;
 }
+
+/* Floating back-to-top button */
+.back-to-top-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--brand);
+  color: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(47, 93, 80, 0.35);
+  z-index: 900;
+}
+
+.back-to-top-btn:hover {
+  background: var(--brand-dark);
+}
+
+@media (max-width: 480px) {
+  .back-to-top-btn {
+    bottom: 16px;
+    right: 16px;
+    width: 42px;
+    height: 42px;
+  }
+}
