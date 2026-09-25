@@ -158,7 +158,7 @@ export default async function PassportPage() {
 
         {/* ---- Occupants ---- */}
         <div className="card" id="household">
-          <h2>Household occupants, pets &amp; vehicles</h2>
+          <h2>Household occupants</h2>
           {passport.householdNA && (
             <p className="badge badge-approved" style={{ display: 'inline-block', marginBottom: 12 }}>
               Marked as N/A
