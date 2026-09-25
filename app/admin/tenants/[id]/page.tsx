@@ -14,6 +14,8 @@ import {
 } from '@/lib/actions/admin';
 import { sendMessageAction, markMessagesReadByAdminAction } from '@/lib/actions/messages';
 import { InboxReadTracker } from '@/components/InboxReadTracker';
+import { deleteUserAction } from '@/lib/actions/admin';
+import { ConfirmDeleteForm } from '@/components/ConfirmDeleteForm';
 
 export default async function AdminTenantDetailPage({ params }: { params: { id: string } }) {
   const admin = await getCurrentUser();
@@ -241,6 +243,21 @@ export default async function AdminTenantDetailPage({ params }: { params: { id: 
             </tbody>
           </table>
         )}
+      </div>
+
+      <div className="card" style={{ borderColor: 'var(--danger)' }}>
+        <h2 style={{ color: 'var(--danger)' }}>Danger Zone</h2>
+        <p className="muted" style={{ fontSize: 13 }}>
+          Permanently deletes this account, their application, documents, and messages. This
+          cannot be undone.
+        </p>
+        <ConfirmDeleteForm
+          action={deleteUserAction}
+          hiddenName="userId"
+          hiddenValue={tenant.id}
+          buttonLabel="Delete This Account"
+          confirmMessage={`Permanently delete ${tenant.email}? This deletes their application, documents, and messages, and cannot be undone.`}
+        />
       </div>
       </div>
     </>

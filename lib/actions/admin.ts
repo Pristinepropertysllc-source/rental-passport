@@ -1,6 +1,7 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 import { put } from '@vercel/blob';
 import { randomBytes } from 'crypto';
 import { db } from '@/lib/db';
@@ -190,4 +191,42 @@ export async function markPackagePaidAction(formData: FormData) {
 
   revalidatePath(`/admin/tenants/${passportId}`);
   revalidatePath('/dashboard');
+}
+
+export async function deleteUserAction(formData: FormData) {
+  const admin = await requireAdmin();
+  const userId = String(formData.get('userId') || '');
+  if (!userId) return;
+
+  if (userId === admin.id) {
+    throw new Error('You cannot delete your own account.');
+  }
+
+  const target = await db.user.findUnique({ where: { id: userId } });
+  if (!target) return;
+
+  // Admin accounts must be demoted (via /admin/users) before they can be
+  // deleted, so this can never be used to accidentally wipe out an admin.
+  if (target.role === 'ADMIN') {
+    throw new Error('Remove admin access before deleting this account.');
+  }
+
+  // Share.landlordId has no cascade rule (it's optional -- a share can
+  // exist before the recipient ever creates an account), so deleting a
+  // landlord who has been matched to existing shares would otherwise fail
+  // with a foreign key error. Clear that reference first; the share itself
+  // still exists, it just goes back to "not yet linked to a landlord
+  // account" (matching how it looks before a landlord ever signs up).
+  if (target.role === 'LANDLORD') {
+    await db.share.updateMany({
+      where: { landlordId: userId },
+      data: { landlordId: null }
+    });
+  }
+
+  await db.user.delete({ where: { id: userId } });
+
+  revalidatePath('/admin/users');
+  revalidatePath('/admin/tenants');
+  redirect('/admin/tenants');
 }

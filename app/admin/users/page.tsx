@@ -2,7 +2,8 @@ import { redirect } from 'next/navigation';
 import { getCurrentUser } from '@/lib/session';
 import { db } from '@/lib/db';
 import { Nav } from '@/components/Nav';
-import { promoteToAdminAction, demoteAdminAction } from '@/lib/actions/admin';
+import { promoteToAdminAction, demoteAdminAction, deleteUserAction } from '@/lib/actions/admin';
+import { ConfirmDeleteForm } from '@/components/ConfirmDeleteForm';
 
 export default async function AdminUsersPage({
   searchParams
@@ -89,12 +90,21 @@ export default async function AdminUsersPage({
                       <td>{u.role}</td>
                       <td>
                         {u.role !== 'ADMIN' && (
-                          <form action={promoteToAdminAction}>
-                            <input type="hidden" name="email" value={u.email} />
-                            <button className="btn btn-secondary btn-sm" type="submit">
-                              Make admin
-                            </button>
-                          </form>
+                          <div style={{ display: 'flex', gap: 8 }}>
+                            <form action={promoteToAdminAction}>
+                              <input type="hidden" name="email" value={u.email} />
+                              <button className="btn btn-secondary btn-sm" type="submit">
+                                Make admin
+                              </button>
+                            </form>
+                            <ConfirmDeleteForm
+                              action={deleteUserAction}
+                              hiddenName="userId"
+                              hiddenValue={u.id}
+                              buttonLabel="Delete account"
+                              confirmMessage={`Permanently delete ${u.email}? This deletes their application, documents, and messages, and cannot be undone.`}
+                            />
+                          </div>
                         )}
                       </td>
                     </tr>
