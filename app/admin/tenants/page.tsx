@@ -8,14 +8,15 @@ import { Nav } from '@/components/Nav';
 export default async function AdminTenantsPage({
   searchParams
 }: {
-  searchParams: { q?: string };
+  searchParams: { q?: string; status?: string };
 }) {
   const admin = await getCurrentUser();
   if (!admin || admin.role !== 'ADMIN') redirect('/login');
 
   const q = (searchParams.q || '').trim();
+  const status = searchParams.status || '';
 
-  const tenants = await db.user.findMany({
+  const allTenants = await db.user.findMany({
     where: {
       role: 'TENANT',
       ...(q
@@ -43,8 +44,18 @@ export default async function AdminTenantsPage({
       }
     },
     orderBy: { createdAt: 'desc' },
-    take: 50
+    take: 200
   });
+
+  // Completion is a computed percentage, not a stored column, so this
+  // filter runs in memory over the fetched page rather than in the query.
+  const tenants = allTenants
+    .filter((t) => {
+      if (status === 'complete') return !!t.passport && overallCompletion(t.passport) === 100;
+      if (status === 'incomplete') return !t.passport || overallCompletion(t.passport) < 100;
+      return true;
+    })
+    .slice(0, 50);
 
   const unreadCounts = await db.message.groupBy({
     by: ['tenantId'],
@@ -62,9 +73,19 @@ export default async function AdminTenantsPage({
 
       <div className="card">
         <form>
-          <div className="field">
-            <label>Search by name, email, or application ID</label>
-            <input name="q" defaultValue={q} />
+          <div className="grid-2">
+            <div className="field">
+              <label>Search by name, email, or application ID</label>
+              <input name="q" defaultValue={q} />
+            </div>
+            <div className="field">
+              <label>Application status</label>
+              <select name="status" defaultValue={status}>
+                <option value="">All</option>
+                <option value="complete">Application Complete</option>
+                <option value="incomplete">Incomplete</option>
+              </select>
+            </div>
           </div>
           <button className="btn btn-primary" type="submit">
             Search
