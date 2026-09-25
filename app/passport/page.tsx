@@ -203,7 +203,7 @@ export default async function PassportPage() {
               <div className="field"><label>Date of birth</label><input type="date" name="dateOfBirth" /></div>
               <div className="field"><label>Relationship</label><input name="relationship" /></div>
             </div>
-            <button className="btn btn-secondary" type="submit">Add occupant</button>
+            <button className="btn btn-primary" type="submit">Add occupant</button>
           </form>
         </div>
 
@@ -240,7 +240,7 @@ export default async function PassportPage() {
               <div className="field"><label>Size (lbs)</label><input name="sizeLbs" /></div>
               <div className="field"><label>Color</label><input name="color" /></div>
             </div>
-            <button className="btn btn-secondary" type="submit">Add pet</button>
+            <button className="btn btn-primary" type="submit">Add pet</button>
           </form>
         </div>
 
@@ -283,7 +283,7 @@ export default async function PassportPage() {
               <div className="field"><label>Model</label><input name="model" /></div>
               <div className="field"><label>Year</label><input name="year" /></div>
             </div>
-            <button className="btn btn-secondary" type="submit">Add vehicle</button>
+            <button className="btn btn-primary" type="submit">Add vehicle</button>
           </form>
         </div>
 
@@ -333,7 +333,7 @@ export default async function PassportPage() {
               <div className="field"><label>Rent amount</label><input name="rentAmount" /></div>
               <div className="field"><label>Reason for leaving</label><input name="reasonForLeaving" /></div>
             </div>
-            <button className="btn btn-secondary" type="submit">Add rental history entry</button>
+            <button className="btn btn-primary" type="submit">Add rental history entry</button>
           </form>
         </div>
 
@@ -380,7 +380,7 @@ export default async function PassportPage() {
               <div className="field"><label>Address</label><input name="address" /></div>
               <div className="field"><label>Salary</label><input name="salary" /></div>
             </div>
-            <button className="btn btn-secondary" type="submit">Add employment entry</button>
+            <button className="btn btn-primary" type="submit">Add employment entry</button>
           </form>
         </div>
 
@@ -430,7 +430,7 @@ export default async function PassportPage() {
               <div className="field"><label>Home phone</label><input name="homePhone" /></div>
               <div className="field"><label>Mobile phone</label><input name="mobilePhone" /></div>
             </div>
-            <button className="btn btn-secondary" type="submit">Add reference</button>
+            <button className="btn btn-primary" type="submit">Add reference</button>
           </form>
         </div>
 
