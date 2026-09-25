@@ -11,6 +11,7 @@ import { SCREENING_CATEGORIES } from '@/lib/screening';
 import { QueryParamEventTracker } from '@/components/pixel/PixelTrackers';
 import { InboxReadTracker } from '@/components/InboxReadTracker';
 import { markMessagesReadAction, sendMessageAction } from '@/lib/actions/messages';
+import { WelcomeModal } from '@/components/WelcomeModal';
 
 const SECTION_LABELS: Record<string, string> = {
   personal: 'Personal Information',
@@ -78,6 +79,7 @@ export default async function DashboardPage({
       <Nav email={user.email} role="TENANT" />
       <Suspense fallback={null}>
         <QueryParamEventTracker paramName="registered" paramValue="1" event="CompleteRegistration" />
+        <WelcomeModal />
       </Suspense>
       <div className="shell" style={{ paddingTop: 32, paddingBottom: 60 }}>
         {passport.packagePaid && (
