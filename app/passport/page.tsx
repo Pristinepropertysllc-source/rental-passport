@@ -6,6 +6,7 @@ import { ProgressBar } from '@/components/ProgressBar';
 import { overallCompletion } from '@/lib/passport';
 import { DOCUMENT_TYPES } from '@/lib/documentTypes';
 import { MountEventTracker } from '@/components/pixel/PixelTrackers';
+import { AutoSaveForm } from '@/components/AutoSaveForm';
 import {
   updatePassportAction,
   markHouseholdNAAction,
@@ -64,7 +65,7 @@ export default async function PassportPage() {
           </span>
         </div>
 
-        <form action={updatePassportAction}>
+        <AutoSaveForm action={updatePassportAction}>
           <div className="card" id="personal">
             <h2>Personal information</h2>
             <div className="grid-2">
@@ -153,10 +154,7 @@ export default async function PassportPage() {
             </div>
           </div>
 
-          <button className="btn btn-primary" type="submit">
-            Save
-          </button>
-        </form>
+        </AutoSaveForm>
 
         {/* ---- Occupants ---- */}
         <div className="card" id="household">
