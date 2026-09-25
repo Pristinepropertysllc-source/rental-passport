@@ -260,7 +260,7 @@ model Share {
   passport   Passport @relation(fields: [passportId], references: [id], onDelete: Cascade)
 
   tenantId String
-  tenant   User   @relation("TenantShares", fields: [tenantId], references: [id])
+  tenant   User   @relation("TenantShares", fields: [tenantId], references: [id], onDelete: Cascade)
 
   landlordEmail String
   landlordId    String?
