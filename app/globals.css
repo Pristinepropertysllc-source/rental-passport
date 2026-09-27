@@ -1618,3 +1618,11 @@ th {
     height: 42px;
   }
 }
+
+/* Lets wide tables scroll within their own box on mobile, instead of either
+   overflowing the whole page or getting silently clipped by the sitewide
+   overflow-x: hidden safety net. */
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}

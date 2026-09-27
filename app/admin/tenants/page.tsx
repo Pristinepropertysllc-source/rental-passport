@@ -97,6 +97,7 @@ export default async function AdminTenantsPage({
         {tenants.length === 0 ? (
           <p className="muted">No tenants found.</p>
         ) : (
+          <div className="table-scroll">
           <table>
             <thead>
               <tr>
@@ -154,6 +155,7 @@ export default async function AdminTenantsPage({
               ))}
             </tbody>
           </table>
+          </div>
         )}
       </div>
       </div>

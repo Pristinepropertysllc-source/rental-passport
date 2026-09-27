@@ -228,6 +228,7 @@ export default async function AdminTenantDetailPage({ params }: { params: { id: 
         {passport.auditLogs.length === 0 ? (
           <p className="muted">No activity yet.</p>
         ) : (
+          <div className="table-scroll">
           <table>
             <thead>
               <tr><th>Action</th><th>By</th><th>When</th></tr>
@@ -242,6 +243,7 @@ export default async function AdminTenantDetailPage({ params }: { params: { id: 
               ))}
             </tbody>
           </table>
+          </div>
         )}
       </div>
 
