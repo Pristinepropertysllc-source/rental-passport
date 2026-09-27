@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { createSession } from '@/lib/session';
+import { sendWelcomeEmail } from '@/lib/actions/auth';
 
 export async function GET(req: NextRequest) {
   const code = req.nextUrl.searchParams.get('code');
@@ -59,6 +60,7 @@ export async function GET(req: NextRequest) {
     user = await db.user.create({
       data: { email, googleId, role: 'TENANT' }
     });
+    await sendWelcomeEmail(email);
 
     const inviteToken = req.cookies.get('signup_invite')?.value || '';
     let propertyApplyingTo: string | null = null;

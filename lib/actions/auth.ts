@@ -30,6 +30,8 @@ export async function registerAction(
   });
 
   if (role === 'TENANT') {
+    await sendWelcomeEmail(email);
+
     const packageParam = String(formData.get('package') || '');
     const packageType = packageParam === 'ESSENTIAL' || packageParam === 'COMPLETE' ? packageParam : null;
 
@@ -105,6 +107,40 @@ async function sendResetEmail(email: string, resetLink: string) {
       to: email,
       subject: 'Reset your Rental Passport password',
       html: `<p>We received a request to reset your Rental Passport password.</p><p><a href="${resetLink}">Click here to reset your password</a></p><p>This link expires in 1 hour. If you didn't request this, you can safely ignore this email.</p>`
+    })
+  });
+}
+
+export async function sendWelcomeEmail(email: string) {
+  if (!process.env.RESEND_API_KEY) return;
+
+  await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      from: 'Rental Passport <noreply@myrentalpassport.net>',
+      to: email,
+      subject: 'Welcome to Rental Passport!',
+      html: `
+        <div style="font-family: -apple-system, Helvetica, Arial, sans-serif; max-width: 480px; margin: 0 auto;">
+          <h2 style="color: #2f5d50;">Welcome to Rental Passport!</h2>
+          <p>Let's get your rental application ready to share.</p>
+          <p>You've created your account. Now you can build your Rental Passport step by step:</p>
+          <p style="font-size: 14px; color: #5b5852;">
+            1. Application &rarr; 2. Documents &rarr; 3. Screening &rarr; 4. Ready to Share
+          </p>
+          <p>Once completed, your rental information, documents, and screening information will be organized in one place so you're ready when you find a rental you're interested in.</p>
+          <p style="margin: 24px 0;">
+            <a href="https://www.myrentalpassport.net/passport" style="background: #2f5d50; color: #fff; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: 600;">
+              Start My Rental Passport &rarr;
+            </a>
+          </p>
+          <p style="font-size: 13px; color: #5b5852;">Most renters can complete setup in about 10&ndash;15 minutes. You can save your progress and come back anytime.</p>
+        </div>
+      `
     })
   });
 }
