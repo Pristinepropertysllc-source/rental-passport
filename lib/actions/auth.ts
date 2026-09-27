@@ -123,22 +123,44 @@ export async function sendWelcomeEmail(email: string) {
     body: JSON.stringify({
       from: 'Rental Passport <noreply@myrentalpassport.net>',
       to: email,
-      subject: 'Welcome to Rental Passport!',
+      subject: 'Welcome to Rental Passport — Your rental application starts here.',
       html: `
-        <div style="font-family: -apple-system, Helvetica, Arial, sans-serif; max-width: 480px; margin: 0 auto;">
-          <h2 style="color: #2f5d50;">Welcome to Rental Passport!</h2>
-          <p>Let's get your rental application ready to share.</p>
-          <p>You've created your account. Now you can build your Rental Passport step by step:</p>
-          <p style="font-size: 14px; color: #5b5852;">
-            1. Application &rarr; 2. Documents &rarr; 3. Screening &rarr; 4. Ready to Share
-          </p>
-          <p>Once completed, your rental information, documents, and screening information will be organized in one place so you're ready when you find a rental you're interested in.</p>
+        <div style="font-family: -apple-system, Helvetica, Arial, sans-serif; max-width: 520px; margin: 0 auto; color: #1e1c1a; line-height: 1.6;">
+          <p>Hi there,</p>
+          <p>Welcome to Rental Passport! &#127881;</p>
+          <p>Thank you for creating your account. You are now one step closer to making the rental application process easier.</p>
+          <p>Rental Passport was created to solve a problem I saw every day in the real estate industry: renters having to fill out the same applications repeatedly, gather the same documents over and over, and pay multiple application fees just to apply for different rental properties.</p>
+          <p>My goal was to create a simpler way for renters to be prepared.</p>
+          <p>With Rental Passport, you can create one reusable rental profile that helps you organize your information, documents, and screening results so you can be ready when you find your next home.</p>
+
+          <p style="font-weight: 600; margin-bottom: 8px;">Your next steps:</p>
+          <p style="margin: 4px 0;">&#9989; Complete your Rental Passport application</p>
+          <p style="margin: 4px 0;">&#9989; Add your personal, employment, and rental history</p>
+          <p style="margin: 4px 0;">&#9989; Upload your important documents</p>
+          <p style="margin: 4px 0;">&#9989; Complete your screening for $54.99</p>
+          <p style="margin: 4px 0 16px;">&#9989; Share your completed Rental Passport with landlords and property managers</p>
+
+          <p>Once completed, your Rental Passport helps you have your information ready instead of scrambling when you find a rental opportunity.</p>
+
           <p style="margin: 24px 0;">
-            <a href="https://www.myrentalpassport.net/passport" style="background: #2f5d50; color: #fff; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: 600;">
-              Start My Rental Passport &rarr;
+            <a href="https://www.myrentalpassport.net/passport" style="background: #2f5d50; color: #fff; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: 600; display: inline-block;">
+              Continue Application &rarr;
             </a>
           </p>
-          <p style="font-size: 13px; color: #5b5852;">Most renters can complete setup in about 10&ndash;15 minutes. You can save your progress and come back anytime.</p>
+
+          <hr style="border: none; border-top: 1px solid #e4e2dd; margin: 28px 0;" />
+
+          <p style="font-weight: 600;">About the Founder</p>
+          <p>My name is Granit Pllana, and I am a Realtor, commercial real estate agent, property manager, business owner, and the founder of Rental Passport.</p>
+          <p>Through my experience working with renters, landlords, and property owners, I saw how frustrating the rental process can be for everyone involved. Renters often have to repeat the same steps for every property, while landlords and property managers need accurate information to make better decisions.</p>
+          <p>Rental Passport was built to make the process more organized, efficient, and convenient for both renters and housing providers.</p>
+          <p style="font-weight: 600;">My mission is simple: make renting easier by helping renters apply once, stay organized, and be ready for more opportunities.</p>
+          <p>If you ever have questions, need help completing your Rental Passport, or want to connect directly, you can message me on Facebook:</p>
+          <p><a href="https://www.facebook.com/GranitPllanaRealtor" style="color: #2f5d50;">Facebook &mdash; Granit Pllana Realtor</a></p>
+          <p>I am happy to help answer questions and make sure you have the best experience using Rental Passport.</p>
+          <p>Thank you for being part of changing the way people rent.</p>
+
+          <p style="margin-top: 24px;">The Rental Passport Team<br /><strong>Apply Once. Rent Anywhere.</strong></p>
         </div>
       `
     })
