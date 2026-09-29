@@ -112,7 +112,13 @@ model Passport {
   rentalHistoryNA Boolean @default(false)
   referencesNA    Boolean @default(false)
 
+  createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  // Tracks which reminder milestones have already been emailed for this
+  // application, e.g. "24h", "3d", "7d", "10d", "15d" -- prevents duplicate
+  // sends when the daily reminder job runs.
+  remindersSent String[] @default([])
 
   packageType            String?
   packagePaid            Boolean @default(false)
