@@ -84,6 +84,20 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
+  // Manual test mode: sends one specific milestone email directly to a given
+  // address, without touching any real passport data. Used to verify email
+  // delivery/content without needing a genuinely 24h+-old test account.
+  const testEmail = req.nextUrl.searchParams.get('testEmail');
+  const testMilestone = req.nextUrl.searchParams.get('milestone') || '24h';
+  if (testEmail) {
+    const milestone = MILESTONES.find((m) => m.key === testMilestone);
+    if (!milestone) {
+      return NextResponse.json({ error: `Unknown milestone "${testMilestone}"` }, { status: 400 });
+    }
+    await sendReminderEmail(testEmail, milestone.subject, milestone.body('https://www.myrentalpassport.net/passport'));
+    return NextResponse.json({ test: true, sentTo: testEmail, milestone: milestone.key });
+  }
+
   const candidates = await db.passport.findMany({
     where: { packagePaid: false },
     include: {
