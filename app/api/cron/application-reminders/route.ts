@@ -6,22 +6,25 @@ const MILESTONES: { key: string; hours: number; subject: string; body: (continue
   {
     key: '24h',
     hours: 24,
-    subject: 'Your Rental Passport application is waiting for you',
+    subject: 'Pick up right where you left off',
     body: (url) => `
       <p>Hi there,</p>
-      <p>You started building your Rental Passport yesterday, but it looks like it isn't finished yet.</p>
-      <p>It only takes a few more minutes to pick up where you left off.</p>
-      <p style="margin: 24px 0;"><a href="${url}" style="background:#2f5d50;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:600;">Continue My Application &rarr;</a></p>
+      <p>Yesterday you started building your Rental Passport &mdash; and honestly, that's the hardest part. The rest only takes a few minutes.</p>
+      <p>Whenever you're ready, your progress is saved and waiting for you.</p>
+      ${emailButton(url, "Continue My Application \u2192")}
+      <p style="margin-top: 28px; color: #5b5852;">Talk soon,<br />The Rental Passport Team</p>
     `
   },
   {
     key: '3d',
     hours: 72,
-    subject: "Don't lose your progress on Rental Passport",
+    subject: 'Your Rental Passport is still saved and ready',
     body: (url) => `
       <p>Hi there,</p>
-      <p>It's been a few days since you started your Rental Passport application. Your progress is saved and waiting for you whenever you're ready to finish.</p>
-      <p style="margin: 24px 0;"><a href="${url}" style="background:#2f5d50;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:600;">Continue My Application &rarr;</a></p>
+      <p>Just a quick note &mdash; your Rental Passport application is still sitting exactly where you left it a few days ago.</p>
+      <p>No need to start over. Pick up right where you left off whenever you have a few minutes.</p>
+      ${emailButton(url, "Continue My Application \u2192")}
+      <p style="margin-top: 28px; color: #5b5852;">We're here if you need anything,<br />The Rental Passport Team</p>
     `
   },
   {
@@ -30,32 +33,41 @@ const MILESTONES: { key: string; hours: number; subject: string; body: (continue
     subject: 'Be ready before your next rental search',
     body: (url) => `
       <p>Hi there,</p>
-      <p>A completed Rental Passport means you're ready to apply the moment you find a place you like &mdash; no scrambling for documents or information.</p>
-      <p>Your application is still incomplete. Want to finish it up?</p>
-      <p style="margin: 24px 0;"><a href="${url}" style="background:#2f5d50;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:600;">Continue My Application &rarr;</a></p>
+      <p>Here's the idea behind Rental Passport: build it once, so you're ready the moment you find a place you actually want.</p>
+      <p>Your application is still open &mdash; finishing it now means one less thing to worry about later.</p>
+      ${emailButton(url, "Continue My Application \u2192")}
+      <p style="margin-top: 28px; color: #5b5852;">Best,<br />The Rental Passport Team</p>
     `
   },
   {
     key: '10d',
     hours: 240,
-    subject: 'Your Rental Passport is still incomplete',
+    subject: 'Still thinking about finishing your Rental Passport?',
     body: (url) => `
       <p>Hi there,</p>
-      <p>It's been 10 days since you started your Rental Passport. If you're still planning to use it, your progress is saved and ready whenever you are.</p>
-      <p style="margin: 24px 0;"><a href="${url}" style="background:#2f5d50;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:600;">Continue My Application &rarr;</a></p>
+      <p>It's been a little while since you started your Rental Passport, so we wanted to check in.</p>
+      <p>If you're still planning to use it, everything you've entered so far is saved &mdash; pick up right where you left off in just a few minutes.</p>
+      ${emailButton(url, "Continue My Application \u2192")}
+      <p>And if your plans have changed, no worries at all &mdash; we just wanted to make sure you knew it was still here.</p>
+      <p style="margin-top: 28px; color: #5b5852;">The Rental Passport Team</p>
     `
   },
   {
     key: '15d',
     hours: 360,
-    subject: 'Last reminder: finish your Rental Passport',
+    subject: 'One last note about your Rental Passport',
     body: (url) => `
       <p>Hi there,</p>
-      <p>This is our last reminder about your unfinished Rental Passport application. If you still need it, it's just a few minutes away from being ready to share with landlords.</p>
-      <p style="margin: 24px 0;"><a href="${url}" style="background:#2f5d50;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:600;">Continue My Application &rarr;</a></p>
+      <p>This is the last note we'll send about your unfinished Rental Passport application.</p>
+      <p>If you'd still like to use it, your information is saved and ready whenever you are &mdash; it only takes a few minutes to finish.</p>
+      ${emailButton(url, "Continue My Application \u2192")}
+      <p>If it's no longer something you need, that's completely fine too &mdash; we just didn't want it to go unfinished without letting you know.</p>
+      <p style="margin-top: 28px; color: #5b5852;">Thanks for giving Rental Passport a try,<br />The Rental Passport Team</p>
     `
   }
 ];
+
+import { emailWrapper, emailButton } from '@/lib/emailTemplate';
 
 async function sendReminderEmail(email: string, subject: string, bodyHtml: string) {
   if (!process.env.RESEND_API_KEY) return;
@@ -70,7 +82,7 @@ async function sendReminderEmail(email: string, subject: string, bodyHtml: strin
       from: 'Rental Passport <noreply@myrentalpassport.net>',
       to: email,
       subject,
-      html: `<div style="font-family:-apple-system,Helvetica,Arial,sans-serif;max-width:480px;margin:0 auto;color:#1e1c1a;line-height:1.6;">${bodyHtml}</div>`
+      html: emailWrapper(bodyHtml)
     })
   });
 }
