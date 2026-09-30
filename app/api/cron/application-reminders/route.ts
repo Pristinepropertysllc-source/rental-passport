@@ -87,6 +87,9 @@ async function sendReminderEmail(email: string, subject: string, bodyHtml: strin
   });
 }
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export async function GET(req: NextRequest) {
   // Vercel Cron sends this exact header automatically when CRON_SECRET is
   // set as an environment variable, so this rejects anyone else hitting the
