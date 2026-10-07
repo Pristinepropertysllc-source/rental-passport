@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from 'react';
 import { trackMetaEvent } from '@/lib/metaPixel';
 
 /**
- * The "Pay & continue" form on the checkout page. Fires a custom PayClicked
- * Meta event at the moment the renter clicks Pay, then continues on to the
+ * The "Pay & continue" form on the checkout page. Fires a standard AddPaymentInfo
+ * event and a custom PayClicked event at the moment the renter clicks Pay, then continues on to the
  * Stripe checkout route. The submit is delayed a fraction of a second so the
  * pixel request can leave the browser before the page navigates away, and
  * further clicks are ignored while the first one is in flight (which also
@@ -40,6 +40,9 @@ export function PayForm({ label, value }: { label: string; value: number }) {
         submitting.current = true;
         setPending(true);
         const form = e.currentTarget;
+        // Standard event: selectable directly as an ad goal in Ads Manager.
+        trackMetaEvent('AddPaymentInfo', { value, currency: 'USD' });
+        // Custom event: kept for reference and custom audiences.
         trackMetaEvent('PayClicked', { value, currency: 'USD' }, true);
         setTimeout(() => form.submit(), 250);
       }}
