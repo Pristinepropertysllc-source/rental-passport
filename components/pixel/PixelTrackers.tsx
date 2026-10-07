@@ -50,13 +50,20 @@ export function QueryParamEventTracker({
   paramValue,
   event,
   params,
-  custom = false
+  custom = false,
+  stripParamAfterFire = false
 }: {
   paramName: string;
   paramValue: string;
   event: string;
   params?: Record<string, unknown>;
   custom?: boolean;
+  // Removes the query param from the address bar right after the event
+  // fires, so refreshing or re-opening the URL can't fire it a second time.
+  // Uses history.replaceState (no navigation), so the server-rendered page
+  // content, like a "Payment received" banner, stays on screen until the
+  // next real navigation.
+  stripParamAfterFire?: boolean;
 }) {
   const searchParams = useSearchParams();
   const fired = useRef(false);
@@ -66,6 +73,11 @@ export function QueryParamEventTracker({
     if (searchParams.get(paramName) !== paramValue) return;
     fired.current = true;
     trackMetaEvent(event, params, custom);
+    if (stripParamAfterFire && typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      url.searchParams.delete(paramName);
+      window.history.replaceState(window.history.state, '', url.pathname + url.search + url.hash);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 

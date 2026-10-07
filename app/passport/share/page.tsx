@@ -63,6 +63,7 @@ export default async function SharePage({
             paramName="paid"
             paramValue="1"
             event="Purchase"
+            stripParamAfterFire
             params={{
               value: passport.packageType && passport.packageType in PACKAGES
                 ? PACKAGES[passport.packageType as keyof typeof PACKAGES].priceCents / 100
