@@ -33,9 +33,6 @@ export function Nav({ email, role }: { email: string; role: 'TENANT' | 'LANDLORD
               <Link href="/admin/users">Users</Link>
             </>
           )}
-          <span className="muted" style={{ fontSize: 13 }}>
-            {email}
-          </span>
           <form action={logoutAction}>
             <button className="btn btn-secondary btn-sm" type="submit">
               Log out
