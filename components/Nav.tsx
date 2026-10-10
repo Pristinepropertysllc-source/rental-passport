@@ -8,8 +8,15 @@ export function Nav({ email, role }: { email: string; role: 'TENANT' | 'LANDLORD
     <div className="topbar">
       <div className="topbar-inner">
         <Link className="brand" href={homeHref}>
-          <img src="/logo.svg" alt="Rental Passport" style={{ height: 180, display: 'block' }} />
+          <img className="nav-logo" src="/logo.svg" alt="Rental Passport" />
         </Link>
+        <input type="checkbox" id="nav-toggle" className="nav-toggle" aria-label="Toggle menu" />
+        <label htmlFor="nav-toggle" className="nav-burger" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+          <em>Menu</em>
+        </label>
         <div className="nav-links">
           {role === 'TENANT' && (
             <>
