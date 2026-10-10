@@ -437,10 +437,25 @@ export default async function PassportPage() {
         {/* ---- Documents ---- */}
         <div className="card" id="documents">
           <h2>Documents</h2>
-          <p className="muted" style={{ fontSize: 13, marginTop: -6 }}>
-            Upload each document under its own category. You can upload more than one file per
-            category if needed.
-          </p>
+          <div className="docs-note" role="note">
+            <span className="docs-note-icon" aria-hidden="true">i</span>
+            <div>
+              <strong className="docs-note-title">Recommended, Not Required</strong>
+              <p>
+                Upload documents under their respective categories. You may upload multiple files
+                per category if needed.
+              </p>
+              <p>
+                Not all documents are required. However, we highly recommend providing as much
+                information and supporting documentation as you feel comfortable sharing to help
+                create a more complete Rental Passport.
+              </p>
+              <p>
+                If you prefer not to provide certain documents, that&apos;s completely fine. You can
+                skip any documents you don&apos;t wish to share.
+              </p>
+            </div>
+          </div>
           {DOCUMENT_TYPES.map((docType) => {
             const docsOfType = passport.documents.filter((d) => d.type === docType);
             return (
@@ -462,7 +477,7 @@ export default async function PassportPage() {
                     ))}
                   </div>
                 )}
-                <form action={uploadDocumentAction} style={{ display: 'flex', gap: 10, alignItems: 'center', marginTop: 8 }}>
+                <form action={uploadDocumentAction} style={{ display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'center', marginTop: 8 }}>
                   <input type="hidden" name="type" value={docType} />
                   <input name="file" type="file" required />
                   <button className="btn btn-secondary btn-sm" type="submit">Upload</button>
