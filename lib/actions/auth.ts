@@ -1,6 +1,7 @@
 'use server';
 
 import bcrypt from 'bcryptjs';
+import { ensureWelcomeMessage } from '@/lib/welcomeMessage';
 import { randomBytes } from 'crypto';
 import { redirect } from 'next/navigation';
 import { db } from '@/lib/db';
@@ -55,6 +56,7 @@ export async function registerAction(
     await db.passport.create({
       data: { userId: user.id, packageType, propertyApplyingTo, autoShareLandlordId, autoShareLandlordEmail }
     });
+    await ensureWelcomeMessage(user.id);
   }
 
   await createSession(user.id);

@@ -127,7 +127,7 @@ export default async function AdminTenantsPage({
                     )}
                   </td>
                   <td>
-                    {t.passport?.packagePaid ? (
+                    {true ? (
                       <Link
                         className="demo-trigger-btn"
                         style={{ fontSize: 13, display: 'inline-flex', alignItems: 'center' }}

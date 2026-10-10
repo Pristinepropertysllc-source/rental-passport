@@ -12,6 +12,7 @@ import { QueryParamEventTracker } from '@/components/pixel/PixelTrackers';
 import { InboxReadTracker } from '@/components/InboxReadTracker';
 import { markMessagesReadAction, sendMessageAction } from '@/lib/actions/messages';
 import { WelcomeModal } from '@/components/WelcomeModal';
+import { ensureWelcomeMessage } from '@/lib/welcomeMessage';
 
 const SECTION_LABELS: Record<string, string> = {
   personal: 'Personal Information',
@@ -58,9 +59,8 @@ export default async function DashboardPage({
   });
   if (!passport) redirect('/passport');
 
-  const messages = passport.packagePaid
-    ? await db.message.findMany({ where: { tenantId: user.id }, orderBy: { createdAt: 'asc' } })
-    : [];
+  await ensureWelcomeMessage(user.id);
+  const messages = await db.message.findMany({ where: { tenantId: user.id }, orderBy: { createdAt: 'asc' } });
   const unreadCount = messages.filter((m) => !m.fromTenant && !m.readAt).length;
 
   const shares = await db.share.findMany({
@@ -82,7 +82,7 @@ export default async function DashboardPage({
         <WelcomeModal />
       </Suspense>
       <div className="shell" style={{ paddingTop: 32, paddingBottom: 60 }}>
-        {passport.packagePaid && (
+        {(
           <div className="card">
             <h2 style={{ margin: 0, display: 'flex', alignItems: 'center' }}>
               Inbox
@@ -91,7 +91,7 @@ export default async function DashboardPage({
             {unreadCount > 0 && <InboxReadTracker hasUnread onMount={markMessagesReadAction} />}
             {messages.length === 0 ? (
               <p className="muted" style={{ fontSize: 13, marginTop: 10, marginBottom: 14 }}>
-                No messages yet. We&apos;ll notify you here with updates about your application.
+                No messages yet.
               </p>
             ) : (
               <div className="message-thread" style={{ marginTop: 14 }}>
@@ -101,10 +101,10 @@ export default async function DashboardPage({
                     className={`message-bubble ${m.fromTenant ? 'message-bubble-from-tenant' : 'message-bubble-from-admin'}`}
                   >
                     <div className="message-bubble-meta">
-                      {m.fromTenant ? 'You' : 'Rental Passport Team'} &middot;{' '}
+                      {m.fromTenant ? 'You' : 'Granit · Rental Passport'} &middot;{' '}
                       {new Date(m.createdAt).toLocaleString('en-US', { timeZone: 'America/New_York' })} ET
                     </div>
-                    {m.body}
+                    <span style={{ whiteSpace: 'pre-wrap' }}>{m.body}</span>
                   </div>
                 ))}
               </div>
@@ -112,6 +112,9 @@ export default async function DashboardPage({
             <form action={sendMessageAction}>
               <div className="field">
                 <label>Send a message</label>
+                <p className="muted" style={{ fontSize: 13, margin: '0 0 6px' }}>
+                  Questions? Message us here or call <a href="tel:+12405207174">(240) 520-7174</a>.
+                </p>
                 <textarea name="body" rows={2} required placeholder="Ask a question or send an update..." />
               </div>
               <button className="btn btn-primary btn-sm" type="submit">

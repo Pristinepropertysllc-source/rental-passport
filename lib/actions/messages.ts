@@ -7,7 +7,7 @@ import { db } from '@/lib/db';
 // Sends a message. Admins can message any tenant (by passing tenantId in the
 // form); tenants can only message about their own application (tenantId is
 // forced to their own id, ignoring anything the client sends). Either way,
-// messaging is gated behind the tenant's screening payment being complete.
+// messaging is open to every tenant from signup.
 export async function sendMessageAction(formData: FormData) {
   const user = await getCurrentUser();
   if (!user) throw new Error('UNAUTHENTICATED');
@@ -24,8 +24,6 @@ export async function sendMessageAction(formData: FormData) {
     include: { passport: true }
   });
   if (!tenant || tenant.role !== 'TENANT') throw new Error('Tenant not found');
-  // Messaging only opens up once the tenant's screening package is paid.
-  if (!tenant.passport?.packagePaid) throw new Error('Messaging is not available until payment is complete');
 
   await db.message.create({
     data: {

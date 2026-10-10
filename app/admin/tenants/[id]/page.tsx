@@ -63,15 +63,11 @@ export default async function AdminTenantDetailPage({ params }: { params: { id: 
       <div className="card" id="messages">
         <h2 style={{ display: 'flex', alignItems: 'center', margin: 0 }}>
           Message Applicant
-          {passport.packagePaid && tenant.messagesReceived.some((m) => m.fromTenant && !m.readAt) && (
+          {tenant.messagesReceived.some((m) => m.fromTenant && !m.readAt) && (
             <span className="message-unread-badge">New</span>
           )}
         </h2>
-        {!passport.packagePaid ? (
-          <p className="muted" style={{ fontSize: 13, marginTop: 10, marginBottom: 0 }}>
-            Messaging opens up once this tenant&apos;s screening payment is submitted.
-          </p>
-        ) : (
+        {(
           <>
             {tenant.messagesReceived.some((m) => m.fromTenant && !m.readAt) && (
               <InboxReadTracker hasUnread onMount={markMessagesReadByAdminAction.bind(null, tenant.id)} />
@@ -87,7 +83,7 @@ export default async function AdminTenantDetailPage({ params }: { params: { id: 
                       {m.fromTenant ? 'Applicant' : 'You'} &middot;{' '}
                       {new Date(m.createdAt).toLocaleString('en-US', { timeZone: 'America/New_York' })} ET
                     </div>
-                    {m.body}
+                    <span style={{ whiteSpace: 'pre-wrap' }}>{m.body}</span>
                   </div>
                 ))}
               </div>
