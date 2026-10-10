@@ -112,9 +112,23 @@ export default async function DashboardPage({
             <form action={sendMessageAction}>
               <div className="field">
                 <label>Send a message</label>
-                <p className="muted" style={{ fontSize: 13, margin: '0 0 6px' }}>
-                  Questions? Message us here or call <a href="tel:+12405207174">(240) 520-7174</a>.
+                <p className="muted" style={{ fontSize: 13, margin: '0 0 8px' }}>
+                  Questions? Message us here, or call or text us at (240) 520-7174.
                 </p>
+                <div className="contact-actions">
+                  <a className="contact-btn" href="tel:+12405207174">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                      <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.6 21 3 13.4 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z" />
+                    </svg>
+                    Call
+                  </a>
+                  <a className="contact-btn" href="sms:+12405207174">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                      <path d="M4 3h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H8l-4.3 3.6A.5.5 0 0 1 3 21.2V5a2 2 0 0 1 1-2z" />
+                    </svg>
+                    Text
+                  </a>
+                </div>
                 <textarea name="body" rows={2} required placeholder="Ask a question or send an update..." />
               </div>
               <button className="btn btn-primary btn-sm" type="submit">

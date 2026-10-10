@@ -1744,3 +1744,14 @@ th {
 .statement-card textarea { width: 100%; }
 .statement-actions { margin-top: 6px; }
 @media (max-width: 480px) { .statement-actions .btn { width: 100%; } }
+
+
+/* Call / text buttons */
+.contact-actions { display: flex; gap: 10px; margin: 0 0 12px; flex-wrap: wrap; }
+.contact-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #2f7a4d; color: #fff !important; text-decoration: none;
+  padding: 9px 18px; border-radius: 999px; font-size: 14px; font-weight: 600;
+}
+.contact-btn:hover { background: #256640; }
+@media (max-width: 480px) { .contact-btn { flex: 1; justify-content: center; } }
