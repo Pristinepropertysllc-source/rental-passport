@@ -466,12 +466,10 @@ export default async function PassportPage() {
               <div key={docType} className={`doc-cat${uploaded ? ' doc-cat-done' : ''}`}>
                 <div className="doc-cat-head">
                   <strong className="doc-cat-title">{info.label}</strong>
-                  {uploaded ? (
+                  {uploaded && (
                     <span className="doc-cat-badge doc-cat-badge-done">
                       &#10003; Uploaded{docsOfType.length > 1 ? ` (${docsOfType.length})` : ''}
                     </span>
-                  ) : (
-                    <span className="doc-cat-badge">Optional</span>
                   )}
                 </div>
                 {info.description && <p className="doc-cat-desc">{info.description}</p>}
