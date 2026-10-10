@@ -4,6 +4,7 @@ import { getCurrentUser } from '@/lib/session';
 import { markShareViewedAction, respondToShareAction } from '@/lib/actions/share';
 import { PrintableApplication } from '@/components/PrintableApplication';
 import { PrintButton } from '@/components/PrintButton';
+import { documentLabel } from '@/lib/documentTypes';
 import { ScreeningResultsCard } from '@/components/ScreeningResultsCard';
 
 export default async function SharedPassportPage({ params }: { params: { token: string } }) {
@@ -67,7 +68,7 @@ export default async function SharedPassportPage({ params }: { params: { token: 
           <div className="doc-list">
             {passport.documents.map((doc) => (
               <div className="doc-row" key={doc.id}>
-                <span><span className="tag">{doc.type}</span> {doc.filename}</span>
+                <span><span className="tag">{documentLabel(doc.type)}</span> {doc.filename}</span>
                 <a href={`/api/doc/${doc.id}?share=${share.token}`} target="_blank" rel="noreferrer">View</a>
               </div>
             ))}

@@ -138,6 +138,15 @@ export function PrintableApplication({
           ))}
         </tbody>
       </table>
+
+      {passport.personalStatement && (
+        <div style={{ marginTop: 24 }}>
+          <h2 style={{ fontSize: 16, marginBottom: 6 }}>Personal Statement</h2>
+          <p style={{ whiteSpace: 'pre-wrap', fontSize: 14, lineHeight: 1.55, margin: 0 }}>
+            {passport.personalStatement}
+          </p>
+        </div>
+      )}
     </div>
   );
 }

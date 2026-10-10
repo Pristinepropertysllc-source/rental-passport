@@ -1710,3 +1710,37 @@ th {
   .docs-note { padding: 12px; gap: 10px; }
   .docs-note p { font-size: 13.5px; }
 }
+
+
+/* Document category cards */
+.doc-cat {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  background: var(--surface);
+  transition: border-color .2s, background .2s;
+}
+.doc-cat-done { border-color: #2f7a4d; background: #f1f8f3; }
+.doc-cat-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.doc-cat-title { font-size: 16px; color: var(--ink); }
+.doc-cat-desc { margin: 4px 0 6px; font-size: 14px; color: var(--ink-muted); }
+.doc-cat-badge {
+  font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px;
+  background: #eceae6; color: var(--ink-muted);
+}
+.doc-cat-badge-done { background: #2f7a4d; color: #fff; }
+.doc-cat-form { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 8px; }
+.doc-cat-form input[type="file"] { max-width: 100%; font-size: 13px; }
+.doc-cat-form .btn { white-space: normal; text-align: center; }
+.doc-cat-done .doc-cat-form .btn-primary { background: #2f7a4d; border-color: #2f7a4d; }
+@media (max-width: 480px) {
+  .doc-cat-form { flex-direction: column; align-items: stretch; }
+  .doc-cat-form .btn { width: 100%; }
+}
+
+/* Personal statement */
+.statement-card { border-top: 4px solid var(--accent); }
+.statement-card textarea { width: 100%; }
+.statement-actions { margin-top: 6px; }
+@media (max-width: 480px) { .statement-actions .btn { width: 100%; } }

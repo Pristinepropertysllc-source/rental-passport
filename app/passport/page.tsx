@@ -4,7 +4,7 @@ import { db } from '@/lib/db';
 import { Nav } from '@/components/Nav';
 import { ProgressBar } from '@/components/ProgressBar';
 import { overallCompletion } from '@/lib/passport';
-import { DOCUMENT_TYPES } from '@/lib/documentTypes';
+import { DOCUMENT_TYPES, DOCUMENT_CATEGORY_INFO } from '@/lib/documentTypes';
 import { MountEventTracker } from '@/components/pixel/PixelTrackers';
 import { AutoSaveForm } from '@/components/AutoSaveForm';
 import {
@@ -26,7 +26,9 @@ import {
   addReferenceAction,
   removeReferenceAction,
   uploadDocumentAction,
-  removeDocumentAction
+  removeDocumentAction,
+  savePersonalStatementAction,
+  deletePersonalStatementAction
 } from '@/lib/actions/passport';
 
 export default async function PassportPage() {
@@ -458,10 +460,22 @@ export default async function PassportPage() {
           </div>
           {DOCUMENT_TYPES.map((docType) => {
             const docsOfType = passport.documents.filter((d) => d.type === docType);
+            const info = DOCUMENT_CATEGORY_INFO[docType] ?? { label: docType, description: '', button: 'Upload' };
+            const uploaded = docsOfType.length > 0;
             return (
-              <div key={docType} style={{ marginBottom: 20, paddingBottom: 16, borderBottom: '1px solid var(--border)' }}>
-                <strong style={{ fontSize: 14 }}>{docType}</strong>
-                {docsOfType.length > 0 && (
+              <div key={docType} className={`doc-cat${uploaded ? ' doc-cat-done' : ''}`}>
+                <div className="doc-cat-head">
+                  <strong className="doc-cat-title">{info.label}</strong>
+                  {uploaded ? (
+                    <span className="doc-cat-badge doc-cat-badge-done">
+                      &#10003; Uploaded{docsOfType.length > 1 ? ` (${docsOfType.length})` : ''}
+                    </span>
+                  ) : (
+                    <span className="doc-cat-badge">Optional</span>
+                  )}
+                </div>
+                {info.description && <p className="doc-cat-desc">{info.description}</p>}
+                {uploaded && (
                   <div className="doc-list" style={{ marginTop: 8, marginBottom: 10 }}>
                     {docsOfType.map((doc) => (
                       <div className="doc-row" key={doc.id}>
@@ -477,14 +491,51 @@ export default async function PassportPage() {
                     ))}
                   </div>
                 )}
-                <form action={uploadDocumentAction} style={{ display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'center', marginTop: 8 }}>
+                <form action={uploadDocumentAction} className="doc-cat-form">
                   <input type="hidden" name="type" value={docType} />
                   <input name="file" type="file" required />
-                  <button className="btn btn-secondary btn-sm" type="submit">Upload</button>
+                  <button className={`btn btn-sm ${uploaded ? 'btn-primary' : 'btn-secondary'}`} type="submit">
+                    {uploaded ? `Upload another` : info.button}
+                  </button>
                 </form>
               </div>
             );
           })}
+        </div>
+
+        {/* ---- Personal Statement ---- */}
+        <div className="card statement-card" id="personal-statement">
+          <h2>Personal Statement (Optional)</h2>
+          <p className="muted" style={{ fontSize: 14, marginTop: -6 }}>
+            Would you like to share more about yourself or your current situation? Use this space to
+            explain your circumstances, provide additional context, or share anything else you&apos;d
+            like a landlord to understand about your rental application.
+          </p>
+          <form action={savePersonalStatementAction}>
+            <div className="field">
+              <textarea
+                name="personalStatement"
+                rows={6}
+                maxLength={5000}
+                defaultValue={passport.personalStatement ?? ''}
+                placeholder="Tell us a little about yourself, your situation, or anything you'd like a landlord to understand about your application…"
+              />
+            </div>
+            <p className="muted" style={{ fontSize: 13, marginTop: 0 }}>
+              This section is completely optional. You can use it to explain your circumstances, share
+              relevant background information, or provide context that may not be reflected in the
+              other sections of your application. Only include information you&apos;re comfortable
+              sharing.
+            </p>
+            <div className="statement-actions">
+              <button className="btn btn-primary" type="submit">Save Personal Statement</button>
+            </div>
+          </form>
+          {passport.personalStatement && (
+            <form action={deletePersonalStatementAction} style={{ marginTop: 10 }}>
+              <button className="btn btn-danger btn-sm" type="submit">Delete statement</button>
+            </form>
+          )}
         </div>
       </div>
     </>

@@ -336,3 +336,21 @@ export async function removeDocumentAction(formData: FormData) {
   await db.document.delete({ where: { id } });
   revalidatePath('/passport');
 }
+
+// ---- Personal Statement (optional) ----
+
+export async function savePersonalStatementAction(formData: FormData) {
+  const user = await requireUser();
+  const text = String(formData.get('personalStatement') || '').trim().slice(0, 5000);
+  await db.passport.update({
+    where: { userId: user.id },
+    data: { personalStatement: text || null }
+  });
+  revalidatePath('/passport');
+}
+
+export async function deletePersonalStatementAction() {
+  const user = await requireUser();
+  await db.passport.update({ where: { userId: user.id }, data: { personalStatement: null } });
+  revalidatePath('/passport');
+}

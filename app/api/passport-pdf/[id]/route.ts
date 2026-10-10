@@ -260,6 +260,21 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
     row('Home Phone', ref.homePhone);
     row('Mobile Phone', ref.mobilePhone);
   }
+  if (passport.personalStatement && passport.personalStatement.trim()) {
+    const words = passport.personalStatement.replace(/\s+/g, ' ').trim().split(' ');
+    const lines: string[] = [];
+    let cur = '';
+    for (const w of words) {
+      if ((cur + ' ' + w).trim().length > 68) {
+        lines.push(cur);
+        cur = w.slice(0, 68);
+      } else {
+        cur = (cur + ' ' + w).trim();
+      }
+    }
+    if (cur) lines.push(cur);
+    lines.slice(0, 60).forEach((line, i) => row(i === 0 ? 'Personal Statement' : '', line));
+  }
 
   // ---- Merge each real document's pages in order ----
   for (const doc of orderedDocs) {
