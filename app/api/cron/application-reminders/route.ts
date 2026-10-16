@@ -68,7 +68,6 @@ const MILESTONES: { key: string; hours: number; subject: string; body: (continue
 ];
 
 import { emailWrapper, emailButton } from '@/lib/emailTemplate';
-
 async function sendReminderEmail(email: string, subject: string, bodyHtml: string) {
   if (!process.env.RESEND_API_KEY) return;
 

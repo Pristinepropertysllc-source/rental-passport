@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
 import './globals.css';
 import { MetaPixel } from '@/components/MetaPixel';
+import { GoogleAnalytics } from '@/components/GoogleAnalytics';
 import { BackToTopButton } from '@/components/BackToTopButton';
 
 export const metadata: Metadata = {
@@ -19,6 +20,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body>
         <MetaPixel />
+        <GoogleAnalytics />
         {children}
         <BackToTopButton />
       </body>
