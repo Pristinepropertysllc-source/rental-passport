@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
-import { overallCompletion } from '@/lib/passport';
 
 const MILESTONES: { key: string; hours: number; subject: string; body: (continueUrl: string) => string }[] = [
   {
@@ -130,7 +129,6 @@ export async function GET(req: NextRequest) {
   let sentCount = 0;
 
   for (const passport of candidates) {
-    if (overallCompletion(passport) === 100) continue;
 
     const hoursElapsed = (now - passport.createdAt.getTime()) / (1000 * 60 * 60);
     const alreadySent = passport.remindersSent || [];

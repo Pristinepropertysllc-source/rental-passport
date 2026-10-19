@@ -48,12 +48,6 @@ export function sectionCompletion(passport: PassportWithRelations) {
     total: 1,
     complete: passport.documents.length > 0
   };
-  result['screeningPayment'] = {
-    done: passport.packagePaid ? 1 : 0,
-    total: 1,
-    complete: passport.packagePaid
-  };
-
   return result;
 }
 

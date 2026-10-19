@@ -169,17 +169,13 @@ export default async function DashboardPage({
                 ))}
               </div>
 
-              <div style={{ marginTop: 20, display: 'flex', gap: 10 }}>
-                {!appComplete ? (
+              {!appComplete && (
+                <div style={{ marginTop: 20, display: 'flex', gap: 10 }}>
                   <Link className="btn btn-primary" href="/passport">
                     Continue application
                   </Link>
-                ) : !passport.packagePaid ? (
-                  <Link className="btn btn-primary" href="/passport/checkout">
-                    Complete payment
-                  </Link>
-                ) : null}
-              </div>
+                </div>
+              )}
             </div>
 
             {appComplete && !passport.packagePaid && (
