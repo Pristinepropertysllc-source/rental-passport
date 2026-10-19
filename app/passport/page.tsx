@@ -7,6 +7,7 @@ import { overallCompletion } from '@/lib/passport';
 import { DOCUMENT_TYPES, DOCUMENT_CATEGORY_INFO } from '@/lib/documentTypes';
 import { MountEventTracker } from '@/components/pixel/PixelTrackers';
 import { AutoSaveForm } from '@/components/AutoSaveForm';
+import { maskSsn } from '@/lib/ssn';
 import {
   updatePassportAction,
   markHouseholdNAAction,
@@ -84,10 +85,6 @@ export default async function PassportPage() {
                 <input type="date" name="dateOfBirth" defaultValue={passport.dateOfBirth ?? ''} />
               </div>
               <div className="field">
-                <label>SSN</label>
-                <input name="ssn" defaultValue={passport.ssn ?? ''} placeholder="XXX-XX-XXXX" />
-              </div>
-              <div className="field">
                 <label>Street address</label>
                 <input name="streetAddress" defaultValue={passport.streetAddress ?? ''} />
               </div>
@@ -114,6 +111,20 @@ export default async function PassportPage() {
               <div className="field">
                 <label>Annual income</label>
                 <input name="annualIncome" defaultValue={passport.annualIncome ?? ''} />
+              </div>
+              <div className="field" style={{ gridColumn: '1 / -1' }}>
+                <label>Social Security number</label>
+                <input
+                  name="ssn"
+                  placeholder={passport.ssn ? `${maskSsn(passport.ssn)} on file` : 'XXX-XX-XXXX'}
+                  inputMode="numeric"
+                  autoComplete="off"
+                />
+                <p className="muted" style={{ fontSize: 13, margin: '6px 0 0' }}>
+                  {passport.ssn
+                    ? 'Your SSN is saved and encrypted. Landlords only see the last 4 digits. Type a new one here to replace it.'
+                    : 'Needed to run your credit and background screening. You can fill in everything else first and add this when you\u2019re ready.'}
+                </p>
               </div>
             </div>
           </div>

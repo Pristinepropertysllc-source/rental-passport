@@ -6,6 +6,7 @@ import { randomBytes } from 'crypto';
 import { db } from '@/lib/db';
 import { requireUser } from '@/lib/session';
 import { DOCUMENT_TYPES } from '@/lib/documentTypes';
+import { encryptSsn } from '@/lib/ssn';
 
 const PASSPORT_FIELD_NAMES = [
   'firstName',
@@ -39,6 +40,13 @@ export async function updatePassportAction(formData: FormData) {
   for (const field of PASSPORT_FIELD_NAMES) {
     const value = formData.get(field);
     if (value !== null) data[field] = String(value);
+  }
+
+  // The SSN input is never prefilled, so an empty value means "keep what's on file".
+  if ('ssn' in data) {
+    const ssn = data.ssn.trim();
+    if (ssn) data.ssn = encryptSsn(ssn);
+    else delete data.ssn;
   }
 
   await db.passport.update({ where: { userId: user.id }, data });
