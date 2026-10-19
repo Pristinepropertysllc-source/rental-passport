@@ -42,39 +42,19 @@ export default async function ApplyInvitePage({ params }: { params: { token: str
       </div>
 
       <div className="card">
-        <h2 style={{ textAlign: 'center' }}>Choose your screening package to get started</h2>
-        <div className="grid-2">
-          <div className="pricing-card">
-            <h3>Essential Screening</h3>
-            <p className="price-tag">{PACKAGES.ESSENTIAL.priceLabel}</p>
-            <ul className="check-list">
-              <li>Credit Check</li>
-              <li>Enhanced Landlord Search</li>
-              <li>National Criminal Search</li>
-            </ul>
-            <Link
-              className="btn btn-primary"
-              href={`/register?invite=${invite.token}&package=ESSENTIAL`}
-            >
-              Get started
-            </Link>
-          </div>
-          <div className="pricing-card pricing-card-highlight">
-            <h3>Complete Screening</h3>
-            <p className="price-tag">{PACKAGES.COMPLETE.priceLabel}</p>
-            <ul className="check-list">
-              <li>Credit Check</li>
-              <li>Enhanced Landlord Search</li>
-              <li>National Criminal Search</li>
-              <li>Identity Verification</li>
-            </ul>
-            <Link
-              className="btn btn-primary"
-              href={`/register?invite=${invite.token}&package=COMPLETE`}
-            >
-              Get started
-            </Link>
-          </div>
+        <h2 style={{ textAlign: 'center' }}>{PACKAGES.COMPLETE.name}</h2>
+        <p className="price-tag" style={{ textAlign: 'center' }}>{PACKAGES.COMPLETE.priceLabel}</p>
+        <ul className="check-list" style={{ maxWidth: 360, margin: '0 auto 20px' }}>
+          <li>Credit report</li>
+          <li>Criminal history</li>
+          <li>Eviction history</li>
+          <li>Employment and income verification</li>
+          <li>Current address and rental history</li>
+        </ul>
+        <div style={{ textAlign: 'center' }}>
+          <Link className="btn btn-primary" href={`/register?invite=${invite.token}&package=COMPLETE`}>
+            Get started
+          </Link>
         </div>
         <p className="muted" style={{ textAlign: 'center', marginTop: 16, fontSize: 13 }}>
           Already have an account? <Link href="/login">Log in</Link>

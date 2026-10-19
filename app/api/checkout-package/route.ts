@@ -11,8 +11,8 @@ export async function POST(req: NextRequest) {
   }
 
   const passport = await db.passport.findUnique({ where: { userId: user.id } });
-  if (!passport || !passport.packageType || !isPackageKey(passport.packageType)) {
-    return NextResponse.redirect(new URL('/passport/checkout', req.url));
+  if (!passport) {
+    return NextResponse.redirect(new URL('/passport', req.url));
   }
   // Guard against double-charging: the checkout PAGE already redirects away
   // once paid, but that only protects a fresh page load. A stale
@@ -23,7 +23,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.redirect(new URL('/passport/share', req.url));
   }
 
-  const pkg = PACKAGES[passport.packageType];
+  // There is a single screening package; older passports may have no packageType set.
+  const pkg =
+    passport.packageType && isPackageKey(passport.packageType) ? PACKAGES[passport.packageType] : PACKAGES.COMPLETE;
   const origin = req.nextUrl.origin;
 
   const session = await stripe.checkout.sessions.create({
