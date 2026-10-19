@@ -188,7 +188,7 @@ export default async function DashboardPage({
                 verification.
                 <div style={{ marginTop: 12 }}>
                   <Link className="btn btn-primary" href="/passport/checkout">
-                    Choose a screening package
+                    Continue to payment
                   </Link>
                 </div>
               </div>
