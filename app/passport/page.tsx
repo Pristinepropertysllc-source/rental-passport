@@ -84,10 +84,6 @@ export default async function PassportPage() {
                 <input type="date" name="dateOfBirth" defaultValue={passport.dateOfBirth ?? ''} />
               </div>
               <div className="field">
-                <label>SSN</label>
-                <input name="ssn" defaultValue={passport.ssn ?? ''} placeholder="XXX-XX-XXXX" />
-              </div>
-              <div className="field">
                 <label>Street address</label>
                 <input name="streetAddress" defaultValue={passport.streetAddress ?? ''} />
               </div>
@@ -114,6 +110,20 @@ export default async function PassportPage() {
               <div className="field">
                 <label>Annual income</label>
                 <input name="annualIncome" defaultValue={passport.annualIncome ?? ''} />
+              </div>
+              <div className="field" style={{ gridColumn: '1 / -1' }}>
+                <label>Social Security number</label>
+                <input
+                  name="ssn"
+                  defaultValue={passport.ssn ?? ''}
+                  placeholder="XXX-XX-XXXX"
+                  inputMode="numeric"
+                  autoComplete="off"
+                />
+                <p className="muted" style={{ fontSize: 13, margin: '6px 0 0' }}>
+                  Needed to run your credit and background screening. You can fill in everything else first and add
+                  this when you&rsquo;re ready.
+                </p>
               </div>
             </div>
           </div>
