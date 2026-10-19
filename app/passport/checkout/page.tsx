@@ -67,19 +67,55 @@ export default async function CheckoutPage({
             </form>
           </div>
         ) : (
-          <div className="card">
-            <MountEventTracker
-              event="InitiateCheckout"
-              params={{ value: selectedPackage.priceCents / 100, currency: 'USD' }}
-            />
-            <h2>{selectedPackage.name}</h2>
-            <p className="muted" style={{ fontSize: 14 }}>{selectedPackage.description}</p>
-            <p style={{ fontSize: 24, fontWeight: 700, margin: '14px 0' }}>{selectedPackage.priceLabel}</p>
-            <PayForm
-              label={`Pay ${selectedPackage.priceLabel.split('/')[0]} & continue`}
-              value={selectedPackage.priceCents / 100}
-            />
-          </div>
+          <>
+            <div className="card">
+              <MountEventTracker
+                event="InitiateCheckout"
+                params={{ value: selectedPackage.priceCents / 100, currency: 'USD' }}
+              />
+              <h2>{selectedPackage.name}</h2>
+              <p className="muted" style={{ fontSize: 14 }}>{selectedPackage.description}</p>
+
+              <p style={{ fontSize: 14, fontWeight: 600, margin: '16px 0 10px' }}>Your screening report covers:</p>
+              <ul className="check-list">
+                <li>Credit report</li>
+                <li>Criminal history</li>
+                <li>Eviction history</li>
+                <li>Employment and income verification</li>
+                <li>Current address and rental history</li>
+              </ul>
+
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, margin: '18px 0 4px' }}>
+                <span style={{ fontSize: 28, fontWeight: 700 }}>{selectedPackage.priceLabel.split('/')[0]}</span>
+                <span className="muted" style={{ fontSize: 14 }}>one-time payment</span>
+              </div>
+              <p className="muted" style={{ fontSize: 14, marginBottom: 16 }}>
+                No subscriptions and no per-property fees. Share your Rental Passport with as many landlords as you need.
+              </p>
+              <PayForm
+                label={`Pay ${selectedPackage.priceLabel.split('/')[0]} & continue`}
+                value={selectedPackage.priceCents / 100}
+              />
+              <p className="muted" style={{ fontSize: 13, marginTop: 10 }}>
+                🔒 Secure payment through Stripe. Rental Passport never sees or stores your card number.
+              </p>
+            </div>
+
+            <div className="card">
+              <h2 style={{ fontSize: 18 }}>What happens next</h2>
+              <ol style={{ margin: '10px 0 0', paddingLeft: 20, fontSize: 14, display: 'grid', gap: 8 }}>
+                <li>After payment, your screening starts.</li>
+                <li>When it&rsquo;s complete, your results appear on your dashboard.</li>
+                <li>
+                  Share your Rental Passport with landlords using a secure link. You decide who sees it and can revoke
+                  access any time.
+                </li>
+              </ol>
+              <p className="muted" style={{ fontSize: 13, marginTop: 14 }}>
+                Questions before you pay? Call or text us at <a href="tel:+12405207174">(240) 520-7174</a>.
+              </p>
+            </div>
+          </>
         )}
       </div>
     </>
