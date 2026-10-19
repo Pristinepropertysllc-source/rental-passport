@@ -26,6 +26,11 @@ export default async function HomePage() {
               Build one verified Rental Passport and share it with as many landlords as
               you want &mdash; no re-typing your application for every property.
             </p>
+            <p className="hero-md-note">
+              For Maryland renters: one $54.99 screening report covering credit, criminal, eviction, income and
+              rental history. Maryland landlords who accept a qualifying reusable report generally can&apos;t charge
+              you an application fee.
+            </p>
             <div className="hero-actions">
               <Link className="btn btn-primary" href="/register">
                 Sign up
@@ -301,9 +306,11 @@ export default async function HomePage() {
                 <h3>Complete Screening</h3>
                 <p className="price-tag">$54.99</p>
                 <ul className="check-list">
-                  <li>Credit Check</li>
-                  <li>Enhanced Landlord Search</li>
-                  <li>National Criminal Search</li>
+                  <li>Credit report</li>
+                  <li>Criminal history</li>
+                  <li>Eviction history</li>
+                  <li>Employment and income verification</li>
+                  <li>Current address and rental history</li>
                 </ul>
                 <p className="muted" style={{ fontSize: 14 }}>
                   Everything you need for a verified application ready to share.
@@ -354,7 +361,7 @@ export default async function HomePage() {
           <Link href="/privacy">Privacy Policy</Link>
           <Link href="/terms">Terms of Service</Link>
           <Link href="/faq">FAQ</Link>
-          <Link href="/login">Admin</Link>
+          <Link href="/login">Log in</Link>
         </div>
         <p className="muted" style={{ fontSize: 12, margin: 0 }}>
           &copy; {new Date().getFullYear()} Rental Passport

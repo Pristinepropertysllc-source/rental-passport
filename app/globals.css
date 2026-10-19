@@ -1755,3 +1755,21 @@ th {
 }
 .contact-btn:hover { background: #256640; }
 @media (max-width: 480px) { .contact-btn { flex: 1; justify-content: center; } }
+
+/* Public (logged-out) nav: on phones keep Log in / Sign Up visible instead of hiding them */
+@media (max-width: 767px) {
+  .public-nav .topbar-inner { flex-wrap: nowrap; justify-content: space-between; }
+  .public-nav .topbar-inner .nav-links {
+    display: flex;
+    width: auto;
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+    padding-top: 0;
+    border-top: 0;
+  }
+  .public-nav .topbar-inner .nav-links > a { padding: 0; border-bottom: 0; font-size: 15px; }
+  .public-nav .topbar-inner .nav-links > a.btn { padding: 8px 14px; color: #fff; }
+  .public-nav .public-nav-about { display: none; }
+}
+.hero p.hero-md-note { font-size: 15px; color: var(--ink); margin: -12px auto 24px; }
