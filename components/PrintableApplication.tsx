@@ -1,4 +1,5 @@
 import { Fragment } from 'react';
+import { decryptSsn, maskSsn } from '@/lib/ssn';
 import type {
   Passport,
   Occupant,
@@ -30,11 +31,13 @@ function Row({ label, value }: { label: string; value?: string | null }) {
 export function PrintableApplication({
   passport,
   applicantName,
-  email
+  email,
+  showFullSsn = false
 }: {
   passport: FullPassport;
   applicantName: string;
   email: string;
+  showFullSsn?: boolean;
 }) {
   return (
     <div className="printable-app">
@@ -58,7 +61,7 @@ export function PrintableApplication({
           <Row label="Date of Birth" value={passport.dateOfBirth} />
           <Row label="Home Phone" value={passport.homePhone} />
           <Row label="Mobile Phone" value={passport.mobilePhone} />
-          <Row label="SSN" value={passport.ssn} />
+          <Row label="SSN" value={showFullSsn ? decryptSsn(passport.ssn) : maskSsn(passport.ssn)} />
           <Row label="Annual Income" value={passport.annualIncome} />
           <Row label="Email" value={email} />
           <Row label="Which property are you applying to?" value={passport.propertyApplyingTo} />

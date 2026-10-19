@@ -137,7 +137,7 @@ export default async function AdminTenantDetailPage({ params }: { params: { id: 
           . Contains sensitive data (SSN) &mdash; admin access only.
         </p>
         <div style={{ border: '1px solid var(--border)', borderRadius: 8, overflow: 'hidden' }}>
-          <PrintableApplication passport={passport} applicantName={applicantName} email={tenant.email} />
+          <PrintableApplication passport={passport} applicantName={applicantName} email={tenant.email} showFullSsn />
         </div>
       </div>
 

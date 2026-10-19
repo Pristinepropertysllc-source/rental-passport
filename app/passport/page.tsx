@@ -7,6 +7,7 @@ import { overallCompletion } from '@/lib/passport';
 import { DOCUMENT_TYPES, DOCUMENT_CATEGORY_INFO } from '@/lib/documentTypes';
 import { MountEventTracker } from '@/components/pixel/PixelTrackers';
 import { AutoSaveForm } from '@/components/AutoSaveForm';
+import { maskSsn } from '@/lib/ssn';
 import {
   updatePassportAction,
   markHouseholdNAAction,
@@ -115,14 +116,14 @@ export default async function PassportPage() {
                 <label>Social Security number</label>
                 <input
                   name="ssn"
-                  defaultValue={passport.ssn ?? ''}
-                  placeholder="XXX-XX-XXXX"
+                  placeholder={passport.ssn ? `${maskSsn(passport.ssn)} on file` : 'XXX-XX-XXXX'}
                   inputMode="numeric"
                   autoComplete="off"
                 />
                 <p className="muted" style={{ fontSize: 13, margin: '6px 0 0' }}>
-                  Needed to run your credit and background screening. You can fill in everything else first and add
-                  this when you&rsquo;re ready.
+                  {passport.ssn
+                    ? 'Your SSN is saved and encrypted. Landlords only see the last 4 digits. Type a new one here to replace it.'
+                    : 'Needed to run your credit and background screening. You can fill in everything else first and add this when you\u2019re ready.'}
                 </p>
               </div>
             </div>

@@ -2,6 +2,7 @@ import { NextRequest } from 'next/server';
 import { PDFDocument, StandardFonts, rgb, PDFPage, PDFFont } from 'pdf-lib';
 import { db } from '@/lib/db';
 import { getCurrentUser } from '@/lib/session';
+import { decryptSsn, maskSsn } from '@/lib/ssn';
 
 type Cursor = { page: PDFPage; y: number };
 
@@ -199,7 +200,7 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
   row('Date of Birth', passport.dateOfBirth);
   row('Home Phone', passport.homePhone);
   row('Mobile Phone', passport.mobilePhone);
-  row('SSN', passport.ssn);
+  row('SSN', user?.role === 'ADMIN' ? decryptSsn(passport.ssn) : maskSsn(passport.ssn));
   row('Annual Income', passport.annualIncome);
   row('Email', passport.user.email);
   row('Which property are you applying to?', passport.propertyApplyingTo);
