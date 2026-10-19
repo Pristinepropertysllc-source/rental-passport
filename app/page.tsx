@@ -26,7 +26,7 @@ export default async function HomePage() {
               Build one verified Rental Passport and share it with as many landlords as
               you want &mdash; no re-typing your application for every property.
             </p>
-            <p className="hero-md-note">For Maryland renters: one $54.99 screening report covering credit, criminal, eviction, income and rental history. Maryland landlords who accept a qualifying reusable report generally can&apos;t charge you an application fee.</p>
+            <p className="hero-md-note">For Maryland renters: one $54.99 screening report covering credit, criminal, eviction, income and rental history. Stop paying application fees over and over. With a qualifying reusable tenant screening report.</p>
             <div className="hero-actions">
               <Link className="btn btn-primary" href="/register">
                 Sign up
