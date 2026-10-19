@@ -1755,3 +1755,27 @@ th {
 }
 .contact-btn:hover { background: #256640; }
 @media (max-width: 480px) { .contact-btn { flex: 1; justify-content: center; } }
+
+
+/* Logged-out header on phones: keep Log in + Sign Up visible (no menu button here) */
+@media (max-width: 767px) {
+  .public-nav .topbar-inner { flex-wrap: nowrap; justify-content: space-between; }
+  .public-nav .topbar-inner .nav-links {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+    width: auto;
+    padding: 0;
+    border-top: 0;
+  }
+  .public-nav .topbar-inner .nav-links > a {
+    padding: 0;
+    border-bottom: 0;
+  }
+  .public-nav .topbar-inner .nav-links > a.btn-primary { color: #fff; padding: 8px 14px; }
+  .public-nav .topbar-inner .nav-links > a.public-nav-about { display: none; }
+}
+
+/* Hero Maryland note */
+.hero p.hero-md-note { font-size: 15px; color: var(--ink); margin: -12px auto 24px; }

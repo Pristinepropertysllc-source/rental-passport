@@ -7,7 +7,8 @@ import { BackToTopButton } from '@/components/BackToTopButton';
 
 export const metadata: Metadata = {
   title: 'Rental Passport',
-  description: 'Apply once. Rent anywhere.'
+  description:
+    'Apply once. Rent anywhere. Build one Rental Passport with a $54.99 screening report (credit, criminal, eviction, income and rental history) and share it with unlimited Maryland landlords.'
 };
 
 export const viewport: Viewport = {
