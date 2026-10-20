@@ -18,27 +18,47 @@ export default async function HomePage() {
       <ViewContentTracker contentName="homepage" />
 
       {/* Hero */}
-      <section className="lp-band">
-        <div className="shell">
-          <div className="hero">
-            <h1>Apply Once. Rent Anywhere.</h1>
-            <p>
-              Build one verified Rental Passport and share it with as many landlords as
-              you want &mdash; no re-typing your application for every property.
+      <section className="m-hero">
+        <div className="shell m-hero-grid">
+          <div className="m-hero-copy">
+            <span className="m-eyebrow">Maryland reusable screening report</span>
+            <h1>Apply once.<br />Rent anywhere.</h1>
+            <p className="m-lead">
+              One $54.99 screening report and application you can share with every landlord. Stop paying an
+              application fee for every place you tour.
             </p>
-            <p className="hero-md-note">For Maryland renters: one $54.99 screening report covering credit, criminal, eviction, income and rental history. Stop paying application fees over and over. With a qualifying reusable tenant screening report.</p>
-            <div className="hero-actions">
-              <Link className="btn btn-primary" href="/register">
-                Sign up
+            <div className="m-hero-actions">
+              <Link className="btn btn-primary m-btn-lg" href="/register">
+                Build my Rental Passport
               </Link>
-              <a className="btn btn-secondary" href="#pricing">
-                See pricing
-              </a>
-            </div>
-            <div style={{ marginTop: 14 }}>
-              <DemoTriggerButton step={1} className="demo-trigger-btn">
-                See How It Works &rarr;
+              <DemoTriggerButton step={1} className="btn btn-secondary m-btn-lg">
+                See a sample
               </DemoTriggerButton>
+            </div>
+            <ul className="m-trust">
+              <li>Credit, criminal &amp; eviction</li>
+              <li>One-time payment</li>
+              <li>You control who sees it</li>
+            </ul>
+          </div>
+
+          <div className="m-phone" aria-hidden="true">
+            <div className="m-phone-card">
+              <div className="m-phone-top">
+                <div className="m-avatar">AM</div>
+                <div>
+                  <strong>Alex Morgan</strong>
+                  <div className="m-phone-sub">Rental Passport</div>
+                </div>
+                <span className="m-verified">&#10003; Verified</span>
+              </div>
+              {['Credit report', 'Criminal history', 'Eviction history', 'Income verified'].map((x) => (
+                <div className="m-row" key={x}>
+                  <span>{x}</span>
+                  <span className="m-pill">Complete</span>
+                </div>
+              ))}
+              <div className="m-share">Share with a landlord &rarr;</div>
             </div>
           </div>
         </div>
@@ -47,22 +67,23 @@ export default async function HomePage() {
       {/* How it works */}
       <section className="lp-band lp-band-alt">
         <div className="shell">
-          <h2 style={{ textAlign: 'center', marginBottom: 4 }}>How It Works</h2>
-          <p className="hiw-subtitle">One Rental Passport. Three simple steps.</p>
-          <img
-            src="/how-it-works-header.webp"
-            alt="Apply Once. Rent Anywhere. Start Saving Time and Money."
-            style={{ width: '100%', height: 'auto', display: 'block', marginBottom: 4 }}
-          />
-          <div className="hiw-image-row">
-            <img src="/how-it-works-panel1.webp" alt="The old way: repeatedly filling out rental applications and paying fees for every property." />
-            <img src="/how-it-works-panel2.webp" alt="The solution: build one secure Rental Passport profile with your information and documents." />
-            <img src="/how-it-works-panel3.webp" alt="The new way: reuse your one Rental Passport to apply to multiple properties instantly." />
-          </div>
-          <div style={{ textAlign: 'center', marginTop: 24 }}>
-            <Link className="btn btn-primary" href="/register">
-              Build Yours Now &rarr;
-            </Link>
+          <h2 className="m-h2">How it works</h2>
+          <div className="m-steps">
+            <div className="m-step">
+              <span className="m-step-num">1</span>
+              <h3>Build it once</h3>
+              <p>Fill out one application and upload your documents. It saves as you go.</p>
+            </div>
+            <div className="m-step">
+              <span className="m-step-num">2</span>
+              <h3>Get screened</h3>
+              <p>Pay $54.99 once for your credit, criminal, eviction, income and rental history report.</p>
+            </div>
+            <div className="m-step">
+              <span className="m-step-num">3</span>
+              <h3>Share anywhere</h3>
+              <p>Send a secure link to any landlord. Turn off access any time.</p>
+            </div>
           </div>
         </div>
       </section>
