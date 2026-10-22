@@ -108,6 +108,8 @@ model Passport {
   arrestedConvicted   String?
 
   householdNA     Boolean @default(false)
+  petsNA          Boolean @default(false)
+  vehiclesNA      Boolean @default(false)
   employmentNA    Boolean @default(false)
   rentalHistoryNA Boolean @default(false)
   referencesNA    Boolean @default(false)

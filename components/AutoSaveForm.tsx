@@ -33,6 +33,7 @@ export function AutoSaveForm({
     <form
       ref={formRef}
       action={action}
+      data-autosave="true"
       onBlur={(e) => {
         const tag = (e.target as HTMLElement).tagName;
         if (tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA') scheduleSave();

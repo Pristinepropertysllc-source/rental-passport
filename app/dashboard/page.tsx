@@ -5,7 +5,7 @@ import { getCurrentUser } from '@/lib/session';
 import { db } from '@/lib/db';
 import { Nav } from '@/components/Nav';
 import { ProgressBar } from '@/components/ProgressBar';
-import { overallCompletion, sectionCompletion, applicationComplete } from '@/lib/passport';
+import { overallCompletion, sectionCompletion, applicationComplete, firstIncompleteSection } from '@/lib/passport';
 import { PACKAGES, isPackageKey } from '@/lib/packages';
 import { SCREENING_CATEGORIES } from '@/lib/screening';
 import { QueryParamEventTracker } from '@/components/pixel/PixelTrackers';
@@ -72,7 +72,67 @@ export default async function DashboardPage({
   const sections = sectionCompletion(passport);
   const appComplete = applicationComplete(passport);
   const unlocked = appComplete && passport.packagePaid;
-  const displayName = [passport.firstName, passport.lastName].filter(Boolean).join(' ') || user.email;
+  const displayName = [passport.firstName, passport.lastName].filter(Boolean).join(' ');
+  const firstIncomplete = firstIncompleteSection(passport);
+  const continueHref = firstIncomplete ? SECTION_HREFS[firstIncomplete] ?? '/passport' : '/passport';
+  const incomplete = percent < 100;
+
+  const inbox = (
+        <div className="card">
+          <h2 style={{ margin: 0, display: 'flex', alignItems: 'center' }}>
+            Inbox
+            {unreadCount > 0 && <span className="message-unread-badge">{unreadCount} new</span>}
+          </h2>
+          {unreadCount > 0 && <InboxReadTracker hasUnread onMount={markMessagesReadAction} />}
+          {messages.length === 0 ? (
+            <p className="muted" style={{ fontSize: 13, marginTop: 10, marginBottom: 14 }}>
+              No messages yet.
+            </p>
+          ) : (
+            <div className="message-thread" style={{ marginTop: 14 }}>
+              {messages.map((m) => (
+                <div
+                  key={m.id}
+                  className={`message-bubble ${m.fromTenant ? 'message-bubble-from-tenant' : 'message-bubble-from-admin'}`}
+                >
+                  <div className="message-bubble-meta">
+                    {m.fromTenant ? 'You' : 'Granit · Rental Passport'} &middot;{' '}
+                    {new Date(m.createdAt).toLocaleString('en-US', { timeZone: 'America/New_York' })} ET
+                  </div>
+                  <span style={{ whiteSpace: 'pre-wrap' }}>{m.body}</span>
+                </div>
+              ))}
+            </div>
+          )}
+          <form action={sendMessageAction}>
+            <div className="field">
+              <label>Send a message</label>
+              <p className="muted" style={{ fontSize: 13, margin: '0 0 8px' }}>
+                Questions? Message us here, or call or text us at (240) 520-7174.
+              </p>
+              <div className="contact-actions">
+                <a className="contact-btn" href="tel:+12405207174">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                    <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.6 21 3 13.4 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z" />
+                  </svg>
+                  Call
+                </a>
+                <a className="contact-btn" href="sms:+12405207174">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+                    <path d="M4 3h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H8l-4.3 3.6A.5.5 0 0 1 3 21.2V5a2 2 0 0 1 1-2z" />
+                  </svg>
+                  Text
+                </a>
+              </div>
+              <textarea name="body" rows={2} required placeholder="Ask a question or send an update..." />
+            </div>
+            <button className="btn btn-primary btn-sm" type="submit">
+              Send
+            </button>
+          </form>
+        </div>
+  );
+
 
   return (
     <>
@@ -82,64 +142,9 @@ export default async function DashboardPage({
         <WelcomeModal />
       </Suspense>
       <div className="shell" style={{ paddingTop: 32, paddingBottom: 60 }}>
-        {(
-          <div className="card">
-            <h2 style={{ margin: 0, display: 'flex', alignItems: 'center' }}>
-              Inbox
-              {unreadCount > 0 && <span className="message-unread-badge">{unreadCount} new</span>}
-            </h2>
-            {unreadCount > 0 && <InboxReadTracker hasUnread onMount={markMessagesReadAction} />}
-            {messages.length === 0 ? (
-              <p className="muted" style={{ fontSize: 13, marginTop: 10, marginBottom: 14 }}>
-                No messages yet.
-              </p>
-            ) : (
-              <div className="message-thread" style={{ marginTop: 14 }}>
-                {messages.map((m) => (
-                  <div
-                    key={m.id}
-                    className={`message-bubble ${m.fromTenant ? 'message-bubble-from-tenant' : 'message-bubble-from-admin'}`}
-                  >
-                    <div className="message-bubble-meta">
-                      {m.fromTenant ? 'You' : 'Granit · Rental Passport'} &middot;{' '}
-                      {new Date(m.createdAt).toLocaleString('en-US', { timeZone: 'America/New_York' })} ET
-                    </div>
-                    <span style={{ whiteSpace: 'pre-wrap' }}>{m.body}</span>
-                  </div>
-                ))}
-              </div>
-            )}
-            <form action={sendMessageAction}>
-              <div className="field">
-                <label>Send a message</label>
-                <p className="muted" style={{ fontSize: 13, margin: '0 0 8px' }}>
-                  Questions? Message us here, or call or text us at (240) 520-7174.
-                </p>
-                <div className="contact-actions">
-                  <a className="contact-btn" href="tel:+12405207174">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
-                      <path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.6 21 3 13.4 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z" />
-                    </svg>
-                    Call
-                  </a>
-                  <a className="contact-btn" href="sms:+12405207174">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
-                      <path d="M4 3h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H8l-4.3 3.6A.5.5 0 0 1 3 21.2V5a2 2 0 0 1 1-2z" />
-                    </svg>
-                    Text
-                  </a>
-                </div>
-                <textarea name="body" rows={2} required placeholder="Ask a question or send an update..." />
-              </div>
-              <button className="btn btn-primary btn-sm" type="submit">
-                Send
-              </button>
-            </form>
-          </div>
-        )}
         {!unlocked ? (
           <>
-            <h1>Welcome, {displayName}</h1>
+            <h1>{passport.firstName ? `Welcome, ${passport.firstName}` : 'Welcome!'}</h1>
             <p className="muted">Complete your Rental Passport to start applying to properties.</p>
 
             <div className="card">
@@ -148,6 +153,16 @@ export default async function DashboardPage({
                 <strong>{percent}%</strong>
               </div>
               <ProgressBar percent={percent} />
+
+              {incomplete && (
+                <Link
+                  className="btn btn-primary"
+                  href={continueHref}
+                  style={{ display: 'flex', width: '100%', marginTop: 18, padding: '16px 22px', fontSize: 17 }}
+                >
+                  Continue my application
+                </Link>
+              )}
 
               <div className="section-list" style={{ marginTop: 20 }}>
                 <div className="section-row">
@@ -169,30 +184,30 @@ export default async function DashboardPage({
                 ))}
               </div>
 
-              {!appComplete && (
-                <div style={{ marginTop: 20, display: 'flex', gap: 10 }}>
-                  <Link className="btn btn-primary" href="/passport">
-                    Continue application
-                  </Link>
-                </div>
-              )}
             </div>
 
             {appComplete && !passport.packagePaid && (
               <div className="card" style={{ background: '#eaf0fb', borderColor: '#2b5aa0' }}>
-                <strong>Your Rental Passport is ready.</strong> Complete payment to begin
-                verification.
+                {incomplete ? (
+                  <>You can start your screening now and finish the rest of your application anytime.</>
+                ) : (
+                  <>
+                    <strong>Your Rental Passport is ready.</strong> Complete payment to begin verification.
+                  </>
+                )}
                 <div style={{ marginTop: 12 }}>
-                  <Link className="btn btn-primary" href="/passport/checkout">
+                  <Link className={`btn ${incomplete ? 'btn-secondary' : 'btn-primary'}`} href="/passport/checkout">
                     Continue to payment
                   </Link>
                 </div>
               </div>
             )}
+
+            {inbox}
           </>
         ) : (
           <>
-            <h1>{displayName}&apos;s Rental Passport</h1>
+            <h1>{displayName ? `${displayName}\u2019s Rental Passport` : 'Your Rental Passport'}</h1>
             <p className="muted">Your application is complete and verification is underway.</p>
 
             <div className="card">
@@ -250,6 +265,8 @@ export default async function DashboardPage({
                 </Link>
               </div>
             </div>
+
+            {inbox}
 
             <div className="card">
               <h2>Applications sent</h2>

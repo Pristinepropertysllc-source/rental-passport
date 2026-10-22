@@ -23,10 +23,11 @@ export function sectionCompletion(passport: PassportWithRelations) {
   }
 
   const hasHousehold = passport.occupants.length > 0 || passport.pets.length > 0 || passport.vehicles.length > 0;
+  const householdDone = hasHousehold || passport.householdNA || (passport.petsNA && passport.vehiclesNA);
   result['household'] = {
-    done: hasHousehold || passport.householdNA ? 1 : 0,
+    done: householdDone ? 1 : 0,
     total: 1,
-    complete: hasHousehold || passport.householdNA
+    complete: householdDone
   };
   result['employment'] = {
     done: passport.employment.length > 0 || passport.employmentNA ? 1 : 0,
@@ -64,4 +65,15 @@ export function overallCompletion(passport: PassportWithRelations) {
   const totalDone = Object.values(sections).reduce((sum, s) => sum + s.done, 0);
   const totalFields = Object.values(sections).reduce((sum, s) => sum + s.total, 0);
   return Math.round((totalDone / totalFields) * 100);
+}
+
+// Order the application steps are shown in (matches /passport).
+export const SECTION_ORDER = ['personal', 'household', 'rentalHistory', 'employment', 'references', 'documents'] as const;
+
+export function firstIncompleteSection(passport: PassportWithRelations): string | null {
+  const sections = sectionCompletion(passport);
+  for (const key of SECTION_ORDER) {
+    if (sections[key] && !sections[key].complete) return key;
+  }
+  return null;
 }

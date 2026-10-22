@@ -1856,15 +1856,15 @@ th {
 
 /* ===== FAQ on the home page ===== */
 .faq-home { margin: 8px 0 22px; text-align: left; }
-.faq-item { border-bottom: 1px solid var(--border); }
-.faq-item summary {
+.faq-home .faq-item { border: 0; border-bottom: 1px solid var(--border); border-radius: 0; background: transparent; padding: 0; margin: 0; box-shadow: none; }
+.faq-home .faq-item summary {
   list-style: none; cursor: pointer; display: flex; justify-content: space-between;
   align-items: center; gap: 14px; padding: 16px 0; font-weight: 600; color: var(--ink);
 }
-.faq-item summary::-webkit-details-marker { display: none; }
-.faq-item summary::after { content: '+'; font-size: 24px; line-height: 1; color: var(--brand); flex: 0 0 auto; }
-.faq-item[open] summary::after { content: '\2212'; }
-.faq-answer { padding: 0 0 16px; color: var(--ink-muted); white-space: pre-line; line-height: 1.55; }
+.faq-home .faq-item summary::-webkit-details-marker { display: none; }
+.faq-home .faq-item summary::after { content: '+'; font-size: 24px; line-height: 1; color: var(--brand); flex: 0 0 auto; }
+.faq-home .faq-item[open] summary::after { content: '\2212'; }
+.faq-home .faq-answer { padding: 0 0 16px; color: var(--ink-muted); white-space: pre-line; line-height: 1.55; }
 
 /* ===== Phone-only sticky call to action (home page) ===== */
 .mobile-cta-bar { display: none; }
@@ -1891,3 +1891,38 @@ th {
   .mobile-cta-bar .btn { width: 100%; }
   body:has(.mobile-cta-bar) .back-to-top-btn { bottom: 84px; }
 }
+
+/* ===== Stepped application (/passport) ===== */
+.step-label { margin: 0 0 8px; font-size: 14px; color: var(--ink-muted); }
+.step-label strong { color: var(--ink); }
+.step-dots { display: flex; gap: 6px; margin-bottom: 18px; }
+.step-dot { flex: 1; height: 5px; border-radius: 999px; background: var(--border); }
+.step-dot-done { background: var(--brand); opacity: 0.55; }
+.step-dot-current { background: var(--brand); }
+.step-nav { display: flex; gap: 12px; margin-top: 20px; }
+.step-nav .btn { flex: 1; padding: 14px 18px; font-size: 16px; }
+@media (min-width: 768px) {
+  .step-nav .btn { flex: 0 0 auto; min-width: 160px; }
+  .step-nav { justify-content: space-between; }
+  .step-nav .btn:only-child { margin-left: auto; }
+}
+
+/* Phones: 16px inputs so iOS doesn't zoom the page on focus */
+@media (max-width: 767px) {
+  .field input, .field select, .field textarea { font-size: 16px; }
+}
+
+/* Documents: one-line note, auto-upload picker, collapsible extras */
+.docs-note { align-items: center; }
+.docs-note p { margin: 0; }
+.doc-pick { position: relative; cursor: pointer; overflow: hidden; }
+.doc-file-input { position: absolute; inset: 0; opacity: 0; width: 100%; height: 100%; cursor: pointer; font-size: 0; }
+.doc-uploading { font-size: 13px; color: var(--ink-muted); word-break: break-all; }
+.docs-more { margin-top: 14px; }
+.docs-more > summary {
+  list-style: none; cursor: pointer; font-weight: 600; color: var(--brand);
+  padding: 12px 0; display: flex; justify-content: space-between; align-items: center;
+}
+.docs-more > summary::-webkit-details-marker { display: none; }
+.docs-more > summary::after { content: '+'; font-size: 22px; line-height: 1; }
+.docs-more[open] > summary::after { content: '\2212'; }

@@ -74,6 +74,20 @@ export async function markHouseholdNAAction(formData: FormData) {
   revalidatePath('/dashboard');
 }
 
+export async function markPetsNAAction(formData: FormData) {
+  const user = await requireUser();
+  await db.passport.update({ where: { userId: user.id }, data: { petsNA: true } });
+  revalidatePath('/passport');
+  revalidatePath('/dashboard');
+}
+
+export async function markVehiclesNAAction(formData: FormData) {
+  const user = await requireUser();
+  await db.passport.update({ where: { userId: user.id }, data: { vehiclesNA: true } });
+  revalidatePath('/passport');
+  revalidatePath('/dashboard');
+}
+
 export async function markEmploymentNAAction(formData: FormData) {
   const user = await requireUser();
   await db.passport.update({ where: { userId: user.id }, data: { employmentNA: true } });
@@ -146,7 +160,7 @@ export async function addPetAction(formData: FormData) {
       color: String(formData.get('color') || '')
     }
   });
-  await db.passport.update({ where: { id: passport.id }, data: { householdNA: false } });
+  await db.passport.update({ where: { id: passport.id }, data: { householdNA: false, petsNA: false } });
 
   revalidatePath('/passport');
 }
@@ -183,7 +197,7 @@ export async function addVehicleAction(formData: FormData) {
       ownerHomePhone: String(formData.get('ownerHomePhone') || '')
     }
   });
-  await db.passport.update({ where: { id: passport.id }, data: { householdNA: false } });
+  await db.passport.update({ where: { id: passport.id }, data: { householdNA: false, vehiclesNA: false } });
 
   revalidatePath('/passport');
 }
@@ -288,7 +302,8 @@ export async function addReferenceAction(formData: FormData) {
       name,
       address: String(formData.get('address') || ''),
       homePhone: String(formData.get('homePhone') || ''),
-      mobilePhone: String(formData.get('mobilePhone') || ''),
+      // The form now asks for a single "Phone"; it is stored in mobilePhone.
+      mobilePhone: String(formData.get('phone') ?? formData.get('mobilePhone') ?? ''),
       relationship: String(formData.get('relationship') || '')
     }
   });
