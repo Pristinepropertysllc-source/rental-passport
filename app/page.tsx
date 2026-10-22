@@ -4,6 +4,23 @@ import { redirect } from 'next/navigation';
 import { PublicNav } from '@/components/PublicNav';
 import { DemoProvider, DemoTriggerButton } from '@/components/demo/RentalPassportDemo';
 import { ViewContentTracker } from '@/components/pixel/PixelTrackers';
+import { FAQ_ITEMS } from '@/lib/faqData';
+
+const HOME_FAQ_QUESTIONS = [
+  'Do I have to complete a new application for every property?',
+  'Does the landlord need a Rental Passport account?',
+  'Can I control what a landlord sees?',
+  'Does Rental Passport guarantee that I will be approved for a rental?'
+];
+const HOME_FAQ = HOME_FAQ_QUESTIONS.map((q) => FAQ_ITEMS.find((i) => i.question === q)).filter(
+  (i): i is { question: string; answer: string } => !!i
+);
+
+const CHECK_ICON = (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M5 12l5 5 9-10" />
+  </svg>
+);
 
 export default async function HomePage() {
   const user = await getCurrentUser();
@@ -13,32 +30,58 @@ export default async function HomePage() {
 
   return (
     <DemoProvider>
-    <div>
+    <div className="home-page">
       <PublicNav />
       <ViewContentTracker contentName="homepage" />
 
       {/* Hero */}
-      <section className="lp-band">
-        <div className="shell">
-          <div className="hero">
-            <h1>Apply Once. Rent Anywhere.</h1>
-            <p>
-              Build one verified Rental Passport and share it with as many landlords as
-              you want &mdash; no re-typing your application for every property.
+      <section className="hx-band">
+        <div className="shell hx-grid">
+          <div className="hx-copy">
+            <span className="hx-pill">Maryland reusable screening report</span>
+            <h1 className="hx-title">
+              Apply once.
+              <br />
+              Rent anywhere.
+            </h1>
+            <p className="hx-lede">
+              One $54.99 screening report and application you can share with every landlord. Stop
+              paying an application fee for every place you tour.
             </p>
-            <p className="hero-md-note">For Maryland renters: one $54.99 screening report covering credit, criminal, eviction, income and rental history. Stop paying application fees over and over. With a qualifying reusable tenant screening report.</p>
-            <div className="hero-actions">
-              <Link className="btn btn-primary" href="/register">
-                Sign up
+            <div className="hx-actions">
+              <Link className="btn btn-primary hx-btn" href="/register">
+                Build my Rental Passport
               </Link>
-              <a className="btn btn-secondary" href="#pricing">
-                See pricing
-              </a>
-            </div>
-            <div style={{ marginTop: 14 }}>
-              <DemoTriggerButton step={1} className="demo-trigger-btn">
-                See How It Works &rarr;
+              <DemoTriggerButton step={1} className="btn btn-secondary hx-btn">
+                See a sample
               </DemoTriggerButton>
+            </div>
+            <ul className="hx-points">
+              <li>{CHECK_ICON}Credit, criminal &amp; eviction</li>
+              <li>{CHECK_ICON}One-time payment</li>
+              <li>{CHECK_ICON}You control who sees it</li>
+            </ul>
+          </div>
+
+          <div className="hx-visual">
+            <div className="hx-phone">
+              <div className="hx-phone-head">
+                <span className="hx-avatar">AM</span>
+                <div className="hx-phone-who">
+                  <strong>Alex Morgan</strong>
+                  <span>Rental Passport</span>
+                </div>
+                <span className="hx-verified">Verified</span>
+              </div>
+              <div className="hx-phone-rows">
+                {['Credit report', 'Criminal history', 'Eviction history', 'Income verified'].map((label) => (
+                  <div className="hx-phone-row" key={label}>
+                    <span>{label}</span>
+                    <span className="hx-complete">Complete</span>
+                  </div>
+                ))}
+              </div>
+              <div className="hx-phone-bar">Share with a landlord &rarr;</div>
             </div>
           </div>
         </div>
@@ -47,22 +90,23 @@ export default async function HomePage() {
       {/* How it works */}
       <section className="lp-band lp-band-alt">
         <div className="shell">
-          <h2 style={{ textAlign: 'center', marginBottom: 4 }}>How It Works</h2>
-          <p className="hiw-subtitle">One Rental Passport. Three simple steps.</p>
-          <img
-            src="/how-it-works-header.webp"
-            alt="Apply Once. Rent Anywhere. Start Saving Time and Money."
-            style={{ width: '100%', height: 'auto', display: 'block', marginBottom: 4 }}
-          />
-          <div className="hiw-image-row">
-            <img src="/how-it-works-panel1.webp" alt="The old way: repeatedly filling out rental applications and paying fees for every property." />
-            <img src="/how-it-works-panel2.webp" alt="The solution: build one secure Rental Passport profile with your information and documents." />
-            <img src="/how-it-works-panel3.webp" alt="The new way: reuse your one Rental Passport to apply to multiple properties instantly." />
-          </div>
-          <div style={{ textAlign: 'center', marginTop: 24 }}>
-            <Link className="btn btn-primary" href="/register">
-              Build Yours Now &rarr;
-            </Link>
+          <h2 className="hw-title">How it works</h2>
+          <div className="hw-grid">
+            <div className="hw-card">
+              <span className="hw-num">1</span>
+              <h3>Build it once</h3>
+              <p>Fill out one application and upload your documents. It saves as you go.</p>
+            </div>
+            <div className="hw-card">
+              <span className="hw-num">2</span>
+              <h3>Get screened</h3>
+              <p>Pay $54.99 once for your credit, criminal, eviction, income and rental history report.</p>
+            </div>
+            <div className="hw-card">
+              <span className="hw-num">3</span>
+              <h3>Share anywhere</h3>
+              <p>Send a secure link to any landlord. Turn off access any time.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -323,13 +367,21 @@ export default async function HomePage() {
       {/* FAQ teaser */}
       <section className="lp-band lp-band-alt">
         <div className="shell">
-          <div className="card" style={{ textAlign: 'center' }}>
+          <div className="card" style={{ textAlign: 'left' }}>
             <h2>Frequently Asked Questions</h2>
             <p className="muted" style={{ marginTop: 0 }}>
               Everything you need to know about Rental Passport.
             </p>
+            <div className="faq-home">
+              {HOME_FAQ.map((item) => (
+                <details className="faq-item" key={item.question}>
+                  <summary>{item.question}</summary>
+                  <div className="faq-answer">{item.answer}</div>
+                </details>
+              ))}
+            </div>
             <Link className="btn btn-primary" href="/faq">
-              View FAQ
+              See all questions
             </Link>
           </div>
         </div>
@@ -363,6 +415,13 @@ export default async function HomePage() {
           &copy; {new Date().getFullYear()} Rental Passport
         </p>
       </footer>
+
+      {/* Phone-only sticky call to action */}
+      <div className="mobile-cta-bar">
+        <Link className="btn btn-primary" href="/register">
+          Build my Rental Passport &ndash; $54.99
+        </Link>
+      </div>
     </div>
     </DemoProvider>
   );

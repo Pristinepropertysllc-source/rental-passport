@@ -17,7 +17,7 @@ export const FAQ_ITEMS: { question: string; answer: string }[] = [
             {
               question: "What's included in Rental Passport screening?",
               answer:
-                'Complete Screening — $54.99\n\nIncludes:\n• Credit Check\n• Enhanced Landlord Search\n• National Criminal Search\n\nAvailable screening options may depend on the screening services connected to Rental Passport.'
+                'Complete Screening — $54.99\n\nIncludes:\n• Credit report\n• Criminal history\n• Eviction history\n• Employment and income verification\n• Current address and rental history\n\nAvailable screening options may depend on the screening services connected to Rental Passport.'
             },
             {
               question: 'Does Rental Passport guarantee that I will be approved for a rental?',
@@ -71,7 +71,7 @@ export const FAQ_ITEMS: { question: string; answer: string }[] = [
             {
               question: 'Does Rental Passport store my Social Security number?',
               answer:
-                'Rental Passport may collect sensitive identity information, including a Social Security number, when required for the screening process. This information is used for verification and is shared with landlords through your Rental Passport at your discretion.'
+                'Rental Passport collects your Social Security number only because it is needed to run your credit and background screening. It is stored encrypted, and landlords you share with only see the last 4 digits.'
             },
             {
               question: 'How much does it cost to share my Rental Passport?',
