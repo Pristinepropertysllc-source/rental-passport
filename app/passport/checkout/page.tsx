@@ -70,6 +70,9 @@ export default async function CheckoutPage({
           <p className="muted" style={{ fontSize: 14, marginBottom: 16 }}>
             No subscriptions and no per-property fees. Share your Rental Passport with as many landlords as you need.
           </p>
+          <p style={{ fontSize: 14, margin: '0 0 14px' }}>
+            After payment you get a private link you can text or email to any landlord. They view it free.
+          </p>
           <PayForm
             label={`Pay ${selectedPackage.priceLabel.split('/')[0]} & continue`}
             value={selectedPackage.priceCents / 100}

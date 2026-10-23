@@ -195,6 +195,9 @@ export default async function DashboardPage({
                     <strong>Your Rental Passport is ready.</strong> Complete payment to begin verification.
                   </>
                 )}
+                <p style={{ margin: '10px 0 0', fontSize: 14 }}>
+                  After payment you get a private link you can text or email to any landlord. They view it free.
+                </p>
                 <div style={{ marginTop: 12 }}>
                   <Link className={`btn ${incomplete ? 'btn-secondary' : 'btn-primary'}`} href="/passport/checkout">
                     Continue to payment
@@ -209,6 +212,21 @@ export default async function DashboardPage({
           <>
             <h1>{displayName ? `${displayName}\u2019s Rental Passport` : 'Your Rental Passport'}</h1>
             <p className="muted">Your application is complete and verification is underway.</p>
+
+            <div className="card send-card">
+              <Link
+                className="btn btn-primary"
+                href="/passport/share"
+                style={{ display: 'flex', width: '100%', padding: '16px 22px', fontSize: 17 }}
+              >
+                Send to a landlord
+              </Link>
+              <ol className="send-steps">
+                <li><span className="send-step-num">1</span> You get a private link</li>
+                <li><span className="send-step-num">2</span> Text or email it to any landlord</li>
+                <li><span className="send-step-num">3</span> They view it free, no account needed</li>
+              </ol>
+            </div>
 
             <div className="card">
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 10 }}>
@@ -254,14 +272,11 @@ export default async function DashboardPage({
               </p>
 
               <div style={{ marginTop: 16, display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-                <Link className="btn btn-primary" href="/passport">
+                <Link className="btn btn-secondary" href="/passport">
                   View / edit passport
                 </Link>
                 <Link className="btn btn-secondary" href="/passport/print">
                   Print passport
-                </Link>
-                <Link className="btn btn-secondary" href="/passport/share">
-                  Share with a landlord
                 </Link>
               </div>
             </div>
@@ -284,7 +299,7 @@ export default async function DashboardPage({
                   <tbody>
                     {shares.map((share) => (
                       <tr key={share.id}>
-                        <td>{share.landlordEmail}</td>
+                        <td>{share.landlordName || share.landlordEmail || share.landlordPhone}</td>
                         <td>{share.createdAt.toLocaleDateString()}</td>
                         <td>
                           <span className={`badge badge-${share.status.toLowerCase()}`}>{share.status}</span>

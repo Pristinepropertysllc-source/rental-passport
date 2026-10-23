@@ -6,6 +6,7 @@ import { PrintableApplication } from '@/components/PrintableApplication';
 import { PrintButton } from '@/components/PrintButton';
 import { documentLabel } from '@/lib/documentTypes';
 import { ScreeningResultsCard } from '@/components/ScreeningResultsCard';
+import { screeningDate, formatLongDate, isOlderThan30Days } from '@/lib/screeningDate';
 
 export default async function SharedPassportPage({ params }: { params: { token: string } }) {
   const share = await db.share.findUnique({
@@ -48,9 +49,31 @@ export default async function SharedPassportPage({ params }: { params: { token: 
     (viewer.email === share.landlordEmail || viewer.id === share.landlordId);
 
   const applicantName = [passport.firstName, passport.lastName].filter(Boolean).join(' ') || share.tenant.email;
+  const renterName = [passport.firstName, passport.lastName].filter(Boolean).join(' ') || 'The renter';
+  const sDate = screeningDate(passport.screeningItems, passport.documents);
+  const stale = sDate ? isOlderThan30Days(sDate) : false;
 
   return (
     <div className="shell" style={{ paddingTop: 32, paddingBottom: 60 }}>
+      <div className={`shared-banner${stale ? ' shared-banner-warn' : ''}`} role="note">
+        {stale ? (
+          <p>This screening is more than 30 days old.</p>
+        ) : (
+          <>
+            <p>
+              <strong>{renterName} shared their Rental Passport with you.</strong> This is a reusable
+              tenant screening report prepared at the renter&apos;s request and expense, free for you
+              to view. {sDate ? `Screening date: ${formatLongDate(sDate)}.` : 'Screening in progress.'}
+            </p>
+            <p>
+              Under Maryland Real Property &sect;8-218, a landlord who accepts a reusable tenant
+              screening report may not charge the applicant an application fee or a fee to access the
+              report.
+            </p>
+          </>
+        )}
+      </div>
+
       <div className="no-print" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
         <span className={`badge badge-${share.status.toLowerCase()}`}>{share.status}</span>
         <PrintButton />

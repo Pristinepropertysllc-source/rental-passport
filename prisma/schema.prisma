@@ -275,6 +275,11 @@ model Share {
   landlordEmail String
   landlordId    String?
   landlord      User?   @relation("LandlordShares", fields: [landlordId], references: [id])
+  // Added for the send-to-a-landlord flow (all optional)
+  landlordName  String?
+  landlordPhone String?
+  sentVia       String? // TEXT, EMAIL, SHARE, COPY
+  sentAt        DateTime?
 
   status    String    @default("SENT")
   feePaid         Boolean  @default(false)
