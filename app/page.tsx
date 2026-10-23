@@ -279,11 +279,7 @@ export default async function HomePage() {
               </div>
             ))}
           </div>
-          <p className="muted" style={{ fontSize: 13, marginTop: 20, marginBottom: 0 }}>
-            This is general educational information, not legal advice. Each state&apos;s law has its own
-            requirements, and whether a report qualifies depends on meeting them at the time it&apos;s used.
-            Ask the landlord whether they accept reusable screening reports.
-          </p>
+          <p className="os-swipe">Swipe to see all {STATE_LAWS.length} states &rarr;</p>
         </div>
       </section>
 

@@ -2029,9 +2029,16 @@ th {
 }
 
 /* Other states with reusable screening report laws */
-.os-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.os-card { padding: 22px; display: flex; flex-direction: column; align-items: flex-start; }
+.os-grid {
+  display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch; padding: 4px 2px 18px;
+}
+.os-card { flex: 0 0 340px; scroll-snap-align: start; padding: 22px; display: flex; flex-direction: column; align-items: flex-start; }
 .os-card .btn { margin-top: auto; }
+.os-swipe { display: none; text-align: center; margin: 0; font-size: 13px; color: var(--ink-muted); }
 @media (max-width: 767px) {
-  .os-grid { grid-template-columns: 1fr; }
+  .os-grid { scrollbar-width: none; }
+  .os-grid::-webkit-scrollbar { display: none; }
+  .os-card { flex-basis: 82%; }
+  .os-swipe { display: block; }
 }
