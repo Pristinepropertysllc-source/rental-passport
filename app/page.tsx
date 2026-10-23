@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ProcessSteps } from '@/components/ProcessSteps';
 import { getCurrentUser } from '@/lib/session';
 import { redirect } from 'next/navigation';
 import { PublicNav } from '@/components/PublicNav';
@@ -91,23 +92,10 @@ export default async function HomePage() {
       <section className="lp-band lp-band-alt">
         <div className="shell">
           <h2 className="hw-title">How it works</h2>
-          <div className="hw-grid">
-            <div className="hw-card">
-              <span className="hw-num">1</span>
-              <h3>Build it once</h3>
-              <p>Fill out one application and upload your documents. It saves as you go.</p>
-            </div>
-            <div className="hw-card">
-              <span className="hw-num">2</span>
-              <h3>Get screened</h3>
-              <p>Pay $54.99 once for your credit, criminal, eviction, income and rental history report.</p>
-            </div>
-            <div className="hw-card">
-              <span className="hw-num">3</span>
-              <h3>Share anywhere</h3>
-              <p>Send a secure link to any landlord. Turn off access any time.</p>
-            </div>
-          </div>
+          <p className="muted" style={{ textAlign: 'center', marginTop: -16, marginBottom: 36 }}>
+            Apply once, then send the same passport to every landlord you&apos;re interested in.
+          </p>
+          <ProcessSteps />
         </div>
       </section>
 
