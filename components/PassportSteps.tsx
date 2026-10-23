@@ -41,6 +41,7 @@ export function PassportSteps({ steps }: { steps: PassportStep[] }) {
   function go(next: number) {
     if (next < 0 || next >= steps.length || next === indexRef.current) return;
     saveCurrentStep();
+    (document.activeElement as HTMLElement | null)?.blur?.();
     setIndex(next);
     try {
       window.history.replaceState(null, '', `#${steps[next].id}`);
@@ -78,12 +79,12 @@ export function PassportSteps({ steps }: { steps: PassportStep[] }) {
 
       <div className="step-nav">
         {!isFirst && (
-          <button type="button" className="btn btn-secondary" onClick={() => go(index - 1)}>
+          <button type="button" className="btn btn-secondary" onMouseDown={(e) => e.preventDefault()} onClick={() => go(index - 1)}>
             Back
           </button>
         )}
         {!isLast ? (
-          <button type="button" className="btn btn-primary" onClick={() => go(index + 1)}>
+          <button type="button" className="btn btn-primary" onMouseDown={(e) => e.preventDefault()} onClick={() => go(index + 1)}>
             Next
           </button>
         ) : (
