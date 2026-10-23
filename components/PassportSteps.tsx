@@ -51,6 +51,33 @@ export function PassportSteps({ steps }: { steps: PassportStep[] }) {
     window.scrollTo({ top: 0, behavior: 'auto' });
   }
 
+  // On phones, tapping a button while a field is focused first closes the keyboard, which
+  // can shift the layout and swallow the click (so it takes two taps). When a field is
+  // focused we act on pointer-down instead, and ignore the click that follows.
+  const firedOnDown = useRef(false);
+  function pressProps(target: number) {
+    return {
+      onPointerDown: (e: React.PointerEvent) => {
+        const el = document.activeElement as HTMLElement | null;
+        if (el && /^(INPUT|SELECT|TEXTAREA)$/.test(el.tagName)) {
+          e.preventDefault();
+          firedOnDown.current = true;
+          window.setTimeout(() => {
+            firedOnDown.current = false;
+          }, 700);
+          go(target);
+        }
+      },
+      onClick: () => {
+        if (firedOnDown.current) {
+          firedOnDown.current = false;
+          return;
+        }
+        go(target);
+      }
+    };
+  }
+
   const isFirst = index === 0;
   const isLast = index === steps.length - 1;
 
@@ -79,12 +106,12 @@ export function PassportSteps({ steps }: { steps: PassportStep[] }) {
 
       <div className="step-nav">
         {!isFirst && (
-          <button type="button" className="btn btn-secondary" onMouseDown={(e) => e.preventDefault()} onClick={() => go(index - 1)}>
+          <button type="button" className="btn btn-secondary" {...pressProps(index - 1)}>
             Back
           </button>
         )}
         {!isLast ? (
-          <button type="button" className="btn btn-primary" onMouseDown={(e) => e.preventDefault()} onClick={() => go(index + 1)}>
+          <button type="button" className="btn btn-primary" {...pressProps(index + 1)}>
             Next
           </button>
         ) : (
