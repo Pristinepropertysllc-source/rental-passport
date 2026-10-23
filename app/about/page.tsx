@@ -191,57 +191,32 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Section 5: Maryland Law */}
+      {/* Section 5: Reusable screening report laws */}
       <section className="lp-band lp-band-alt">
         <div className="shell">
           <div className="card">
-            <h2>Maryland Recognizes Reusable Tenant Screening Reports</h2>
+            <h2>Reusable Tenant Screening Reports</h2>
             <div className="legal-note">
               <p>
-                Maryland Real Property &sect;8-218 recognizes the concept of a &ldquo;reusable
-                tenant screening report&rdquo; and establishes specific requirements for a
-                qualifying report. As currently written, the statute describes a report prepared
-                within the previous 30 days by a consumer reporting agency, at the request and
-                expense of a prospective tenant, and made directly available to a prospective
-                landlord at no charge for use in the rental application process.
-              </p>
-              <p>
-                The statute identifies information that must be included for a report to qualify,
-                such as:
-              </p>
-              <ul className="check-list" style={{ margin: '10px 0' }}>
-                <li>Credit report</li>
-                <li>Comprehensive criminal history information for the previous 7 years for relevant jurisdictions</li>
-                <li>Comprehensive eviction history for the previous 7 years for relevant jurisdictions</li>
-                <li>Employment and income verification</li>
-                <li>Current address and rental history</li>
-              </ul>
-              <p>
-                Maryland law also addresses whether landlords accept reusable tenant screening
-                reports, and establishes consequences for landlords who accept a qualifying
-                report.
+                Several states have laws that recognize a &ldquo;reusable tenant screening
+                report&rdquo; &mdash; generally a report prepared recently by a consumer reporting
+                agency at the request and expense of a prospective tenant, and made available to a
+                landlord at no charge. Each state sets its own requirements for what a qualifying
+                report must include and what a landlord may charge when accepting one.
               </p>
               <p style={{ marginBottom: 0 }}>
                 <strong>
-                  Maryland law provides a framework for qualifying reusable tenant screening
-                  reports, and Rental Passport is designed around the broader idea of helping
-                  renters prepare and reuse organized rental information.
+                  State laws provide a framework for qualifying reusable tenant screening reports,
+                  and Rental Passport is designed around the broader idea of helping renters prepare
+                  and reuse organized rental information.
                 </strong>{' '}
                 This is general educational information, not legal advice, and it does not mean
                 every landlord is required to accept Rental Passport, that Rental Passport
                 automatically qualifies as a statutory reusable tenant screening report, or that
-                Maryland landlords cannot charge application fees.
+                landlords cannot charge application fees.
               </p>
               <p className="legal-source">
-                Source:{' '}
-                <a
-                  href="https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=grp&enactments=false&section=8-218"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Maryland General Assembly, Real Property &sect;8-218
-                </a>
-                . See also the{' '}
+                <Link href="/#state-laws">See the state laws</Link>. See also the{' '}
                 <a href="https://www.ftc.gov/legal-library/browse/statutes/fair-credit-reporting-act" target="_blank" rel="noreferrer">
                   FTC on the Fair Credit Reporting Act
                 </a>{' '}
@@ -408,7 +383,7 @@ export default function AboutPage() {
           <Link href="/terms">Terms of Service</Link>
         </div>
         <p className="muted" style={{ fontSize: 12, margin: 0 }}>
-          Information about Maryland law is provided for general educational purposes and is not
+          Information about state laws is provided for general educational purposes and is not
           legal advice. Landlords, property managers, and renters should consult qualified legal
           counsel regarding their specific circumstances and obligations.
         </p>

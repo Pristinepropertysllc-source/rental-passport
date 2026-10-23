@@ -109,23 +109,17 @@ export default function RentersPage() {
       <section className="lp-band">
         <div className="shell">
           <div className="card">
-            <h2>Maryland Reusable Screening Reports</h2>
+            <h2>Reusable Screening Reports</h2>
             <div className="legal-note">
-              <h3>Maryland Law</h3>
               <p>
-                Maryland law (Real Property &sect;8-218) recognizes a specific type of report
-                called a &ldquo;reusable tenant screening report&rdquo; &mdash; one prepared within
-                the previous 30 days by a consumer reporting agency at the request and expense of
-                the prospective tenant, and made available to a landlord at no charge. To qualify,
-                the report must contain specific information, including a credit report,
-                comprehensive criminal and eviction history for prior-residence jurisdictions,
-                employment and income verification, and current address and rental history.
-                Maryland landlords must notify prospective tenants whether they accept reusable
-                tenant screening reports, and if a landlord accepts a report that meets these
-                requirements, the landlord generally may not charge that tenant an application fee
-                or a fee to access the report.
+                Several states have laws that let renters bring their own recent screening report
+                instead of paying a new application fee for every rental. Whether a landlord
+                accepts one, and whether a specific report qualifies, depends on the state and on
+                the report meeting that state&apos;s requirements.
               </p>
-              <p className="legal-source">Source: Maryland General Assembly, Real Property &sect;8-218.</p>
+              <p className="legal-source">
+                <Link href="/#state-laws">See the state laws &rarr;</Link>
+              </p>
             </div>
           </div>
         </div>

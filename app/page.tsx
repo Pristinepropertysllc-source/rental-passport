@@ -23,7 +23,15 @@ const CHECK_ICON = (
   </svg>
 );
 
-const OTHER_STATES = [
+// Alphabetical, no state featured over another.
+const STATE_LAWS = [
+  {
+    name: 'California',
+    summary:
+      "Landlords may accept a reusable tenant screening report prepared in the last 30 days. If they do, they can't charge you an application screening fee or a fee to access it.",
+    citation: 'California Civil Code \u00a71950.1',
+    href: 'https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1950.1'
+  },
   {
     name: 'Colorado',
     summary:
@@ -32,18 +40,11 @@ const OTHER_STATES = [
     href: 'https://law.justia.com/codes/colorado/title-38/tenants-and-landlords/article-12/part-9/section-38-12-904/'
   },
   {
-    name: 'Washington',
+    name: 'Maryland',
     summary:
-      "Landlords choose whether to accept a comprehensive reusable tenant screening report and must tell applicants. If they accept it, they can't charge you to review it.",
-    citation: 'RCW 59.18.257',
-    href: 'https://app.leg.wa.gov/RCW/default.aspx?cite=59.18.257'
-  },
-  {
-    name: 'California',
-    summary:
-      "Landlords may accept a reusable tenant screening report prepared in the last 30 days. If they do, they can't charge you an application screening fee or a fee to access it.",
-    citation: 'California Civil Code \u00a71950.1',
-    href: 'https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1950.1'
+      "Landlords must tell applicants whether they accept reusable tenant screening reports. If they accept one prepared in the last 30 days, they can't charge you an application fee or a fee to access it.",
+    citation: 'Maryland Real Property \u00a78-218',
+    href: 'https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=grp&section=8-218&enactments=false'
   },
   {
     name: 'New York',
@@ -58,6 +59,13 @@ const OTHER_STATES = [
       "Landlords can't charge more than the actual cost of a background or credit check, and can't charge for it if you provide a qualifying report from the last 90 days.",
     citation: 'Rhode Island General Laws \u00a734-18-59',
     href: 'http://webserver.rilegislature.gov/Statutes/TITLE34/34-18/34-18-59.htm'
+  },
+  {
+    name: 'Washington',
+    summary:
+      "Landlords choose whether to accept a comprehensive reusable tenant screening report and must tell applicants. If they accept it, they can't charge you to review it.",
+    citation: 'RCW 59.18.257',
+    href: 'https://app.leg.wa.gov/RCW/default.aspx?cite=59.18.257'
   }
 ];
 
@@ -77,7 +85,7 @@ export default async function HomePage() {
       <section className="hx-band">
         <div className="shell hx-grid">
           <div className="hx-copy">
-            <span className="hx-pill">Maryland reusable screening report</span>
+            <span className="hx-pill">Reusable screening report</span>
             <h1 className="hx-title">
               Apply once.
               <br />
@@ -220,10 +228,10 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Maryland Reusable Screening Reports */}
-      <section className="lp-band lp-band-alt">
+      {/* Reusable screening report laws (all states, alphabetical) */}
+      <section className="lp-band lp-band-alt" id="state-laws">
         <div className="shell">
-          <div className="md-card">
+          <div className="md-card" style={{ marginBottom: 20 }}>
             <div className="md-card-header">
               <div className="md-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -232,7 +240,7 @@ export default async function HomePage() {
                 </svg>
               </div>
               <div>
-                <h2 style={{ margin: 0 }}>Maryland Reusable Screening Reports</h2>
+                <h2 style={{ margin: 0 }}>Reusable Screening Report Laws</h2>
                 <p className="muted" style={{ margin: '2px 0 0' }}>
                   One report. Multiple rental opportunities.
                 </p>
@@ -240,14 +248,10 @@ export default async function HomePage() {
             </div>
 
             <p>
-              Rental Passport&apos;s Complete Screening report is designed to include the
-              information required under Maryland Real Property &sect;8-218 for a reusable tenant
-              screening report.
+              Several states have laws that let renters bring their own recent screening report
+              instead of paying a new application fee for every rental. Rental Passport&apos;s
+              Complete Screening report includes:
             </p>
-
-            <div className="md-citation">Maryland Real Property &sect;8-218</div>
-
-            <p className="muted" style={{ marginTop: 0 }}>Our screening report includes:</p>
             <ul className="check-list">
               <li>Credit report</li>
               <li>Comprehensive criminal history</li>
@@ -255,49 +259,14 @@ export default async function HomePage() {
               <li>Employment and income verification</li>
               <li>Current address and rental history</li>
             </ul>
-
-            <p className="muted">
-              Maryland law recognizes qualifying reusable tenant screening reports prepared within
-              the previous 30 days by a consumer reporting agency, at the request and expense of a
-              prospective tenant. Every screening report on Rental Passport shows the date it was
-              generated, so landlords can confirm it falls within that window before relying on it.
+            <p className="muted" style={{ marginBottom: 0 }}>
+              Every report shows the date it was generated, so landlords can confirm it falls within
+              their state&apos;s time window.
             </p>
-
-            <p className="muted">
-              When a landlord accepts a qualifying reusable tenant screening report, Maryland law
-              generally prohibits charging the tenant an application fee or a fee to access the
-              report.
-            </p>
-
-            <p className="muted" style={{ fontSize: 13 }}>
-              This is general educational information about Maryland law, not legal advice.
-              Whether a specific report qualifies as a statutory reusable tenant screening report
-              depends on that report meeting all applicable requirements, including its
-              preparation date, at the time it is relied upon.
-            </p>
-
-            <a
-              className="btn btn-secondary"
-              href="https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=grp&section=8-218&enactments=false"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Read Maryland Law
-            </a>
           </div>
-        </div>
-      </section>
 
-      {/* Other states with reusable screening report laws */}
-      <section className="lp-band">
-        <div className="shell">
-          <h2 style={{ marginBottom: 6 }}>Other states with reusable screening report laws</h2>
-          <p className="muted" style={{ marginTop: 0, marginBottom: 24 }}>
-            Maryland isn&apos;t the only state. These states have laws about renters bringing their own
-            recent screening report.
-          </p>
           <div className="os-grid">
-            {OTHER_STATES.map((st) => (
+            {STATE_LAWS.map((st) => (
               <div className="md-card os-card" key={st.name}>
                 <h3 style={{ margin: 0 }}>{st.name}</h3>
                 <p className="muted" style={{ margin: '8px 0 0' }}>{st.summary}</p>

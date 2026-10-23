@@ -111,34 +111,10 @@ export function RegisterForm() {
         </p>
       </div>
 
-      <div className="card" style={{ marginTop: 16 }}>
-        <h2 style={{ fontSize: 16 }}>Maryland Reusable Screening Reports</h2>
-        <div className="legal-note" style={{ fontSize: 13 }}>
-          <p>
-            Maryland Real Property &sect;8-218 recognizes a &ldquo;reusable tenant screening
-            report&rdquo; &mdash; one prepared within the previous 30 days by a consumer
-            reporting agency at the request and expense of the prospective tenant, and made
-            available to a landlord at no charge. Maryland landlords must notify prospective
-            tenants whether they accept reusable tenant screening reports, and if a landlord
-            accepts a report that meets the statutory requirements, they generally may not charge
-            that tenant an application fee or a fee to access the report.
-          </p>
-          <p style={{ marginBottom: 0 }}>
-            <strong>This is general educational information about Maryland law, not legal advice.</strong>{' '}
-            Rental Passport does not claim that every screening report it provides automatically
-            meets these statutory requirements.
-          </p>
-          <p className="legal-source">
-            <a
-              href="https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=grp&enactments=false&section=8-218"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Read Maryland Law &mdash; Real Property &sect;8-218 &rarr;
-            </a>
-          </p>
-        </div>
-      </div>
+      <p className="muted" style={{ marginTop: 16, fontSize: 14 }}>
+        Several states have reusable screening report laws.{' '}
+        <Link href="/#state-laws">See the state laws &rarr;</Link>
+      </p>
     </div>
   );
 }

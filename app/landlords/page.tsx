@@ -76,41 +76,26 @@ export default function LandlordsPage() {
       <section className="lp-band">
         <div className="shell">
           <div className="card">
-            <h2>Maryland Law</h2>
+            <h2>Reusable Tenant Screening Reports</h2>
             <div className="legal-note">
-              <h3>Reusable Tenant Screening Reports</h3>
               <p>
-                Maryland Real Property &sect;8-218 recognizes a &ldquo;reusable tenant screening
-                report&rdquo; &mdash; a report prepared within the previous 30 days by a consumer
-                reporting agency, at the tenant&apos;s request and expense, and made available to a
-                landlord at no charge. To qualify, the statute specifies that the report must
-                include information such as:
-              </p>
-              <ul className="check-list" style={{ margin: '10px 0' }}>
-                <li>A credit report</li>
-                <li>Comprehensive criminal history for prior-residence jurisdictions</li>
-                <li>Comprehensive eviction history for prior-residence jurisdictions</li>
-                <li>Verification of employment and income</li>
-                <li>Current address and rental history</li>
-              </ul>
-              <p>
-                The statute requires landlords to notify prospective tenants whether they accept
-                reusable tenant screening reports. If a landlord accepts a report that meets the
-                statutory requirements, the landlord generally may not charge that tenant an
-                application fee or a fee to access the report.
+                Several states have laws about &ldquo;reusable tenant screening reports&rdquo;
+                &mdash; reports prepared recently at the tenant&apos;s request and expense and made
+                available to a landlord at no charge. What qualifies, and what a landlord may charge
+                when accepting one, varies by state.
               </p>
               <p>
-                <strong>
-                  This is general educational information about Maryland law, not legal advice.
-                </strong>{' '}
+                <strong>This is general educational information, not legal advice.</strong>{' '}
                 It does not mean that every screening report provided through Rental Passport
-                automatically satisfies this statutory definition. Landlords should evaluate
-                whether a specific report actually meets the requirements of &sect;8-218 before
-                treating it as a qualifying reusable tenant screening report, and should not assume
-                that using Rental Passport eliminates their own application fee or screening
+                automatically satisfies a particular state&apos;s definition. Landlords should
+                evaluate whether a specific report actually meets their state&apos;s requirements
+                before treating it as a qualifying reusable tenant screening report, and should not
+                assume that using Rental Passport eliminates their own application fee or screening
                 policies.
               </p>
-              <p className="legal-source">Source: Maryland General Assembly, Real Property &sect;8-218.</p>
+              <p className="legal-source">
+                <Link href="/#state-laws">See the state laws &rarr;</Link>
+              </p>
             </div>
           </div>
         </div>
