@@ -23,6 +23,44 @@ const CHECK_ICON = (
   </svg>
 );
 
+const OTHER_STATES = [
+  {
+    name: 'Colorado',
+    summary:
+      "Landlords must accept a portable tenant screening report less than 30 days old, and can't charge you an application fee when you provide one. Limited exception: a landlord who takes only one application fee at a time and refunds it.",
+    citation: 'Colorado Revised Statutes \u00a738-12-904',
+    href: 'https://law.justia.com/codes/colorado/title-38/tenants-and-landlords/article-12/part-9/section-38-12-904/'
+  },
+  {
+    name: 'Washington',
+    summary:
+      "Landlords choose whether to accept a comprehensive reusable tenant screening report and must tell applicants. If they accept it, they can't charge you to review it.",
+    citation: 'RCW 59.18.257',
+    href: 'https://app.leg.wa.gov/RCW/default.aspx?cite=59.18.257'
+  },
+  {
+    name: 'California',
+    summary:
+      "Landlords may accept a reusable tenant screening report prepared in the last 30 days. If they do, they can't charge you an application screening fee or a fee to access it.",
+    citation: 'California Civil Code \u00a71950.1',
+    href: 'https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1950.1'
+  },
+  {
+    name: 'New York',
+    summary:
+      'Background and credit check fees are capped at $20, and the landlord must waive the fee if you give them a background or credit check done within the past 30 days.',
+    citation: 'New York Real Property Law \u00a7238-a',
+    href: 'https://www.nysenate.gov/legislation/laws/RPP/238-A'
+  },
+  {
+    name: 'Rhode Island',
+    summary:
+      "Landlords can't charge more than the actual cost of a background or credit check, and can't charge for it if you provide a qualifying report from the last 90 days.",
+    citation: 'Rhode Island General Laws \u00a734-18-59',
+    href: 'http://webserver.rilegislature.gov/Statutes/TITLE34/34-18/34-18-59.htm'
+  }
+];
+
 export default async function HomePage() {
   const user = await getCurrentUser();
   if (user) {
@@ -247,6 +285,36 @@ export default async function HomePage() {
               Read Maryland Law
             </a>
           </div>
+        </div>
+      </section>
+
+      {/* Other states with reusable screening report laws */}
+      <section className="lp-band">
+        <div className="shell">
+          <h2 style={{ marginBottom: 6 }}>Other states with reusable screening report laws</h2>
+          <p className="muted" style={{ marginTop: 0, marginBottom: 24 }}>
+            Maryland isn&apos;t the only state. These states have laws about renters bringing their own
+            recent screening report.
+          </p>
+          <div className="os-grid">
+            {OTHER_STATES.map((st) => (
+              <div className="md-card os-card" key={st.name}>
+                <h3 style={{ margin: 0 }}>{st.name}</h3>
+                <p className="muted" style={{ margin: '8px 0 0' }}>{st.summary}</p>
+                <div>
+                  <div className="md-citation">{st.citation}</div>
+                </div>
+                <a className="btn btn-secondary" href={st.href} target="_blank" rel="noreferrer">
+                  Read the law
+                </a>
+              </div>
+            ))}
+          </div>
+          <p className="muted" style={{ fontSize: 13, marginTop: 20, marginBottom: 0 }}>
+            This is general educational information, not legal advice. Each state&apos;s law has its own
+            requirements, and whether a report qualifies depends on meeting them at the time it&apos;s used.
+            Ask the landlord whether they accept reusable screening reports.
+          </p>
         </div>
       </section>
 

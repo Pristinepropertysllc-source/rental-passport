@@ -2027,3 +2027,11 @@ th {
   .ps-item { display: block; flex: 0 0 78%; scroll-snap-align: center; }
   .ps-swipe { display: block; text-align: center; margin: 10px 0 0; font-size: 13px; color: var(--ink-muted); }
 }
+
+/* Other states with reusable screening report laws */
+.os-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.os-card { padding: 22px; display: flex; flex-direction: column; align-items: flex-start; }
+.os-card .btn { margin-top: auto; }
+@media (max-width: 767px) {
+  .os-grid { grid-template-columns: 1fr; }
+}
