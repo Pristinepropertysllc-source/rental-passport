@@ -1954,3 +1954,76 @@ th {
 .shared-banner p { margin: 0 0 8px; }
 .shared-banner p:last-child { margin-bottom: 0; }
 .shared-banner-warn { background: #fdf3e6; border-left-color: var(--accent); }
+
+/* ===== How it works: visual 4-step process (phone mockups) ===== */
+.ps-sub { text-align: center; color: var(--ink-muted); font-size: 17px; margin: 0 auto 36px; max-width: 560px; }
+.ps-track { display: flex; align-items: flex-start; justify-content: center; }
+.ps-item { display: flex; flex: 1 1 0; min-width: 0; align-items: flex-start; }
+.ps-step { flex: 1 1 0; min-width: 0; }
+.ps-arrow { flex: 0 0 32px; margin-top: 150px; text-align: center; font-size: 24px; font-weight: 700; color: var(--brand); line-height: 1; }
+
+.ps-phone {
+  position: relative;
+  width: 200px; height: 340px; margin: 0 auto;
+  background: #1e1c1a; border-radius: 30px; padding: 8px;
+  box-shadow: 0 18px 40px rgba(30, 28, 26, 0.22);
+}
+.ps-phone::before {
+  content: ''; position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
+  width: 62px; height: 15px; background: #1e1c1a; border-radius: 0 0 11px 11px; z-index: 2;
+}
+.ps-screen {
+  height: 100%; background: #fff; border-radius: 23px; overflow: hidden;
+  padding: 28px 12px 12px; display: flex; flex-direction: column; gap: 7px;
+  font-size: 11.5px; line-height: 1.35; color: var(--ink); text-align: left;
+}
+.ps-s-title { font-size: 13px; font-weight: 700; }
+.ps-s-sub { color: var(--ink-muted); font-size: 11px; }
+.ps-bar { height: 6px; background: var(--border); border-radius: 999px; overflow: hidden; }
+.ps-bar span { display: block; height: 100%; background: var(--brand); border-radius: 999px; }
+.ps-field { display: flex; flex-direction: column; gap: 3px; }
+.ps-label { font-size: 10.5px; font-weight: 600; color: var(--ink-muted); }
+.ps-input { border: 1px solid var(--border); border-radius: 7px; padding: 6px 8px; font-size: 11.5px; }
+.ps-file { background: #e6f2e6; color: var(--ok); border-radius: 7px; padding: 7px 8px; font-size: 11px; font-weight: 600; }
+.ps-next, .ps-view { margin-top: auto; text-align: center; border-radius: 8px; padding: 8px; font-size: 12px; font-weight: 600; }
+.ps-next { background: var(--brand); color: #fff; }
+.ps-view { background: var(--band-alt); color: var(--brand); border: 1px solid var(--border); }
+.ps-rows { display: flex; flex-direction: column; }
+.ps-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--border); }
+.ps-row:last-child { border-bottom: 0; }
+.ps-check { color: var(--ok); font-weight: 700; }
+.ps-ok { color: var(--ok); font-weight: 600; }
+.ps-muted { color: var(--ink-muted); }
+.ps-banner { background: #e6f2e6; color: var(--ok); border-radius: 7px; padding: 6px 8px; font-size: 10.5px; font-weight: 600; text-align: center; }
+
+.ps-screen-chat { background: #f4f4f2; }
+.ps-chat-head { text-align: center; font-size: 11px; font-weight: 600; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+.ps-chat { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+.ps-bubble { max-width: 86%; padding: 7px 9px; border-radius: 14px; font-size: 11px; line-height: 1.35; }
+.ps-bubble-in { align-self: flex-start; background: #e3e3e0; color: var(--ink); border-bottom-left-radius: 4px; }
+.ps-bubble-out { align-self: flex-end; background: #2f7cf6; color: #fff; border-bottom-right-radius: 4px; }
+.ps-link { text-decoration: underline; overflow-wrap: anywhere; }
+.ps-delivered { align-self: flex-end; color: var(--ink-muted); font-size: 10px; }
+
+.ps-cap { text-align: center; margin: 18px auto 0; max-width: 230px; padding: 0 4px; }
+.ps-cap .hw-num { margin-bottom: 8px; }
+.ps-cap h3 { margin: 0 0 6px; font-size: 17px; }
+.ps-cap p { margin: 0; color: var(--ink-muted); font-size: 14px; line-height: 1.5; }
+.ps-swipe { display: none; }
+
+@media (max-width: 959px) {
+  .ps-track { display: grid; grid-template-columns: 1fr 1fr; gap: 40px 24px; }
+  .ps-item { display: block; }
+  .ps-arrow { display: none; }
+}
+@media (max-width: 639px) {
+  .ps-sub { font-size: 16px; margin-bottom: 24px; }
+  .ps-track {
+    display: flex; gap: 14px; justify-content: flex-start;
+    overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; padding: 4px 0 26px;
+  }
+  .ps-track::-webkit-scrollbar { display: none; }
+  .ps-item { display: block; flex: 0 0 78%; scroll-snap-align: center; }
+  .ps-swipe { display: block; text-align: center; margin: 10px 0 0; font-size: 13px; color: var(--ink-muted); }
+}
