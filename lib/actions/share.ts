@@ -112,7 +112,8 @@ export async function createShareAction(
     firstName: passport.firstName,
     property: landlordName,
     screeningDate: date ? formatLongDate(date) : null,
-    link
+    link,
+    state: passport.state
   });
 
   let emailed = false;

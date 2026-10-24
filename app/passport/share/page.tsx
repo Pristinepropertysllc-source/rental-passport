@@ -102,7 +102,8 @@ export default async function SharePage({
                   firstName: passport.firstName,
                   property: share.landlordName,
                   screeningDate: dateLabel,
-                  link
+                  link,
+                  state: passport.state
                 });
                 const title = share.landlordName || share.landlordEmail || share.landlordPhone || 'Landlord';
                 const contact = [share.landlordEmail, share.landlordPhone].filter(Boolean).join(' \u00b7 ');

@@ -842,7 +842,7 @@ th {
   margin-bottom: 0;
 }
 
-/* Maryland reusable screening report section */
+/* Reusable screening report laws section */
 .md-card {
   border: 1px solid var(--accent);
   border-radius: var(--radius);
@@ -1777,8 +1777,6 @@ th {
   .public-nav .topbar-inner .nav-links > a.public-nav-about { display: none; }
 }
 
-/* Hero Maryland note */
-.hero p.hero-md-note { font-size: 15px; color: var(--ink); margin: -12px auto 24px; }
 
 
 /* ===== Modern home-page hero ===== */

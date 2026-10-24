@@ -5,6 +5,7 @@ import { PublicNav } from '@/components/PublicNav';
 import { DemoProvider, DemoTriggerButton } from '@/components/demo/RentalPassportDemo';
 import { ViewContentTracker } from '@/components/pixel/PixelTrackers';
 import { FAQ_ITEMS } from '@/lib/faqData';
+import { STATE_LAWS } from '@/lib/stateLaws';
 import { ProcessSteps } from '@/components/ProcessSteps';
 
 const HOME_FAQ_QUESTIONS = [
@@ -22,52 +23,6 @@ const CHECK_ICON = (
     <path d="M5 12l5 5 9-10" />
   </svg>
 );
-
-// Alphabetical, no state featured over another.
-const STATE_LAWS = [
-  {
-    name: 'California',
-    summary:
-      "Landlords may accept a reusable tenant screening report prepared in the last 30 days. If they do, they can't charge you an application screening fee or a fee to access it.",
-    citation: 'California Civil Code \u00a71950.1',
-    href: 'https://leginfo.legislature.ca.gov/faces/codes_displaySection.xhtml?lawCode=CIV&sectionNum=1950.1'
-  },
-  {
-    name: 'Colorado',
-    summary:
-      "Landlords must accept a portable tenant screening report less than 30 days old, and can't charge you an application fee when you provide one. Limited exception: a landlord who takes only one application fee at a time and refunds it.",
-    citation: 'Colorado Revised Statutes \u00a738-12-904',
-    href: 'https://law.justia.com/codes/colorado/title-38/tenants-and-landlords/article-12/part-9/section-38-12-904/'
-  },
-  {
-    name: 'Maryland',
-    summary:
-      "Landlords must tell applicants whether they accept reusable tenant screening reports. If they accept one prepared in the last 30 days, they can't charge you an application fee or a fee to access it.",
-    citation: 'Maryland Real Property \u00a78-218',
-    href: 'https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=grp&section=8-218&enactments=false'
-  },
-  {
-    name: 'New York',
-    summary:
-      'Background and credit check fees are capped at $20, and the landlord must waive the fee if you give them a background or credit check done within the past 30 days.',
-    citation: 'New York Real Property Law \u00a7238-a',
-    href: 'https://www.nysenate.gov/legislation/laws/RPP/238-A'
-  },
-  {
-    name: 'Rhode Island',
-    summary:
-      "Landlords can't charge more than the actual cost of a background or credit check, and can't charge for it if you provide a qualifying report from the last 90 days.",
-    citation: 'Rhode Island General Laws \u00a734-18-59',
-    href: 'http://webserver.rilegislature.gov/Statutes/TITLE34/34-18/34-18-59.htm'
-  },
-  {
-    name: 'Washington',
-    summary:
-      "Landlords choose whether to accept a comprehensive reusable tenant screening report and must tell applicants. If they accept it, they can't charge you to review it.",
-    citation: 'RCW 59.18.257',
-    href: 'https://app.leg.wa.gov/RCW/default.aspx?cite=59.18.257'
-  }
-];
 
 export default async function HomePage() {
   const user = await getCurrentUser();
@@ -93,7 +48,7 @@ export default async function HomePage() {
             </h1>
             <p className="hx-lede">
               One $54.99 screening report and application you can share with every landlord. Stop
-              paying an application fee for every place you tour.
+              starting over for every place you tour, and in many states, skip the application fee.
             </p>
             <div className="hx-actions">
               <Link className="btn btn-primary hx-btn" href="/register">

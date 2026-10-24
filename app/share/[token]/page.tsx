@@ -5,6 +5,7 @@ import { markShareViewedAction, respondToShareAction } from '@/lib/actions/share
 import { PrintableApplication } from '@/components/PrintableApplication';
 import { PrintButton } from '@/components/PrintButton';
 import { documentLabel } from '@/lib/documentTypes';
+import { findStateLaw } from '@/lib/stateLaws';
 import { ScreeningResultsCard } from '@/components/ScreeningResultsCard';
 import { screeningDate, formatLongDate, isOlderThan30Days } from '@/lib/screeningDate';
 
@@ -51,6 +52,7 @@ export default async function SharedPassportPage({ params }: { params: { token: 
   const applicantName = [passport.firstName, passport.lastName].filter(Boolean).join(' ') || share.tenant.email;
   const renterName = [passport.firstName, passport.lastName].filter(Boolean).join(' ') || 'The renter';
   const sDate = screeningDate(passport.screeningItems, passport.documents);
+  const stateLaw = findStateLaw(passport.state);
   const stale = sDate ? isOlderThan30Days(sDate) : false;
 
   return (
@@ -66,9 +68,14 @@ export default async function SharedPassportPage({ params }: { params: { token: 
               to view. {sDate ? `Screening date: ${formatLongDate(sDate)}.` : 'Screening in progress.'}
             </p>
             <p>
-              Under Maryland Real Property &sect;8-218, a landlord who accepts a reusable tenant
-              screening report may not charge the applicant an application fee or a fee to access the
-              report.
+              {stateLaw ? (
+                stateLaw.landlordNote
+              ) : (
+                <>
+                  Several states limit application fees when an applicant provides a recent reusable
+                  screening report. See <a href="/#state-laws">myrentalpassport.net/#state-laws</a>.
+                </>
+              )}
             </p>
           </>
         )}

@@ -15,7 +15,7 @@ const STEPS = [
   },
   {
     title: 'The landlord opens it free',
-    text: "No account and no cost for them. Landlords who accept it can't charge you an application fee (MD §8-218)."
+    text: "No account and no cost for them. In states with reusable report laws, landlords who accept it can't charge you an application fee."
   }
 ];
 
@@ -64,7 +64,7 @@ function PhoneThree() {
       <div className="ps-chat">
         <div className="ps-bubble ps-bubble-in">Hi! Still available. Can you send an application?</div>
         <div className="ps-bubble ps-bubble-out">
-          Here&apos;s my Rental Passport, a Maryland reusable screening report. Free to view:{' '}
+          Here&apos;s my Rental Passport, a reusable screening report. Free to view:{' '}
           <span className="ps-link">myrentalpassport.net/share/&hellip;</span>
         </div>
         <div className="ps-delivered">Delivered</div>

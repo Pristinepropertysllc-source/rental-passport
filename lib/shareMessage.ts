@@ -1,3 +1,5 @@
+import { findStateLaw } from '@/lib/stateLaws';
+
 export const SITE_URL = 'https://www.myrentalpassport.net';
 
 export function shareLink(token: string) {
@@ -9,21 +11,25 @@ export function buildShareMessage({
   firstName,
   property,
   screeningDate,
-  link
+  link,
+  state
 }: {
   firstName?: string | null;
   property?: string | null;
   screeningDate: string | null; // already formatted, e.g. "October 21, 2026"
   link: string;
+  state?: string | null; // the renter's state, used to pick the right law sentence
 }) {
+  const lawSentence =
+    findStateLaw(state)?.landlordNote ??
+    'Many landlords accept reusable screening reports instead of charging a new application fee.';
   const greeting = firstName ? `Hi, this is ${firstName}.` : 'Hi.';
   const interest = property ? ` I'm interested in ${property}.` : '';
   const dated = screeningDate ? `, dated ${screeningDate}` : ' (screening in progress)';
   return (
-    `${greeting}${interest} Here is my Rental Passport, a Maryland reusable tenant screening report ` +
+    `${greeting}${interest} Here is my Rental Passport, a reusable tenant screening report ` +
     `with my application, credit, criminal, eviction and income screening${dated}: ${link}. ` +
-    `It's free for you to view and no account is needed. Under Maryland Real Property §8-218, ` +
-    `landlords who accept reusable screening reports don't charge an application fee. Thank you!`
+    `It's free for you to view and no account is needed. ${lawSentence} Thank you!`
   );
 }
 
