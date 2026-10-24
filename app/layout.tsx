@@ -4,6 +4,7 @@ import './globals.css';
 import { MetaPixel } from '@/components/MetaPixel';
 import { GoogleAnalytics } from '@/components/GoogleAnalytics';
 import { BackToTopButton } from '@/components/BackToTopButton';
+import { TextUsButton } from '@/components/TextUsButton';
 
 export const metadata: Metadata = {
   title: 'Rental Passport',
@@ -24,6 +25,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <GoogleAnalytics />
         {children}
         <BackToTopButton />
+        <TextUsButton />
       </body>
     </html>
   );

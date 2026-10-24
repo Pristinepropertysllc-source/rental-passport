@@ -6,6 +6,9 @@ import { DemoProvider, DemoTriggerButton } from '@/components/demo/RentalPasspor
 import { ViewContentTracker } from '@/components/pixel/PixelTrackers';
 import { FAQ_ITEMS } from '@/lib/faqData';
 import { STATE_LAWS } from '@/lib/stateLaws';
+import { HeroMedia } from '@/components/HeroMedia';
+import { StatePicker } from '@/components/StatePicker';
+import { SavingsCalculator } from '@/components/SavingsCalculator';
 import { ProcessSteps } from '@/components/ProcessSteps';
 
 const HOME_FAQ_QUESTIONS = [
@@ -58,6 +61,7 @@ export default async function HomePage() {
                 See a sample
               </DemoTriggerButton>
             </div>
+            <StatePicker />
             <ul className="hx-points">
               <li>{CHECK_ICON}Credit, criminal &amp; eviction</li>
               <li>{CHECK_ICON}One-time payment</li>
@@ -66,6 +70,7 @@ export default async function HomePage() {
           </div>
 
           <div className="hx-visual">
+            <HeroMedia>
             <div className="hx-phone">
               <div className="hx-phone-head">
                 <span className="hx-avatar">AM</span>
@@ -85,6 +90,7 @@ export default async function HomePage() {
               </div>
               <div className="hx-phone-bar">Share with a landlord &rarr;</div>
             </div>
+            </HeroMedia>
           </div>
         </div>
       </section>
@@ -95,6 +101,46 @@ export default async function HomePage() {
           <h2 className="hw-title" style={{ marginBottom: 8 }}>How it works</h2>
           <p className="ps-sub">Apply once, then send the same passport to every landlord you&apos;re interested in.</p>
           <ProcessSteps />
+        </div>
+      </section>
+
+      {/* Savings calculator */}
+      <section className="lp-band">
+        <div className="shell">
+          <h2 className="hw-title" style={{ marginBottom: 24 }}>How much could you save?</h2>
+          <SavingsCalculator />
+        </div>
+      </section>
+
+      {/* Pricing */}
+      <section className="lp-band lp-band-alt" id="pricing">
+        <div className="shell">
+          <div className="card">
+            <h2 style={{ textAlign: 'center' }}>Simple, One-Time Pricing</h2>
+            <p className="muted" style={{ textAlign: 'center', marginTop: 0 }}>
+              No subscriptions, no per-property fees &mdash; pay once, share with unlimited
+              landlords.
+            </p>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <div className="pricing-card pricing-card-highlight" style={{ maxWidth: 360, width: '100%' }}>
+                <h3>Complete Screening</h3>
+                <p className="price-tag">$54.99</p>
+                <ul className="check-list">
+                  <li>Credit report</li>
+                  <li>Criminal history</li>
+                  <li>Eviction history</li>
+                  <li>Employment and income verification</li>
+                  <li>Current address and rental history</li>
+                </ul>
+                <p className="muted" style={{ fontSize: 14 }}>
+                  Everything you need for a verified application ready to share.
+                </p>
+                <Link className="btn btn-primary" href="/register?package=COMPLETE">
+                  Get started
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -238,42 +284,12 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* For Landlords */}
+      {/* Landlord pointer */}
       <section className="lp-band">
         <div className="shell">
-          <div className="card">
-            <h2>For Landlords</h2>
-            <ul className="check-list">
-              <li>Receive complete, standardized applications</li>
-              <li>Review applicants faster</li>
-              <li>Access organized, verified documents</li>
-              <li>Reach applicants directly using the contact info on their application</li>
-              <li>Keep applicant records organized in one dashboard</li>
-            </ul>
-            <DemoTriggerButton step={5} className="demo-trigger-btn">
-              See What Landlords Receive &rarr;
-            </DemoTriggerButton>
-          </div>
-
-          <div className="landlord-cta">
-            <h3>A More Organized Way to Review Applicants.</h3>
-            <p className="muted" style={{ marginTop: 0 }}>
-              Receive organized applicant information and screening documentation in one place,
-              helping simplify the rental application process while keeping the applicant in
-              control of their information.
-            </p>
-            <p className="muted" style={{ fontSize: 14 }}>
-              Send prospective applicants a direct link to apply &mdash; no back-and-forth
-              paperwork.
-            </p>
-            <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
-              <Link className="btn btn-primary" href="/register?role=LANDLORD">
-                For Landlords
-              </Link>
-              <Link href="/landlords" className="btn btn-secondary">
-                Learn More for Landlords &rarr;
-              </Link>
-            </div>
+          <div className="landlord-band">
+            <span>Are you a landlord or property manager?</span>{' '}
+            <Link href="/landlords">See what you receive &rarr;</Link>
           </div>
         </div>
       </section>
@@ -306,40 +322,8 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Pricing */}
-      <section className="lp-band" id="pricing">
-        <div className="shell">
-          <div className="card">
-            <h2 style={{ textAlign: 'center' }}>Simple, One-Time Pricing</h2>
-            <p className="muted" style={{ textAlign: 'center', marginTop: 0 }}>
-              No subscriptions, no per-property fees &mdash; pay once, share with unlimited
-              landlords.
-            </p>
-            <div style={{ display: 'flex', justifyContent: 'center' }}>
-              <div className="pricing-card pricing-card-highlight" style={{ maxWidth: 360, width: '100%' }}>
-                <h3>Complete Screening</h3>
-                <p className="price-tag">$54.99</p>
-                <ul className="check-list">
-                  <li>Credit report</li>
-                  <li>Criminal history</li>
-                  <li>Eviction history</li>
-                  <li>Employment and income verification</li>
-                  <li>Current address and rental history</li>
-                </ul>
-                <p className="muted" style={{ fontSize: 14 }}>
-                  Everything you need for a verified application ready to share.
-                </p>
-                <Link className="btn btn-primary" href="/register?package=COMPLETE">
-                  Get started
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* FAQ teaser */}
-      <section className="lp-band lp-band-alt">
+      <section className="lp-band">
         <div className="shell">
           <div className="card" style={{ textAlign: 'left' }}>
             <h2>Frequently Asked Questions</h2>
@@ -362,7 +346,7 @@ export default async function HomePage() {
       </section>
 
       {/* Final CTA */}
-      <section className="lp-band">
+      <section className="lp-band lp-band-alt">
         <div className="shell">
           <div className="card" style={{ textAlign: 'center' }}>
             <h2>Ready to build your Rental Passport?</h2>
